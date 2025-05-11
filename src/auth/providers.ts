@@ -8,5 +8,8 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
   ],
+  pages: {
+    error: "/login", // エラー時にLogin画面に戻す
+  },
   secret: process.env.NEXTAUTH_SECRET,
 };
