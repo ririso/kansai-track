@@ -18,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/shadcn/select";
-import { formatCurrency } from "@/lib/utils";
+// import { formatCurrency } from "@/lib/utils";
 import { CheckCircle, CreditCard } from "lucide-react";
 import { useState } from "react";
 
@@ -74,8 +74,8 @@ export function PaymentModal({ amount, dueDate }: PaymentModalProps) {
             <DialogHeader>
               <DialogTitle>支払い確認</DialogTitle>
               <DialogDescription>
-                {formattedDate}までに支払う必要がある{formatCurrency(amount)}
-                の支払いを行います。
+                {/* {formattedDate}までに支払う必要がある{formatCurrency(amount)}
+                の支払いを行います。 */}
               </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
@@ -84,7 +84,7 @@ export function PaymentModal({ amount, dueDate }: PaymentModalProps) {
                   金額
                 </Label>
                 <div className="col-span-3 font-medium">
-                  {formatCurrency(amount)}
+                  {/* {formatCurrency(amount)} */}
                 </div>
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
@@ -124,7 +124,7 @@ export function PaymentModal({ amount, dueDate }: PaymentModalProps) {
               <CheckCircle className="h-16 w-16 text-green-500 mb-4" />
               <DialogTitle className="text-xl mb-2">支払い完了</DialogTitle>
               <DialogDescription className="mb-6">
-                {formatCurrency(amount)}の支払いが正常に処理されました。
+                {/* {formatCurrency(amount)}の支払いが正常に処理されました。 */}
                 ご入金ありがとうございます。
               </DialogDescription>
               <Button onClick={resetAndClose}>閉じる</Button>
