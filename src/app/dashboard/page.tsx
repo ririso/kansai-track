@@ -1,6 +1,6 @@
 "use client";
 import { BaseModal } from "@/components/base-modal";
-import { PaymentContent } from "@/components/payment-content";
+import { PaymentForm } from "@/components/payment-content";
 import { PaymentHistory } from "@/components/payment-history";
 import { RecentActivity } from "@/components/recent-activity";
 import { RepaymentSchedule } from "@/components/repayment-schedule";
@@ -137,6 +137,7 @@ export default function DashboardPage() {
               <RecentActivity />
             </CardContent>
           </Card>
+
           <div className="flex justify-center">
             <BaseModal
               title="支払い確認"
@@ -147,11 +148,7 @@ export default function DashboardPage() {
                 </Button>
               }
             >
-              <PaymentContent
-                amount={12000}
-                dueDate={new Date("2025-06-01")}
-                onComplete={() => console.log("閉じるなどの処理")}
-              />
+              <PaymentForm />
             </BaseModal>
           </div>
         </div>
