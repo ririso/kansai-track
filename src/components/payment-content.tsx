@@ -1,55 +1,111 @@
 "use client";
 
-import { Button } from "@/components/ui/shadcn/button";
-import { CheckCircle } from "lucide-react";
+import { PaymentPayload, submitPayment } from "@/lib/submitPayment";
 import { useState } from "react";
 
-type PaymentContentProps = {
-  amount: number;
-  dueDate: Date;
-  onComplete: () => void;
-};
+export const PaymentForm = () => {
+  const [form, setForm] = useState<PaymentPayload>({
+    date: "2025-11-21",
+    description: "description",
+    debit: 1,
+    credit: 2,
+    balance: 3,
+    note: "test",
+  });
 
-export function PaymentContent({
-  amount,
-  dueDate,
-  onComplete,
-}: PaymentContentProps) {
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [isComplete, setIsComplete] = useState(false);
-
-  const handlePayment = async () => {
-    setIsProcessing(true);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsProcessing(false);
-    setIsComplete(true);
-    onComplete();
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]:
+        name === "note" || name === "description" || name === "date"
+          ? value
+          : Number(value),
+    }));
   };
 
-  if (isComplete) {
-    return (
-      <div className="text-center">
-        <CheckCircle className="mx-auto mb-4 text-green-500 w-12 h-12" />
-        {/* <p>{formatCurrency(amount)}の支払いが完了しました。</p> */}
-        <p>{amount}の支払いが完了しました。</p>
-      </div>
-    );
-  }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await submitPayment(form);
+      alert("保存成功");
+    } catch (err) {
+      console.log(err);
+      alert("保存失敗");
+    }
+  };
 
   return (
-    <div>
-      {/* <p>{formatCurrency(amount)} を支払います（期限：{dueDate.toLocaleDateString("ja-JP")}）</p> */}
-      <p>
-        {amount} を支払います（期限：{dueDate.toLocaleDateString("ja-JP")}）
-      </p>
-      <div className="mt-4 flex justify-end gap-2">
-        <Button variant="outline" onClick={onComplete}>
-          キャンセル
-        </Button>
-        <Button onClick={handlePayment} disabled={isProcessing}>
-          {isProcessing ? "処理中..." : "支払いを確定する"}
-        </Button>
+    <form onSubmit={handleSubmit} className="space-y-4 p-4">
+      <div>
+        <label className="block text-sm font-medium">支払日</label>
+        <input
+          type="date"
+          name="date"
+          value={form.date}
+          onChange={handleChange}
+          className="border p-2 w-full"
+        />
       </div>
-    </div>
+      <div>
+        <label className="block text-sm font-medium">説明</label>
+        <input
+          type="text"
+          name="description"
+          value={form.description}
+          onChange={handleChange}
+          className="border p-2 w-full"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium">支払額（debit）</label>
+        <input
+          type="number"
+          name="debit"
+          value={form.debit}
+          onChange={handleChange}
+          className="border p-2 w-full"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium">
+          クレジット（credit）
+        </label>
+        <input
+          type="number"
+          name="credit"
+          value={form.credit}
+          onChange={handleChange}
+          className="border p-2 w-full"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium">残高（balance）</label>
+        <input
+          type="number"
+          name="balance"
+          value={form.balance}
+          onChange={handleChange}
+          className="border p-2 w-full"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium">メモ</label>
+        <textarea
+          name="note"
+          value={form.note}
+          onChange={handleChange}
+          className="border p-2 w-full"
+        />
+      </div>
+      <button
+        type="submit"
+        className="bg-blue-600 text-white px-4 py-2 rounded"
+      >
+        保存
+      </button>
+    </form>
   );
-}
+};
