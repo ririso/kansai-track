@@ -1,11 +1,12 @@
-export async function fetchRepaymentRecords() {
+export async function getRepaymentsRecords() {
   const res = await fetch(
-    "https://endyj33fq0.execute-api.ap-southeast-2.amazonaws.com/getRepaymentRecord",
+    "https://endyj33fq0.execute-api.ap-southeast-2.amazonaws.com/repayments",
     {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     }
   );
+  console.log(res);
 
   if (!res.ok) {
     throw new Error(`HTTP error! status: ${res.status}`);
@@ -13,5 +14,7 @@ export async function fetchRepaymentRecords() {
 
   const data = await res.json();
   console.log(data);
-  return data;
+  console.log(data.items);
+
+  return data.items;
 }

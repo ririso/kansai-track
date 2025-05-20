@@ -4,7 +4,7 @@ import { PaymentForm } from "@/components/payment-content";
 import { PaymentHistory } from "@/components/payment-history";
 import { RecentActivity } from "@/components/recent-activity";
 import { RepaymentSchedule } from "@/components/repayment-schedule";
-import TotalRepayment from "@/components/totale-repayment";
+import RepaymentsInfo from "@/components/repaymentsInfo";
 import { Progress } from "@/components/ui/shadcn//progress";
 import { Button } from "@/components/ui/shadcn/button";
 import {
@@ -139,8 +139,12 @@ export default function DashboardPage() {
             </CardContent>
           </Card>
 
-          <div>
+          {/* <div>
             <TotalRepayment />
+          </div> */}
+
+          <div>
+            <RepaymentsInfo />
           </div>
 
           <div className="flex justify-center">
