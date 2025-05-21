@@ -31,16 +31,13 @@ export default function RepaymentsInfo() {
                 <strong>日付:</strong> {transaction.date}
               </p>
               <p>
-                <strong>内容:</strong> {transaction.description}
+                <strong>取引内容:</strong> {transaction.description}
               </p>
               <p>
-                <strong>支出:</strong> {transaction.debit}
+                <strong>出金金額(円):</strong> {transaction.debit}
               </p>
               <p>
-                <strong>収入:</strong> {transaction.credit}
-              </p>
-              <p>
-                <strong>残高:</strong> {transaction.balance}
+                <strong>入金金額(円):</strong> {transaction.credit}
               </p>
               <p>
                 <strong>メモ:</strong> {transaction.note}
