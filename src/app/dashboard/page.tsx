@@ -4,7 +4,7 @@ import { PaymentForm } from "@/components/payment-content";
 import { PaymentHistory } from "@/components/payment-history";
 import { RecentActivity } from "@/components/recent-activity";
 import { RepaymentSchedule } from "@/components/repayment-schedule";
-import RepaymentsInfo from "@/components/repaymentsInfo";
+import RepaymentSummary from "@/components/RepaymentSummary";
 import { Progress } from "@/components/ui/shadcn//progress";
 import { Button } from "@/components/ui/shadcn/button";
 import {
@@ -15,41 +15,50 @@ import {
   CardTitle,
 } from "@/components/ui/shadcn/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/shadcn/tabs";
-import {
-  CalendarIcon,
-  CreditCard,
-  DollarSign,
-  LineChart,
-  PiggyBank,
-  Receipt,
-} from "lucide-react";
+import { getRepaymentsRecords } from "@/lib/api/getRepayments";
+import { RepaymentInfo } from "@/types/repaymentInfo";
+import { CalendarIcon, CreditCard, LineChart, Receipt } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function DashboardPage() {
+  const [records, setRecords] = useState<RepaymentInfo[] | null>(null);
+  // TODO ここでレコードをセットした後に関数を呼び出す。
+  // 出金金額と入金金額の合計を別コンポーネントに渡すと良さそう
+  // creditの合計値を保持するstate
+  const [totalCreditAmount, setTotalCreditAmount] = useState(0);
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    setLoading(true);
+    setError(null);
+
+    getRepaymentsRecords()
+      .then((records) => {
+        setRecords(records);
+
+        // ここでcreditの合計を算出
+        const totalCreditAmount: number = records.reduce(
+          (sum: number, records: RepaymentInfo) => sum + (records.credit || 0),
+          0
+        );
+        setTotalCreditAmount(totalCreditAmount);
+      })
+      .catch((e) => setError(e.message))
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (loading) return <p>読み込み中...</p>;
+  if (error) return <p>エラー: {error}</p>;
+
   return (
     <div className="flex min-h-screen flex-col">
       <main className="flex-1 p-6">
         <div className="grid gap-6">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-sm font-medium">総返済額</CardTitle>
-                <DollarSign className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">¥3,500,000</div>
-                <p className="text-xs text-muted-foreground">奨学金の総額</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-sm font-medium">残額</CardTitle>
-                <PiggyBank className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">¥2,100,000</div>
-                <p className="text-xs text-muted-foreground">残りの返済額</p>
-              </CardContent>
-            </Card>
+            <RepaymentSummary totalCreditAmount={totalCreditAmount} />
+
             <Card>
               <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <CardTitle className="text-sm font-medium">
@@ -143,9 +152,9 @@ export default function DashboardPage() {
             <TotalRepayment />
           </div> */}
 
-          <div>
+          {/* <div>
             <RepaymentsInfo />
-          </div>
+          </div> */}
 
           <div className="flex justify-center">
             <BaseModal
