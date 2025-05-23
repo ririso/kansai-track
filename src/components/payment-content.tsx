@@ -6,10 +6,8 @@ import { useState } from "react";
 export const PaymentForm = () => {
   const [form, setForm] = useState<PaymentPayload>({
     date: "2025-11-21",
-    description: "description",
-    debit: 1,
-    credit: 2,
-    balance: 3,
+    transactionName: "description",
+    credit: 15000,
     note: "test",
   });
 
@@ -50,43 +48,21 @@ export const PaymentForm = () => {
         />
       </div>
       <div>
-        <label className="block text-sm font-medium">説明</label>
+        <label className="block text-sm font-medium">取引内容</label>
         <input
           type="text"
           name="description"
-          value={form.description}
+          value={form.transactionName}
           onChange={handleChange}
           className="border p-2 w-full"
         />
       </div>
       <div>
-        <label className="block text-sm font-medium">支払額（debit）</label>
-        <input
-          type="number"
-          name="debit"
-          value={form.debit}
-          onChange={handleChange}
-          className="border p-2 w-full"
-        />
-      </div>
-      <div>
-        <label className="block text-sm font-medium">
-          クレジット（credit）
-        </label>
+        <label className="block text-sm font-medium">入金金額</label>
         <input
           type="number"
           name="credit"
           value={form.credit}
-          onChange={handleChange}
-          className="border p-2 w-full"
-        />
-      </div>
-      <div>
-        <label className="block text-sm font-medium">残高（balance）</label>
-        <input
-          type="number"
-          name="balance"
-          value={form.balance}
           onChange={handleChange}
           className="border p-2 w-full"
         />
