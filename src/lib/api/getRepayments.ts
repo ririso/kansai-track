@@ -1,11 +1,10 @@
 export async function getRepaymentsRecords() {
-  const res = await fetch(
-    "https://endyj33fq0.execute-api.ap-southeast-2.amazonaws.com/repayments",
-    {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    }
-  );
+  const endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
+
+  const res = await fetch(`${endpoint}/saveRepaymentRecord`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
   console.log(res);
 
   if (!res.ok) {
