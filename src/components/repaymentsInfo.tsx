@@ -27,6 +27,7 @@ export default function RepaymentsInfo() {
         <ul>
           {records.map((transaction) => (
             <li key={transaction.id}>
+              <p>ID:{transaction.id}</p>
               <p>
                 <strong>日付:</strong> {transaction.date}
               </p>
