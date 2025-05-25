@@ -1,7 +1,7 @@
 export async function getRepaymentsRecords() {
   const endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
-  const res = await fetch(`${endpoint}/saveRepaymentRecord`, {
+  const res = await fetch(`${endpoint}/repayments`, {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   });
