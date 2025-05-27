@@ -1,5 +1,6 @@
 "use client";
 import { BaseModal } from "@/components/base-modal";
+import CSVUploader from "@/components/CsvUploader";
 import { PaymentForm } from "@/components/payment-content";
 import { PaymentHistory } from "@/components/payment-history";
 import { RecentActivity } from "@/components/recent-activity";
@@ -73,6 +74,7 @@ export default function DashboardPage() {
                 </p>
               </CardContent>
             </Card>
+
             <Card>
               <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <CardTitle className="text-sm font-medium">完済予定</CardTitle>
@@ -84,6 +86,8 @@ export default function DashboardPage() {
               </CardContent>
             </Card>
           </div>
+
+          <CSVUploader />
           <Card>
             <CardHeader>
               <CardTitle>返済進捗状況</CardTitle>
