@@ -61,8 +61,6 @@ export default function DashboardPage() {
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             <RepaymentSummary totalCreditAmount={totalCreditAmount} />
 
-            <PaymentsPage repayments={records} />
-
             <Card>
               <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <CardTitle className="text-sm font-medium">
@@ -89,6 +87,8 @@ export default function DashboardPage() {
               </CardContent>
             </Card>
           </div>
+
+          <PaymentsPage repayments={records} />
 
           <CSVUploader />
           <Card>

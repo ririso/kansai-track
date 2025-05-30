@@ -18,6 +18,7 @@
 // import { ViewPaymentModal } from "@/components/view-payment-modal";
 // import { formatCurrency, formatDate } from "@/lib/utils";
 import { RepaymentInfo } from "@/types/repaymentInfo";
+import { formatJapaneseDate } from "@/utils/formatJapaneseDate";
 import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
 import { Button } from "./ui/shadcn/button";
@@ -90,19 +91,16 @@ export function PaymentTable({ repayments }: PaymentTableProps) {
                 支払い日
               </TableHead>
               <TableHead className="text-freee-gray-700 font-medium">
-                金額
+                説明
               </TableHead>
               <TableHead className="text-freee-gray-700 font-medium">
-                支払い方法
+                金額
               </TableHead>
               <TableHead className="text-freee-gray-700 font-medium">
                 ステータス
               </TableHead>
               <TableHead className="text-freee-gray-700 font-medium">
-                説明
-              </TableHead>
-              <TableHead className="text-freee-gray-700 font-medium">
-                取引ID
+                支払い方法
               </TableHead>
               <TableHead className="text-freee-gray-700 font-medium w-[50px]">
                 操作
@@ -116,21 +114,20 @@ export function PaymentTable({ repayments }: PaymentTableProps) {
                 className="hover:bg-freee-gray-50 transition-colors"
               >
                 <TableCell className="text-freee-gray-800 font-medium">
-                  {/* {formatDate(payment.date)} */}
+                  {formatJapaneseDate(repayment.date)}
+                </TableCell>
+                <TableCell className="text-freee-gray-800 font-medium">
+                  {repayment.transactionName}
                 </TableCell>
                 <TableCell className="text-freee-gray-900 font-bold">
-                  {/* {formatCurrency(payment.credit)} */}
+                  ¥{repayment.credit.toLocaleString()}
                 </TableCell>
-                {/* <TableCell className="text-freee-gray-700">
-                  {payment.method}
-                </TableCell> */}
-                {/* <TableCell>{getStatusBadge(payment.status)}</TableCell> */}
+                {/* <TableCell>{getStatusBadge(repayment.status)}</TableCell> */}
+                <TableCell>{repayment.id}</TableCell>
+
                 <TableCell className="text-freee-gray-700 max-w-[200px] truncate">
                   {repayment.transactionName}
                 </TableCell>
-                {/* <TableCell className="text-freee-gray-500 text-sm font-mono">
-                  {payment.transactionId}
-                </TableCell> */}
                 <TableCell>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
