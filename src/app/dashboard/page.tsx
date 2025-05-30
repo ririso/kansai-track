@@ -20,9 +20,10 @@ import { getRepaymentsRecords } from "@/lib/api/getRepayments";
 import { RepaymentInfo } from "@/types/repaymentInfo";
 import { CalendarIcon, CreditCard, LineChart, Receipt } from "lucide-react";
 import { useEffect, useState } from "react";
+import PaymentsPage from "../payments/page";
 
 export default function DashboardPage() {
-  const [records, setRecords] = useState<RepaymentInfo[] | null>(null);
+  const [records, setRecords] = useState<RepaymentInfo[]>([]);
   // TODO ここでレコードをセットした後に関数を呼び出す。
   // 出金金額と入金金額の合計を別コンポーネントに渡すと良さそう
   // creditの合計値を保持するstate
@@ -59,6 +60,8 @@ export default function DashboardPage() {
         <div className="grid gap-6">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             <RepaymentSummary totalCreditAmount={totalCreditAmount} />
+
+            <PaymentsPage repayments={records} />
 
             <Card>
               <CardHeader className="flex flex-row items-center justify-between pb-2">
