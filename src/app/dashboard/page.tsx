@@ -61,6 +61,16 @@ export default function DashboardPage() {
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             <RepaymentSummary totalCreditAmount={totalCreditAmount} />
 
+            {/* ウェルカムメッセージ */}
+            <div className="mb-8 animate-fade-in">
+              <h2 className="text-2xl font-bold text-blue-800 mb-2">
+                tailwindテスト
+              </h2>
+              <p className="text-gray-600">
+                返済状況を確認して、計画的に返済を進めましょう。
+              </p>
+            </div>
+
             <Card>
               <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <CardTitle className="text-sm font-medium">
