@@ -6,7 +6,7 @@ export function Header() {
     <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b border-freee-gray-200 bg-white px-6 shadow-freee">
       <div className="flex items-center gap-3">
         <div className="h-8 w-8 rounded-lg bg-freee-blue-500 flex items-center justify-center">
-          <span className="text-white font-bold text-sm">アイコン</span>
+          <span className="text-white font-bold text-sm">TODOアイコン</span>
         </div>
         <h1 className="text-xl font-bold text-freee-gray-800">
           奨学金返済ダッシュボード
