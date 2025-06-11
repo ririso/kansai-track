@@ -1,5 +1,5 @@
-import { DollarSign, PiggyBank } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/shadcn/card";
+import { CalendarIcon, DollarSign, LineChart, PiggyBank } from "lucide-react";
+import { Card, CardContent } from "./ui/shadcn/card";
 
 // Propsの型を定義
 type Props = {
@@ -11,31 +11,78 @@ export default function RepaymentSummary({ totalCreditAmount }: Props) {
   const remainingBalance = totalScholarshipAmount - totalCreditAmount;
 
   return (
-    <>
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between pb-2">
-          <CardTitle className="text-sm font-medium">総返済額</CardTitle>
-          <DollarSign className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">
-            ¥{totalScholarshipAmount.toLocaleString()}
+    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <Card className="border-0 shadow-custom hover:shadow-custom-lg transition-all duration-200 animate-fade-in">
+        <CardContent className="pt-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-600 mb-1">総返済額</p>
+              <p className="text-2xl font-bold text-gray-900">
+                ¥{totalScholarshipAmount.toLocaleString()}
+              </p>
+            </div>
+            <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center">
+              <DollarSign className="h-6 w-6 text-blue-600" />
+            </div>
           </div>
-          <p className="text-xs text-muted-foreground">奨学金の総額</p>
         </CardContent>
       </Card>
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between pb-2">
-          <CardTitle className="text-sm font-medium">残額</CardTitle>
-          <PiggyBank className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">
-            ¥{remainingBalance.toLocaleString()}
+
+      <Card className="border-0 shadow-custom hover:shadow-custom-lg transition-all duration-200 animate-fade-in">
+        <CardContent className="pt-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-600 mb-1">残額</p>
+              <p className="text-2xl font-bold text-gray-900">
+                ¥{remainingBalance.toLocaleString()}
+              </p>
+            </div>
+            <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center">
+              <PiggyBank className="h-6 w-6 text-green-600" />
+            </div>
           </div>
-          <p className="text-xs text-muted-foreground">残りの返済額</p>
         </CardContent>
       </Card>
-    </>
+
+      <Card className="border-0 shadow-custom hover:shadow-custom-lg transition-all duration-200 animate-fade-in">
+        <CardContent className="pt-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-600 mb-1">
+                次回支払い
+              </p>
+              <p className="text-2xl font-bold text-orange-600">
+                {/* {formatCurrency(parsedSummary.nextPayment.amount)} */}¥
+                {remainingBalance.toLocaleString()}
+              </p>
+              <p className="text-xs text-gray-500 mt-1">
+                {/* {nextPaymentDate}まで */}
+              </p>
+            </div>
+            <div className="h-12 w-12 rounded-full bg-orange-100 flex items-center justify-center">
+              <CalendarIcon className="h-6 w-6 text-orange-600" />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card className="border-0 shadow-custom hover:shadow-custom-lg transition-all duration-200 animate-fade-in">
+        <CardContent className="pt-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-600 mb-1">完済予定</p>
+              <p className="text-lg font-bold text-gray-900">
+                {/* {completionDate} */}
+              </p>
+              {/* <p className="text-xs text-gray-500 mt-1">あと{yearsLeft}年</p> */}
+              <p className="text-xs text-gray-500 mt-1">あと10000年</p>
+            </div>
+            <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center">
+              <LineChart className="h-6 w-6 text-blue-600" />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
