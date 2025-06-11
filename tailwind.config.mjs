@@ -8,10 +8,6 @@ export default {
   ],
   theme: {
     extend: {
-      colors: {
-        // 標準カラーはTailwind CSS v4で自動的に含まれる
-        // カスタムカラーのみ定義
-      },
       boxShadow: {
         custom: "0 2px 8px rgba(0, 0, 0, 0.06)",
         "custom-lg": "0 4px 16px rgba(0, 0, 0, 0.08)",
