@@ -72,13 +72,6 @@
   }
 }
 
-/* カードのホバー効果 */
-/* @layer components {
-  .card-hover {
-    @apply transition-all duration-200 hover:shadow-custom-lg hover:scale-[1.02];
-  }
-} */
-
 /* ボタンのカスタムスタイル */
 @layer components {
   .btn-primary {
@@ -164,4 +157,14 @@
   .print-break-inside-avoid {
     page-break-inside: avoid;
   }
+}
+
+.card-hover {
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.card-hover:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transform: scale(1.02);
 }

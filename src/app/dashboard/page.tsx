@@ -53,7 +53,7 @@ export default function DashboardPage() {
   if (error) return <p>エラー: {error}</p>;
 
   return (
-    <div className="flex min-h-screen flex-col bg-gray-50">
+    <div className="flex min-h-screen flex-col">
       <main className="flex-1 p-6">
         <div className="max-w-7xl mx-auto">
           {/* ウェルカムメッセージ */}

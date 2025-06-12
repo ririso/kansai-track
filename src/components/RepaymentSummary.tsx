@@ -12,7 +12,7 @@ export default function RepaymentSummary({ totalCreditAmount }: Props) {
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-      <Card className="border-0 shadow-custom hover:shadow-custom-lg transition-all duration-200 animate-fade-in">
+      <Card className="border-0 card-hover animate-fade-in">
         <CardContent className="pt-6">
           <div className="flex items-center justify-between">
             <div>
@@ -28,7 +28,7 @@ export default function RepaymentSummary({ totalCreditAmount }: Props) {
         </CardContent>
       </Card>
 
-      <Card className="border-0 shadow-custom hover:shadow-custom-lg transition-all duration-200 animate-fade-in">
+      <Card className="border-0 card-hover animate-fade-in">
         <CardContent className="pt-6">
           <div className="flex items-center justify-between">
             <div>
@@ -44,7 +44,7 @@ export default function RepaymentSummary({ totalCreditAmount }: Props) {
         </CardContent>
       </Card>
 
-      <Card className="border-0 shadow-custom hover:shadow-custom-lg transition-all duration-200 animate-fade-in">
+      <Card className="border-0 card-hover animate-fade-in">
         <CardContent className="pt-6">
           <div className="flex items-center justify-between">
             <div>
@@ -66,7 +66,7 @@ export default function RepaymentSummary({ totalCreditAmount }: Props) {
         </CardContent>
       </Card>
 
-      <Card className="border-0 shadow-custom hover:shadow-custom-lg transition-all duration-200 animate-fade-in">
+      <Card className="border-0 card-hover animate-fade-in">
         <CardContent className="pt-6">
           <div className="flex items-center justify-between">
             <div>
