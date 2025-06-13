@@ -1,0 +1,1 @@
+export const TOTAL_SCHOLARSHIP_AMOUNT = 2500000;
