@@ -4,8 +4,8 @@ import { PaymentForm } from "@/components/payment-content";
 import { PaymentHistory } from "@/components/payment-history";
 import { RecentActivity } from "@/components/recent-activity";
 import { RepaymentSchedule } from "@/components/repayment-schedule";
+import RepaymentProgress from "@/components/RepaymentProgress";
 import RepaymentSummary from "@/components/RepaymentSummary";
-import { Progress } from "@/components/ui/shadcn//progress";
 import { Button } from "@/components/ui/shadcn/button";
 import {
   Card,
@@ -17,7 +17,7 @@ import {
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/shadcn/tabs";
 import { getRepaymentsRecords } from "@/lib/api/getRepayments";
 import { RepaymentInfo } from "@/types/repaymentInfo";
-import { CreditCard, Receipt } from "lucide-react";
+import { CreditCard } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function DashboardPage() {
@@ -72,29 +72,8 @@ export default function DashboardPage() {
             {/* <PaymentsPage repayments={records} /> */}
             {/* <CSVUploader /> */}
 
-            <Card>
-              <CardHeader>
-                <CardTitle>返済進捗状況</CardTitle>
-                <CardDescription>これまでに40%返済済み</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Receipt className="h-4 w-4 text-muted-foreground" />
-                      <span className="text-sm font-medium">返済進捗</span>
-                    </div>
-                    <span className="text-sm font-medium">40%</span>
-                  </div>
-                  <Progress value={40} className="h-2" />
-                  <div className="flex justify-between text-xs text-muted-foreground">
-                    <span>¥0</span>
-                    <span>¥1,400,000</span>
-                    <span>¥3,500,000</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <RepaymentProgress totalCreditAmount={totalCreditAmount} />
+
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-7">
               <Card className="lg:col-span-4">
                 <CardHeader>
