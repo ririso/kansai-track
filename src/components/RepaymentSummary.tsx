@@ -1,3 +1,4 @@
+import { TOTAL_SCHOLARSHIP_AMOUNT } from "@/app/constants/scholarship";
 import { CalendarIcon, DollarSign, LineChart, PiggyBank } from "lucide-react";
 import { Card, CardContent } from "./ui/shadcn/card";
 
@@ -7,8 +8,7 @@ type Props = {
 };
 
 export default function RepaymentSummary({ totalCreditAmount }: Props) {
-  const totalScholarshipAmount = 2500000; // 固定値
-  const remainingBalance = totalScholarshipAmount - totalCreditAmount;
+  const remainingAmount = TOTAL_SCHOLARSHIP_AMOUNT - totalCreditAmount;
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -18,7 +18,7 @@ export default function RepaymentSummary({ totalCreditAmount }: Props) {
             <div>
               <p className="text-sm font-medium text-gray-600 mb-1">総返済額</p>
               <p className="text-2xl font-bold text-gray-900">
-                ¥{totalScholarshipAmount.toLocaleString()}
+                ¥{TOTAL_SCHOLARSHIP_AMOUNT.toLocaleString()}
               </p>
             </div>
             <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center">
@@ -34,7 +34,7 @@ export default function RepaymentSummary({ totalCreditAmount }: Props) {
             <div>
               <p className="text-sm font-medium text-gray-600 mb-1">残額</p>
               <p className="text-2xl font-bold text-gray-900">
-                ¥{remainingBalance.toLocaleString()}
+                ¥{remainingAmount.toLocaleString()}
               </p>
             </div>
             <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center">
@@ -53,7 +53,7 @@ export default function RepaymentSummary({ totalCreditAmount }: Props) {
               </p>
               <p className="text-2xl font-bold text-orange-600">
                 {/* {formatCurrency(parsedSummary.nextPayment.amount)} */}¥
-                {remainingBalance.toLocaleString()}
+                {remainingAmount.toLocaleString()}
               </p>
               <p className="text-xs text-gray-500 mt-1">
                 {/* {nextPaymentDate}まで */}
