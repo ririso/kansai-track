@@ -52,7 +52,7 @@ export default function RepaymentSummary({ totalCreditAmount }: Props) {
                 次回支払い
               </p>
               <p className="text-2xl font-bold text-orange-600">
-                {/* {formatCurrency(parsedSummary.nextPayment.amount)} */}¥
+                1¥
                 {remainingAmount.toLocaleString()}
               </p>
               <p className="text-xs text-gray-500 mt-1">
