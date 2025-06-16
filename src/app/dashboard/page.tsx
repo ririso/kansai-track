@@ -3,7 +3,6 @@ import { BaseModal } from "@/components/base-modal";
 import { PaymentForm } from "@/components/payment-content";
 import { PaymentHistory } from "@/components/payment-history";
 import { RecentActivity } from "@/components/recent-activity";
-import { RepaymentSchedule } from "@/components/repayment-schedule";
 import RepaymentProgress from "@/components/RepaymentProgress";
 import RepaymentSummary from "@/components/RepaymentSummary";
 import { Button } from "@/components/ui/shadcn/button";
@@ -16,12 +15,18 @@ import {
 } from "@/components/ui/shadcn/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/shadcn/tabs";
 import { getRepaymentsRecords } from "@/lib/api/getRepayments";
+import { getRepaymentSchedule } from "@/lib/api/getRepaymentSchedule";
 import { RepaymentInfo } from "@/types/repaymentInfo";
+import { RepaymentSchedule } from "@/types/repaymentSchedule";
 import { CreditCard } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function DashboardPage() {
   const [records, setRecords] = useState<RepaymentInfo[]>([]);
+  const [repaymentSchedule, setRepaymentSchedule] = useState<
+    RepaymentSchedule[]
+  >([]);
+
   // TODO ここでレコードをセットした後に関数を呼び出す。
   // 出金金額と入金金額の合計を別コンポーネントに渡すと良さそう
   // creditの合計値を保持するstate
@@ -33,6 +38,12 @@ export default function DashboardPage() {
   useEffect(() => {
     setLoading(true);
     setError(null);
+    getRepaymentSchedule()
+      .then((repaymentSchedule) => {
+        setRepaymentSchedule(repaymentSchedule);
+      })
+      .catch((e) => setError(e.message))
+      .finally(() => setLoading(false));
 
     getRepaymentsRecords()
       .then((records) => {
@@ -80,9 +91,7 @@ export default function DashboardPage() {
                   <CardTitle>返済スケジュール</CardTitle>
                   <CardDescription>今後の返済予定</CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <RepaymentSchedule />
-                </CardContent>
+                <CardContent>{/* <RepaymentSchedule /> */}</CardContent>
               </Card>
               <Card className="lg:col-span-3">
                 <CardHeader>
