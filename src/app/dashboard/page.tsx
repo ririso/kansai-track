@@ -4,6 +4,7 @@ import { PaymentForm } from "@/components/payment-content";
 import { PaymentHistory } from "@/components/payment-history";
 import { RecentActivity } from "@/components/recent-activity";
 import RepaymentProgress from "@/components/RepaymentProgress";
+import { RepaymentSchedule } from "@/components/RepaymentSchedule";
 import RepaymentSummary from "@/components/RepaymentSummary";
 import { Button } from "@/components/ui/shadcn/button";
 import {
@@ -17,14 +18,14 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/shadcn/tabs";
 import { getRepaymentsRecords } from "@/lib/api/getRepayments";
 import { getRepaymentSchedule } from "@/lib/api/getRepaymentSchedule";
 import { RepaymentInfo } from "@/types/repaymentInfo";
-import { RepaymentSchedule } from "@/types/repaymentSchedule";
+import { RepaymentScheduleProps } from "@/types/repaymentScheduleProps";
 import { CreditCard } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function DashboardPage() {
   const [records, setRecords] = useState<RepaymentInfo[]>([]);
   const [repaymentSchedule, setRepaymentSchedule] = useState<
-    RepaymentSchedule[]
+    RepaymentScheduleProps[]
   >([]);
 
   // TODO ここでレコードをセットした後に関数を呼び出す。
@@ -67,7 +68,7 @@ export default function DashboardPage() {
     <div className="flex min-h-screen flex-col">
       <main className="flex-1 p-6">
         <div className="max-w-7xl mx-auto">
-          {/* ウェルカムメッセージ */}
+          {/* TODO:ユーザーor残金でメッセージを動的にしたら楽しそう */}
           <div className="mb-8 animate-fade-in">
             <h2 className="text-2xl font-bold text-gray-800 mb-2">
               おかえりなさい！
@@ -85,13 +86,25 @@ export default function DashboardPage() {
 
             <RepaymentProgress totalCreditAmount={totalCreditAmount} />
 
+            {/* <Link href="/schedule">
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-blue-200 text-blue-600 hover:bg-blue-50"
+              >
+                すべて表示
+              </Button>
+            </Link> */}
+
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-7">
               <Card className="lg:col-span-4">
                 <CardHeader>
                   <CardTitle>返済スケジュール</CardTitle>
                   <CardDescription>今後の返済予定</CardDescription>
                 </CardHeader>
-                <CardContent>{/* <RepaymentSchedule /> */}</CardContent>
+                <CardContent>
+                  <RepaymentSchedule repaymentSchedule={repaymentSchedule} />
+                </CardContent>
               </Card>
               <Card className="lg:col-span-3">
                 <CardHeader>

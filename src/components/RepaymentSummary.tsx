@@ -11,7 +11,7 @@ export default function RepaymentSummary({ totalCreditAmount }: Props) {
   const remainingAmount = TOTAL_SCHOLARSHIP_AMOUNT - totalCreditAmount;
 
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 bg-white-100">
       <Card className="border-0 card-hover animate-fade-in">
         <CardContent className="pt-6">
           <div className="flex items-center justify-between">
