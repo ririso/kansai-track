@@ -14,7 +14,7 @@ export default function RootLayout({
       <body>
         <Providers>
           <Header />
-          <main className="p-6">{children}</main>
+          <main className="p-6 bg-gray-50">{children}</main>
           <Footer />
         </Providers>
       </body>
