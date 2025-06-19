@@ -1,4 +1,5 @@
 import { TOTAL_SCHOLARSHIP_AMOUNT } from "@/app/constants/scholarship";
+import { estimateYearsToRepayLoan } from "@/utils/estimateYearsToRepayLoan";
 import { CalendarIcon, DollarSign, LineChart, PiggyBank } from "lucide-react";
 import { Card, CardContent } from "./ui/shadcn/card";
 
@@ -71,11 +72,11 @@ export default function RepaymentSummary({ totalCreditAmount }: Props) {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 mb-1">完済予定</p>
-              <p className="text-lg font-bold text-gray-900">
-                {/* {completionDate} */}
+              <p className="text-lg font-bold text-gray-900"></p>
+              {/* TODO: 完済日も2032年11月10日　とかにしたほうがいいかも！ */}
+              <p className="text-xs text-gray-500 mt-1">
+                あと{estimateYearsToRepayLoan(totalCreditAmount)}
               </p>
-              {/* <p className="text-xs text-gray-500 mt-1">あと{yearsLeft}年</p> */}
-              <p className="text-xs text-gray-500 mt-1">あと10000年</p>
             </div>
             <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center">
               <LineChart className="h-6 w-6 text-blue-600" />
