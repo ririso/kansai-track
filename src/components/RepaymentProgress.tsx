@@ -18,7 +18,7 @@ export default function RepaymentProgress({ totalCreditAmount }: Props) {
   const repaymentProgress = calculateRepaymentProgress(totalCreditAmount);
 
   return (
-    <Card className="border-0 shadow-custom animate-fade-in">
+    <Card className="border-0 shadow-custom animate-fade-in  bg-white">
       <CardHeader className="pb-4">
         <div className="flex items-center justify-between">
           <div>

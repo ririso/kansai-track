@@ -13,9 +13,11 @@ export default function RootLayout({
     <html lang="ja">
       <body>
         <Providers>
-          <Header />
-          <main className="p-6 bg-gray-50">{children}</main>
-          <Footer />
+          <div className="flex min-h-screen flex-col bg-gray-50">
+            <Header />
+            <main className="flex-1 p-6">{children}</main>
+            <Footer />
+          </div>
         </Providers>
       </body>
     </html>

@@ -20,19 +20,11 @@ export function RepaymentSchedule({ repaymentSchedule }: Props) {
       <Table>
         <TableHeader>
           <TableRow className="bg-gray-50 hover:bg-gray-50">
-            <TableHead className="text-gray-700 font-medium">
-              支払い予定日
-            </TableHead>
-            <TableHead className="text-gray-700 font-medium">金額</TableHead>
-            <TableHead className="text-gray-700 font-medium">
-              支払い方法
-            </TableHead>
-            <TableHead className="text-gray-700 font-medium">
-              ステータス
-            </TableHead>
-            <TableHead className="text-gray-700 font-medium">
-              支払い日
-            </TableHead>
+            <TableHead className="text-gray-700">支払い予定日</TableHead>
+            <TableHead className="text-gray-700">金額</TableHead>
+            <TableHead className="text-gray-700">支払い方法</TableHead>
+            <TableHead className="text-gray-700">ステータス</TableHead>
+            <TableHead className="text-gray-700">支払い日</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

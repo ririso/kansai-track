@@ -12,8 +12,8 @@ export default function RepaymentSummary({ totalCreditAmount }: Props) {
   const remainingAmount = TOTAL_SCHOLARSHIP_AMOUNT - totalCreditAmount;
 
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 bg-white-100">
-      <Card className="border-0 card-hover animate-fade-in">
+    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 ">
+      <Card className="border-0 card-hover animate-fade-in bg-white">
         <CardContent className="pt-6">
           <div className="flex items-center justify-between">
             <div>
@@ -29,7 +29,7 @@ export default function RepaymentSummary({ totalCreditAmount }: Props) {
         </CardContent>
       </Card>
 
-      <Card className="border-0 card-hover animate-fade-in">
+      <Card className="border-0 card-hover animate-fade-in bg-white">
         <CardContent className="pt-6">
           <div className="flex items-center justify-between">
             <div>
@@ -45,7 +45,7 @@ export default function RepaymentSummary({ totalCreditAmount }: Props) {
         </CardContent>
       </Card>
 
-      <Card className="border-0 card-hover animate-fade-in">
+      <Card className="border-0 card-hover animate-fade-in bg-white">
         <CardContent className="pt-6">
           <div className="flex items-center justify-between">
             <div>
@@ -66,7 +66,7 @@ export default function RepaymentSummary({ totalCreditAmount }: Props) {
         </CardContent>
       </Card>
 
-      <Card className="border-0 card-hover animate-fade-in">
+      <Card className="border-0 card-hover animate-fade-in bg-white">
         <CardContent className="pt-6">
           <div className="flex items-center justify-between">
             <div>
