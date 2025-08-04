@@ -15,38 +15,19 @@ import {
 } from "@/components/ui/shadcn/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/shadcn/tabs";
 import { useRepaymentSchedule } from "@/contexts/RepaymentContext";
-import { RepaymentInfo } from "@/types/repaymentInfo";
-import { RepaymentScheduleType } from "@/types/repaymentScheduleType";
 import { CreditCard } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
 export default function DashboardPage() {
-  const [records, setRecords] = useState<RepaymentInfo[]>([]);
-  const [repaymentSchedule, setRepaymentSchedule] = useState<
-    RepaymentScheduleType[]
-  >([]);
-
-  // TODO ここでレコードをセットした後に関数を呼び出す。
-  // 出金金額と入金金額の合計を別コンポーネントに渡すと良さそう
-  // creditの合計値を保持するstate
-  const [totalCreditAmount, setTotalCreditAmount] = useState(0);
-  const { schedule, isLoading, error } = useRepaymentSchedule();
-
-  useEffect(() => {
-    // ここでcreditの合計を算出
-    const totalCreditAmount: number = records.reduce(
-      (sum: number, records: RepaymentInfo) => sum + (records.credit || 0),
-      0
-    );
-  }, []);
+  const { schedule, isLoading, error, totalCreditAmount } =
+    useRepaymentSchedule();
 
   if (isLoading) return <p>読み込み中...</p>;
   if (error) return <p>エラー: {error}</p>;
 
   return (
     <div className="max-w-7xl mx-auto">
-      {/* TODO:ユーザーor残金でメッセージを動的にしたら楽しそう */}
+      {/* TODO:ユーザーor残金でメッセージを動的にしたら楽しそう */}s
       <div className="mb-8 animate-fade-in">
         <h2 className="text-2xl font-bold text-gray-800 mb-2">
           おかえりなさい！
@@ -55,7 +36,6 @@ export default function DashboardPage() {
           返済状況を確認して、計画的に返済を進めましょう。
         </p>
       </div>
-
       <div className="grid gap-6">
         <RepaymentSummary totalCreditAmount={totalCreditAmount} />
 
