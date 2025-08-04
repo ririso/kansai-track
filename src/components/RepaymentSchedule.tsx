@@ -11,7 +11,7 @@ import { RepaymentScheduleType } from "@/types/repaymentScheduleType";
 import { CalendarIcon } from "lucide-react";
 
 type Props = {
-  repaymentSchedule: RepaymentScheduleType;
+  repaymentSchedule: RepaymentScheduleType[];
 };
 
 export function RepaymentSchedule({ repaymentSchedule }: Props) {
@@ -28,7 +28,7 @@ export function RepaymentSchedule({ repaymentSchedule }: Props) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {repaymentSchedule.map((schedule) => (
+          {repaymentSchedule.map((schedule: RepaymentScheduleType) => (
             <TableRow
               key={schedule.id}
               className="hover:bg-gray-50 transition-colors"
