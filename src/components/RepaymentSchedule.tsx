@@ -7,11 +7,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/shadcn/table";
-import { RepaymentScheduleProps } from "@/types/repaymentScheduleProps";
+import { RepaymentScheduleType } from "@/types/repaymentScheduleType";
 import { CalendarIcon } from "lucide-react";
 
 type Props = {
-  repaymentSchedule: RepaymentScheduleProps;
+  repaymentSchedule: RepaymentScheduleType;
 };
 
 export function RepaymentSchedule({ repaymentSchedule }: Props) {

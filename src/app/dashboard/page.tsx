@@ -14,10 +14,9 @@ import {
   CardTitle,
 } from "@/components/ui/shadcn/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/shadcn/tabs";
-import { getRepaymentsRecords } from "@/lib/api/getRepayments";
-import { getRepaymentSchedule } from "@/lib/api/getRepaymentSchedule";
+import { useRepaymentSchedule } from "@/contexts/RepaymentContext";
 import { RepaymentInfo } from "@/types/repaymentInfo";
-import { RepaymentScheduleProps } from "@/types/repaymentScheduleProps";
+import { RepaymentScheduleType } from "@/types/repaymentScheduleType";
 import { CreditCard } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -25,43 +24,24 @@ import { useEffect, useState } from "react";
 export default function DashboardPage() {
   const [records, setRecords] = useState<RepaymentInfo[]>([]);
   const [repaymentSchedule, setRepaymentSchedule] = useState<
-    RepaymentScheduleProps[]
+    RepaymentScheduleType[]
   >([]);
 
   // TODO ここでレコードをセットした後に関数を呼び出す。
   // 出金金額と入金金額の合計を別コンポーネントに渡すと良さそう
   // creditの合計値を保持するstate
   const [totalCreditAmount, setTotalCreditAmount] = useState(0);
-
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const { schedule, isLoading, error } = useRepaymentSchedule();
 
   useEffect(() => {
-    setLoading(true);
-    setError(null);
-    getRepaymentSchedule()
-      .then((repaymentSchedule) => {
-        setRepaymentSchedule(repaymentSchedule);
-      })
-      .catch((e) => setError(e.message))
-      .finally(() => setLoading(false));
-
-    getRepaymentsRecords()
-      .then((records) => {
-        setRecords(records);
-
-        // ここでcreditの合計を算出
-        const totalCreditAmount: number = records.reduce(
-          (sum: number, records: RepaymentInfo) => sum + (records.credit || 0),
-          0
-        );
-        setTotalCreditAmount(totalCreditAmount);
-      })
-      .catch((e) => setError(e.message))
-      .finally(() => setLoading(false));
+    // ここでcreditの合計を算出
+    const totalCreditAmount: number = records.reduce(
+      (sum: number, records: RepaymentInfo) => sum + (records.credit || 0),
+      0
+    );
   }, []);
 
-  if (loading) return <p>読み込み中...</p>;
+  if (isLoading) return <p>読み込み中...</p>;
   if (error) return <p>エラー: {error}</p>;
 
   return (
@@ -108,7 +88,7 @@ export default function DashboardPage() {
               </Link>
             </CardHeader>
             <CardContent>
-              <RepaymentSchedule repaymentSchedule={repaymentSchedule} />
+              <RepaymentSchedule repaymentSchedule={schedule} />
             </CardContent>
           </Card>
         </div>
