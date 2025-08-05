@@ -1,4 +1,4 @@
-export type RepaymentScheduleProps = {
+export type RepaymentScheduleType = {
   id: string;
   amount: number;
   paidDate: string;
