@@ -11,7 +11,7 @@ import {
 } from "react";
 
 type RepaymentContextType = {
-  schedule: RepaymentScheduleType[];
+  schedules: RepaymentScheduleType[];
   isLoading: boolean;
   error: string | null;
   totalCreditAmount: number;
@@ -22,7 +22,7 @@ const RepaymentContext = createContext<RepaymentContextType | undefined>(
 );
 
 export const RepaymentProvider = ({ children }: { children: ReactNode }) => {
-  const [schedule, setSchedule] = useState<RepaymentScheduleType[]>([]);
+  const [schedules, setSchedules] = useState<RepaymentScheduleType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [totalCreditAmount, setTotalCreditAmount] = useState<number>(0);
@@ -31,7 +31,7 @@ export const RepaymentProvider = ({ children }: { children: ReactNode }) => {
     const fetchSchedule = async () => {
       try {
         const repaymentSchedules = await getRepaymentSchedule();
-        setSchedule(repaymentSchedules);
+        setSchedules(repaymentSchedules);
 
         const total = repaymentSchedules.reduce(
           (sum: number, item: { amount: number }) => sum + (item.amount ?? 0),
@@ -50,7 +50,7 @@ export const RepaymentProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <RepaymentContext.Provider
-      value={{ schedule, isLoading, error, totalCreditAmount }}
+      value={{ schedules, isLoading, error, totalCreditAmount }}
     >
       {children}
     </RepaymentContext.Provider>

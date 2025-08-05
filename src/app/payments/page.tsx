@@ -24,16 +24,6 @@ type Props = {
 };
 
 export default function PaymentsPage({ repayments }: Props) {
-  // 統計情報を計算
-  // const totalPaid = repayments.reduce(
-  //   (sum: number, credit: number) => sum + credit.amount,
-  //   0
-  // );
-  // const completedPayments = repayments.filter(
-  //   (p: any) => p.status === "完了"
-  // ).length;
-  // const averageAmount = totalPaid / completedPayments || 0;
-
   return (
     <div className="flex min-h-screen flex-col bg-freee-gray-50">
       <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b border-freee-gray-200 bg-white px-6 shadow-freee">

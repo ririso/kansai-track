@@ -19,7 +19,7 @@ import { CreditCard } from "lucide-react";
 import Link from "next/link";
 
 export default function DashboardPage() {
-  const { schedule, isLoading, error, totalCreditAmount } =
+  const { schedules, isLoading, error, totalCreditAmount } =
     useRepaymentSchedule();
 
   if (isLoading) return <p>読み込み中...</p>;
@@ -27,7 +27,7 @@ export default function DashboardPage() {
 
   return (
     <div className="max-w-7xl mx-auto">
-      {/* TODO:ユーザーor残金でメッセージを動的にしたら楽しそう */}s
+      {/* TODO:ユーザーor残金でメッセージを動的にしたら楽しそう */}
       <div className="mb-8 animate-fade-in">
         <h2 className="text-2xl font-bold text-gray-800 mb-2">
           おかえりなさい！
@@ -68,7 +68,7 @@ export default function DashboardPage() {
               </Link>
             </CardHeader>
             <CardContent>
-              <RepaymentSchedule repaymentSchedule={schedule} />
+              <RepaymentSchedule repaymentSchedules={schedules} />
             </CardContent>
           </Card>
         </div>
