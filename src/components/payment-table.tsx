@@ -17,7 +17,7 @@
 // } from "@/components/ui/table";
 // import { ViewPaymentModal } from "@/components/view-payment-modal";
 // import { formatCurrency, formatDate } from "@/lib/utils";
-import { RepaymentInfo } from "@/types/repaymentInfo";
+import { useRepaymentSchedule } from "@/contexts/RepaymentContext";
 import { formatJapaneseDate } from "@/utils/formatJapaneseDate";
 import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
@@ -43,11 +43,10 @@ import {
 //   transactionId: string;
 // };
 
-type PaymentTableProps = {
-  repayments: RepaymentInfo[];
-};
+export function PaymentTable() {
+  const { schedules, isLoading, error, totalCreditAmount } =
+    useRepaymentSchedule();
 
-export function PaymentTable({ repayments }: PaymentTableProps) {
   // const [editingPayment, setEditingPayment] = useState<Payment | null>(null);
   // const [deletingPayment, setDeletingPayment] = useState<Payment | null>(null);
   // const [viewingPayment, setViewingPayment] = useState<Payment | null>(null);
@@ -108,25 +107,28 @@ export function PaymentTable({ repayments }: PaymentTableProps) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {repayments.map((repayment) => (
+            {schedules.map((repayment) => (
               <TableRow
                 key={repayment.id}
                 className="hover:bg-freee-gray-50 transition-colors"
               >
                 <TableCell className="text-freee-gray-800 font-medium">
-                  {formatJapaneseDate(repayment.date)}
+                  {formatJapaneseDate(repayment.paidDate)}
                 </TableCell>
                 <TableCell className="text-freee-gray-800 font-medium">
-                  {repayment.transactionName}
+                  {/* {repayment.transactionName} */}
+                  paymentMethod
                 </TableCell>
                 <TableCell className="text-freee-gray-900 font-bold">
-                  ¥{repayment.credit.toLocaleString()}
+                  ¥{repayment.amount.toLocaleString()}
                 </TableCell>
                 {/* <TableCell>{getStatusBadge(repayment.status)}</TableCell> */}
                 <TableCell>{repayment.id}</TableCell>
 
                 <TableCell className="text-freee-gray-700 max-w-[200px] truncate">
-                  {repayment.transactionName}
+                  {/* {repayment.transactionName}
+                   */}
+                  transactionName
                 </TableCell>
                 <TableCell>
                   <DropdownMenu>
