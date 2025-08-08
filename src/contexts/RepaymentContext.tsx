@@ -15,6 +15,7 @@ type RepaymentContextType = {
   isLoading: boolean;
   error: string | null;
   totalCreditAmount: number;
+  totalScheduleCount: number;
 };
 
 const RepaymentContext = createContext<RepaymentContextType | undefined>(
@@ -26,6 +27,7 @@ export const RepaymentProvider = ({ children }: { children: ReactNode }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [totalCreditAmount, setTotalCreditAmount] = useState<number>(0);
+  const [totalScheduleCount, setTotalScheduleCount] = useState<number>(0);
 
   useEffect(() => {
     const fetchSchedule = async () => {
@@ -33,11 +35,12 @@ export const RepaymentProvider = ({ children }: { children: ReactNode }) => {
         const repaymentSchedules = await getRepaymentSchedule();
         setSchedules(repaymentSchedules);
 
-        const total = repaymentSchedules.reduce(
+        const totalAmount = repaymentSchedules.reduce(
           (sum: number, item: { amount: number }) => sum + (item.amount ?? 0),
           0
         );
-        setTotalCreditAmount(total);
+        setTotalCreditAmount(totalAmount);
+        setTotalScheduleCount(repaymentSchedules.length);
       } catch (err: any) {
         setError(err.message || "取得失敗");
       } finally {
@@ -50,7 +53,13 @@ export const RepaymentProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <RepaymentContext.Provider
-      value={{ schedules, isLoading, error, totalCreditAmount }}
+      value={{
+        schedules,
+        isLoading,
+        error,
+        totalCreditAmount,
+        totalScheduleCount,
+      }}
     >
       {children}
     </RepaymentContext.Provider>
