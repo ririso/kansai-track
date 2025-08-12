@@ -38,6 +38,7 @@
     "@radix-ui/react-tooltip": "^1.0.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "encoding-japanese": "^2.2.0",
     "lucide-react": "^0.514.0",
     "next": "15.3.2",
     "next-auth": "^4.24.11",
@@ -49,6 +50,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.0.0",
     "@types/node": "^20",
+    "@types/papaparse": "^5.3.16",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.17",
