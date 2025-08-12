@@ -62,8 +62,8 @@ export default function SchedulePage() {
                       返済スケジュール一覧
                     </CardTitle>
                     <CardDescription className="text-gray-600">
-                      全{totalScheduleCount}件のスケジュール（総額:{" "}
-                      {totalCreditAmount}）
+                      全{totalScheduleCount}件のスケジュール （総額: ¥
+                      {totalCreditAmount.toLocaleString()})
                     </CardDescription>
                   </div>
                   <div className="flex flex-col sm:flex-row gap-2">

@@ -9,9 +9,12 @@ type Props = {
 };
 
 export default function RepaymentCount() {
-  const { schedules, isLoading, error, totalCreditAmount } =
+  const { schedules, isLoading, error, totalCreditAmount, totalScheduleCount } =
     useRepaymentSchedule();
   const remainingAmount = TOTAL_SCHOLARSHIP_AMOUNT - totalCreditAmount;
+
+  // TODO: scheduleからそれぞれのステータスを分類して件数をカウントするメソッドを実装する
+  //
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 ">
@@ -22,7 +25,9 @@ export default function RepaymentCount() {
               <p className="text-sm font-medium text-gray-600 mb-1">
                 総スケジュール数
               </p>
-              <p className="text-2xl font-bold text-gray-900">100</p>
+              <p className="text-2xl font-bold text-gray-900">
+                {totalScheduleCount}
+              </p>
             </div>
             <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center">
               <CalendarIcon className="h-6 w-6 text-blue-600" />
