@@ -21,6 +21,9 @@ export function RepaymentScheduleDetail() {
         <thead className="[&_tr]:border-b bg-gray-50">
           <tr className="border-b transition-colors hover:bg-gray-50 data-[state=selected]:bg-muted">
             <th className="h-12 px-4 text-left align-middle font-semibold text-gray-700 [&:has([role=checkbox])]:pr-0">
+              支払い予定日
+            </th>
+            <th className="h-12 px-4 text-left align-middle font-semibold text-gray-700 [&:has([role=checkbox])]:pr-0">
               支払い日
             </th>
             <th className="h-12 px-4 text-left align-middle font-semibold text-gray-700 [&:has([role=checkbox])]:pr-0">
@@ -46,7 +49,15 @@ export function RepaymentScheduleDetail() {
               <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0 font-medium">
                 <div className="flex items-center gap-2">
                   <CalendarIcon className="h-4 w-4 text-gray-500" />
-                  <span className="text-gray-800">{schedule.date}</span>
+                  <span className="text-gray-800">
+                    {schedule.scheduledDate}
+                  </span>
+                </div>
+              </td>
+              <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0 font-medium">
+                <div className="flex items-center gap-2">
+                  <CalendarIcon className="h-4 w-4 text-gray-500" />
+                  <span className="text-gray-800">{schedule.paidDate}</span>
                 </div>
               </td>
               <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">

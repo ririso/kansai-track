@@ -2,6 +2,8 @@
 
 import { mapJapaneseKeysToEnglish } from "@/utils/mapJapaneseKeysToEnglish";
 // @ts-ignore
+import { useRepaymentSchedule } from "@/contexts/RepaymentContext";
+import { reconcileScheduleWithCSV } from "@/utils/reconcileScheduleWithCSV";
 import Encoding from "encoding-japanese";
 import { Upload } from "lucide-react";
 import Papa from "papaparse";
@@ -14,6 +16,8 @@ export default function CSVUploader() {
   const handleButtonClick = () => {
     fileInputRef.current?.click();
   };
+  const { schedules, isLoading, error, totalCreditAmount, totalScheduleCount } =
+    useRepaymentSchedule();
 
   const uploadCSVFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -35,11 +39,23 @@ export default function CSVUploader() {
         skipEmptyLines: true,
         complete: async (results) => {
           const parsedData = results.data;
-
           const csvData = mapJapaneseKeysToEnglish(parsedData);
 
-          setCsvData(csvData);
-          console.log(csvData);
+          const reconcileSchedule = reconcileScheduleWithCSV(
+            csvData,
+            schedules
+          );
+
+          // setCsvData(csvData);
+          console.log(reconcileSchedule);
+          //ここからすり合わせが必要になる。
+          // TODO:取得したデータとすり合わせをしてみる。
+          // まずは実績テーブルとすり合わせを行う。(あとでいいや！)
+          // 一致しないものだけ残す？(これ面倒かな？)
+          // 一致した、かつ予定だった場合は完了に変更
+          // さらに
+          // ここで予定かつ現在の日時を過ぎているものを未払いにする。
+          // 予定にないが、支払いがあったものはどう対応するか？
 
           const endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
@@ -49,7 +65,7 @@ export default function CSVUploader() {
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify(csvData),
+              body: JSON.stringify(reconcileSchedule),
             });
             if (res.ok) {
               alert("アップロード成功");
