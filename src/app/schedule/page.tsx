@@ -1,4 +1,5 @@
 "use client";
+import CSVUploader from "@/components/CsvUploader";
 import RepaymentCount from "@/components/RepaymentCount";
 import { RepaymentScheduleDetail } from "@/components/RepaymentScheduleDetail";
 import { Button } from "@/components/ui/shadcn/button";
@@ -59,7 +60,7 @@ export default function SchedulePage() {
                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                   <div>
                     <CardTitle className="text-gray-800 text-xl">
-                      返済スケジュール一覧
+                      返済履歴一覧
                     </CardTitle>
                     <CardDescription className="text-gray-600">
                       全{totalScheduleCount}件のスケジュール （総額: ¥
@@ -74,6 +75,8 @@ export default function SchedulePage() {
                         className="pl-10 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
                       />
                     </div>
+
+                    <CSVUploader />
                     <Button
                       variant="outline"
                       size="sm"

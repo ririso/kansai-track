@@ -1,33 +1,61 @@
 "use client";
 
 import { mapJapaneseKeysToEnglish } from "@/utils/mapJapaneseKeysToEnglish";
+// @ts-ignore
+import { useRepaymentSchedule } from "@/contexts/RepaymentContext";
+import { reconcileScheduleWithCSV } from "@/utils/reconcileScheduleWithCSV";
+import Encoding from "encoding-japanese";
+import { Upload } from "lucide-react";
 import Papa from "papaparse";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { Button } from "./ui/shadcn/button";
 
 export default function CSVUploader() {
   const [csvData, setCsvData] = useState<any[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const handleButtonClick = () => {
+    fileInputRef.current?.click();
+  };
+  const { schedules, isLoading, error, totalCreditAmount, totalScheduleCount } =
+    useRepaymentSchedule();
 
   const uploadCSVFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
-    const reader = new FileReader();
+    try {
+      const arrayBuffer = await file.arrayBuffer();
+      const uint8Array = new Uint8Array(arrayBuffer);
 
-    reader.onload = () => {
-      const text = reader.result as string;
-      Papa.parse(text, {
+      // Shift-JIS → Unicode文字列に変換
+      const unicodeString = Encoding.convert(uint8Array, {
+        to: "UNICODE",
+        from: "SJIS",
+        type: "string",
+      });
+
+      Papa.parse(unicodeString, {
         header: true,
         skipEmptyLines: true,
         complete: async (results) => {
           const parsedData = results.data;
-
-          // TODO キーバリューが日本語なので修正する。
-          // キーをJsonに置き換える
           const csvData = mapJapaneseKeysToEnglish(parsedData);
 
-          setCsvData(csvData);
+          const reconcileSchedule = reconcileScheduleWithCSV(
+            csvData,
+            schedules
+          );
 
-          console.log(csvData);
+          // setCsvData(csvData);
+          console.log(reconcileSchedule);
+          //ここからすり合わせが必要になる。
+          // TODO:取得したデータとすり合わせをしてみる。
+          // まずは実績テーブルとすり合わせを行う。(あとでいいや！)
+          // 一致しないものだけ残す？(これ面倒かな？)
+          // 一致した、かつ予定だった場合は完了に変更
+          // さらに
+          // ここで予定かつ現在の日時を過ぎているものを未払いにする。
+          // 予定にないが、支払いがあったものはどう対応するか？
 
           const endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
@@ -37,7 +65,7 @@ export default function CSVUploader() {
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify(csvData),
+              body: JSON.stringify(reconcileSchedule),
             });
             if (res.ok) {
               alert("アップロード成功");
@@ -52,22 +80,30 @@ export default function CSVUploader() {
           }
         },
       });
-    };
-    reader.readAsText(file, "utf-8"); // Shift_JISなのでUTF-8 に変換
+    } catch (error) {
+      console.error("Failed to read file:", error);
+    }
   };
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-bold mb-2">CSVデータをアップロードする</h2>
+    <>
       <input
         type="file"
         accept=".csv"
+        ref={fileInputRef}
         onChange={uploadCSVFile}
-        className="mb-4"
+        style={{ display: "none" }}
       />
-      <pre className="text-sm bg-gray-100 p-2">
-        {JSON.stringify(csvData, null, 2)}
-      </pre>
-    </div>
+
+      <Button
+        variant="outline"
+        size="sm"
+        className="border-blue-200 text-blue-600 hover:bg-blue-50 bg-transparent"
+        onClick={handleButtonClick}
+      >
+        <Upload className="h-4 w-4 mr-2" />
+        CSVアップロード
+      </Button>
+    </>
   );
 }
