@@ -1,5 +1,5 @@
 import { Bell, Settings, User } from "lucide-react";
-import { Button } from "./ui/shadcn/button";
+import { Button } from "../ui/shadcn/button";
 
 export function Header() {
   return (

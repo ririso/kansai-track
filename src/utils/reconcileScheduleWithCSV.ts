@@ -1,3 +1,6 @@
+import { PaymentCategory } from "@/types/enums/paymentCategory";
+import { PaymentMethod } from "@/types/enums/paymentMethod";
+import { RepaymentStatus } from "@/types/enums/repaymentStatus";
 import { RepaymentScheduleType } from "@/types/repaymentScheduleType";
 import { Transaction } from "@/types/transaction";
 
@@ -7,7 +10,7 @@ export function reconcileScheduleWithCSV(
 ): RepaymentScheduleType[] {
   const today = new Date();
 
-  return schedules.map((schedule) => {
+  let updatedSchedules: RepaymentScheduleType[] = schedules.map((schedule) => {
     const scheduleDate = new Date(schedule.scheduledDate);
     let updatedSchedule = { ...schedule };
 
@@ -20,16 +23,47 @@ export function reconcileScheduleWithCSV(
 
       if (sameYear && sameMonth && sameAmount) {
         updatedSchedule.paidDate = csvRecord.paidDate;
-        updatedSchedule.status = "完了";
+        updatedSchedule.status = RepaymentStatus.Completed;
+        (updatedSchedule.paymentMethod = PaymentMethod.BankTransfer),
+          (updatedSchedule.paymentCategory = PaymentCategory.Normal);
         return updatedSchedule;
       }
     }
 
-    // --- CSVに一致しなかった場合の遅延判定 ---
+    // --- CSVに一致しなかったかつ予定状態のものは期限が過ぎているので遅延判定 ---
     if (!schedule.paidDate && scheduleDate < today) {
-      updatedSchedule.status = "遅延";
+      updatedSchedule.status = RepaymentStatus.Delayed;
     }
 
     return updatedSchedule;
   });
+
+  // --- 特別支払いの登録 ---
+  const specialPayments = csvRecords.filter((record) =>
+    record.note?.includes("特別")
+  );
+  console.log("特別" + specialPayments);
+
+  for (const special of specialPayments) {
+    const alreadyExists = updatedSchedules.some(
+      (updatedSchedule) =>
+        updatedSchedule.paidDate === special.paidDate &&
+        updatedSchedule.amount === special.credit &&
+        updatedSchedule.status === RepaymentStatus.Completed
+    );
+
+    if (!alreadyExists) {
+      updatedSchedules.push({
+        id: `special-${special.paidDate}-${special.credit}`,
+        scheduledDate: special.paidDate,
+        paidDate: special.paidDate,
+        amount: special.credit,
+        status: RepaymentStatus.Completed,
+        paymentMethod: PaymentMethod.BankTransfer,
+        paymentCategory: PaymentCategory.Special,
+      });
+    }
+  }
+
+  return updatedSchedules;
 }
