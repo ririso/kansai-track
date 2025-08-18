@@ -4,10 +4,6 @@ import { cn } from "@/lib/utils";
 import { RepaymentScheduleType } from "@/types/repaymentScheduleType";
 import { CalendarIcon } from "lucide-react";
 
-type Props = {
-  repaymentSchedules: RepaymentScheduleType[];
-};
-
 export function RepaymentScheduleDetail() {
   const { schedules, isLoading, error, totalCreditAmount } =
     useRepaymentSchedule();
@@ -35,10 +31,13 @@ export function RepaymentScheduleDetail() {
             <th className="h-12 px-4 text-left align-middle font-semibold text-gray-700 [&:has([role=checkbox])]:pr-0">
               支払い方法
             </th>
+            <th className="h-12 px-4 text-left align-middle font-semibold text-gray-700 [&:has([role=checkbox])]:pr-0">
+              支払い区分
+            </th>
           </tr>
         </thead>
         <tbody className="[&_tr:last-child]:border-0">
-          {schedules.map((schedule: any) => (
+          {schedules.map((schedule: RepaymentScheduleType) => (
             <tr
               key={schedule.id}
               className="border-b transition-colors hover:bg-blue-50 data-[state=selected]:bg-muted"
@@ -80,6 +79,11 @@ export function RepaymentScheduleDetail() {
               <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
                 <span className="text-gray-700">
                   {schedule.paymentMethod || "未設定"}
+                </span>
+              </td>
+              <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
+                <span className="text-gray-700">
+                  {schedule.paymentCategory}
                 </span>
               </td>
             </tr>
