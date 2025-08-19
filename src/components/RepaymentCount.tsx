@@ -9,8 +9,13 @@ type Props = {
 };
 
 export default function RepaymentCount() {
-  const { schedules, isLoading, error, totalCreditAmount, totalScheduleCount } =
-    useRepaymentSchedule();
+  const {
+    totalCreditAmount,
+    totalScheduleCount,
+    completedScheduleCount,
+    scheduledScheduleCount,
+    delayedScheduleCount,
+  } = useRepaymentSchedule();
   const remainingAmount = TOTAL_SCHOLARSHIP_AMOUNT - totalCreditAmount;
 
   // TODO: scheduleからそれぞれのステータスを分類して件数をカウントするメソッドを実装する
@@ -41,7 +46,9 @@ export default function RepaymentCount() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 mb-1">完了済み</p>
-              <p className="text-2xl font-bold text-green-600">10件</p>
+              <p className="text-2xl font-bold text-green-600">
+                {completedScheduleCount}件
+              </p>
             </div>
             <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center">
               <CheckCircle className="h-6 w-6 text-green-600" />
@@ -55,7 +62,9 @@ export default function RepaymentCount() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 mb-1">予定</p>
-              <p className="text-2xl font-bold text-orange-600">{100}件</p>
+              <p className="text-2xl font-bold text-orange-600">
+                {scheduledScheduleCount}件
+              </p>
             </div>
             <div className="h-12 w-12 rounded-full bg-orange-100 flex items-center justify-center">
               <Clock className="h-6 w-6 text-orange-600" />
@@ -69,7 +78,9 @@ export default function RepaymentCount() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 mb-1">遅延</p>
-              <p className="text-2xl font-bold text-red-600">{10}件</p>
+              <p className="text-2xl font-bold text-red-600">
+                {delayedScheduleCount}件
+              </p>
             </div>
             <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center">
               <AlertTriangle className="text-red-600 font-bold text-lg" />

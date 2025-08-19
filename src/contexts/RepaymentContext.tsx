@@ -1,6 +1,7 @@
 "use client";
 
 import { getRepaymentSchedule } from "@/lib/api/getRepaymentSchedule";
+import { RepaymentStatus } from "@/types/enums/repaymentStatus";
 import { RepaymentScheduleType } from "@/types/repaymentScheduleType";
 import {
   createContext,
@@ -16,6 +17,9 @@ type RepaymentContextType = {
   error: string | null;
   totalCreditAmount: number;
   totalScheduleCount: number;
+  completedScheduleCount: number;
+  scheduledScheduleCount: number;
+  delayedScheduleCount: number;
 };
 
 const RepaymentContext = createContext<RepaymentContextType | undefined>(
@@ -28,19 +32,47 @@ export const RepaymentProvider = ({ children }: { children: ReactNode }) => {
   const [error, setError] = useState<string | null>(null);
   const [totalCreditAmount, setTotalCreditAmount] = useState<number>(0);
   const [totalScheduleCount, setTotalScheduleCount] = useState<number>(0);
+  const [completedScheduleCount, setCompletedScheduleCount] =
+    useState<number>(0);
+  const [scheduledScheduleCount, setScheduledScheduleCount] =
+    useState<number>(0);
+  const [delayedScheduleCount, setDelayedScheduleCount] = useState<number>(0);
 
   useEffect(() => {
     const fetchSchedule = async () => {
       try {
-        const repaymentSchedules = await getRepaymentSchedule();
+        const repaymentSchedules: RepaymentScheduleType[] =
+          await getRepaymentSchedule();
         setSchedules(repaymentSchedules);
 
         const totalAmount = repaymentSchedules.reduce(
           (sum: number, item: { amount: number }) => sum + (item.amount ?? 0),
           0
         );
+        // 合計金額の算出
         setTotalCreditAmount(totalAmount);
+        // スケジュールの総数
         setTotalScheduleCount(repaymentSchedules.length);
+
+        // 各スケジュールのステータスをカウント
+        const completedCount = repaymentSchedules.filter(
+          (repaymentSchedule) =>
+            repaymentSchedule.status === RepaymentStatus.Completed
+        ).length;
+
+        const scheduledCount = repaymentSchedules.filter(
+          (repaymentSchedule) =>
+            repaymentSchedule.status === RepaymentStatus.Pending
+        ).length;
+
+        const delayedCount = repaymentSchedules.filter(
+          (repaymentSchedule) =>
+            repaymentSchedule.status === RepaymentStatus.Delayed
+        ).length;
+
+        setCompletedScheduleCount(completedCount);
+        setScheduledScheduleCount(scheduledCount);
+        setDelayedScheduleCount(delayedCount);
       } catch (err: any) {
         setError(err.message || "取得失敗");
       } finally {
@@ -59,6 +91,9 @@ export const RepaymentProvider = ({ children }: { children: ReactNode }) => {
         error,
         totalCreditAmount,
         totalScheduleCount,
+        completedScheduleCount,
+        scheduledScheduleCount,
+        delayedScheduleCount,
       }}
     >
       {children}
