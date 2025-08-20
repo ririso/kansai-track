@@ -21,8 +21,8 @@ import { useRepaymentSchedule } from "@/contexts/RepaymentContext";
 import { formatJapaneseDate } from "@/utils/formatJapaneseDate";
 import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
-import { Button } from "./ui/shadcn/button";
-import { DropdownMenuTrigger } from "./ui/shadcn/dropdown-menu";
+import { Button } from "../ui/shadcn/button";
+import { DropdownMenuTrigger } from "../ui/shadcn/dropdown-menu";
 import {
   Table,
   TableBody,
@@ -30,7 +30,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "./ui/shadcn/table";
+} from "../ui/shadcn/table";
 
 // 型定義
 // type Payment = {
