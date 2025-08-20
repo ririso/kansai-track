@@ -24,13 +24,8 @@ export default function DashboardPage() {
       <div className="grid gap-6">
         <RepaymentSummary totalCreditAmount={totalCreditAmount} />
         <RepaymentProgress totalCreditAmount={totalCreditAmount} />
-        {/* メインコンテンツエリア */}
-        <div className="grid gap-6 lg:grid-cols-3">
-          <DashboardCard />
-        </div>
-
+        <DashboardCard />
         <ActivityCard />
-
         <div className="flex justify-center">
           <BaseModal
             title="支払い確認"
