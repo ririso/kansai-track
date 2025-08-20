@@ -46,14 +46,16 @@ export function RepaymentScheduleDetail() {
                 <div className="flex items-center gap-2">
                   <CalendarIcon className="h-4 w-4 text-gray-500" />
                   <span className="text-gray-800">
-                    {schedule.scheduledDate}
+                    {schedule.scheduledDate || "-"}
                   </span>
                 </div>
               </td>
               <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0 font-medium">
                 <div className="flex items-center gap-2">
                   <CalendarIcon className="h-4 w-4 text-gray-500" />
-                  <span className="text-gray-800">{schedule.paidDate}</span>
+                  <span className="text-gray-800">
+                    {schedule.paidDate || "-"}
+                  </span>
                 </div>
               </td>
               <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">

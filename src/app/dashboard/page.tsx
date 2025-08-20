@@ -1,7 +1,7 @@
 "use client";
-import { BaseModal } from "@/components/base-modal";
-import { PaymentForm } from "@/components/payment-content";
-import { RecentActivity } from "@/components/recent-activity";
+import { BaseModal } from "@/components/bak/base-modal";
+import { PaymentForm } from "@/components/bak/payment-content";
+import { RecentActivity } from "@/components/bak/recent-activity";
 import RepaymentProgress from "@/components/RepaymentProgress";
 import { RepaymentSchedule } from "@/components/RepaymentSchedule";
 import RepaymentSummary from "@/components/RepaymentSummary";
