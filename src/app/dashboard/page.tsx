@@ -38,14 +38,11 @@ export default function DashboardPage() {
       </div>
       <div className="grid gap-6">
         <RepaymentSummary totalCreditAmount={totalCreditAmount} />
-
-        {/* <PaymentsPage repayments={records} /> */}
-        {/* <CSVUploader /> */}
-
         <RepaymentProgress totalCreditAmount={totalCreditAmount} />
 
         {/* メインコンテンツエリア */}
         <div className="grid gap-6 lg:grid-cols-3">
+          {/* ここのカード部分はコンポーネント化できるのであとで対応する */}
           {/* 返済スケジュール */}
           <Card className="lg:col-span-2 border-0 shadow-custom animate-fade-in bg-white">
             <CardHeader className="flex flex-row items-center justify-between">
@@ -68,7 +65,7 @@ export default function DashboardPage() {
               </Link>
             </CardHeader>
             <CardContent>
-              <RepaymentSchedule repaymentSchedules={schedules} />
+              <RepaymentSchedule />
             </CardContent>
           </Card>
         </div>

@@ -4,13 +4,8 @@ import { cn } from "@/lib/utils";
 import { RepaymentScheduleType } from "@/types/repaymentScheduleType";
 import { CalendarIcon } from "lucide-react";
 
-type Props = {
-  repaymentSchedules: RepaymentScheduleType[];
-};
-
 export function RepaymentSchedule() {
-  const { schedules, isLoading, error, totalCreditAmount } =
-    useRepaymentSchedule();
+  const { schedules, isLoading, error } = useRepaymentSchedule();
 
   if (isLoading) return <p>読み込み中...</p>;
   if (error) return <p>エラー: {error}</p>;
