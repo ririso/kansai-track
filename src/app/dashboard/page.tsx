@@ -1,21 +1,13 @@
 "use client";
 import { BaseModal } from "@/components/bak/base-modal";
 import { PaymentForm } from "@/components/bak/payment-content";
-import { RecentActivity } from "@/components/bak/recent-activity";
+import ActivityCard from "@/components/repayment/ActivityCard";
 import DashboardCard from "@/components/repayment/DashboardCard";
 import Greeting from "@/components/repayment/Greeting";
 import RepaymentProgress from "@/components/repayment/RepaymentProgress";
 
 import RepaymentSummary from "@/components/repayment/RepaymentSummary";
 import { Button } from "@/components/ui/shadcn/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/shadcn/card";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/shadcn/tabs";
 import { useRepaymentSchedule } from "@/contexts/RepaymentContext";
 import { CreditCard } from "lucide-react";
 
@@ -32,32 +24,12 @@ export default function DashboardPage() {
       <div className="grid gap-6">
         <RepaymentSummary totalCreditAmount={totalCreditAmount} />
         <RepaymentProgress totalCreditAmount={totalCreditAmount} />
-
         {/* メインコンテンツエリア */}
         <div className="grid gap-6 lg:grid-cols-3">
           <DashboardCard />
         </div>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center">
-            <div className="grid gap-1">
-              <CardTitle>最近のアクティビティ</CardTitle>
-              <CardDescription>アカウントの最近の活動</CardDescription>
-            </div>
-            <div className="ml-auto">
-              <Tabs defaultValue="all">
-                <TabsList className="grid w-full grid-cols-3">
-                  <TabsTrigger value="all">すべて</TabsTrigger>
-                  <TabsTrigger value="payments">支払い</TabsTrigger>
-                  <TabsTrigger value="updates">更新</TabsTrigger>
-                </TabsList>
-              </Tabs>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <RecentActivity />
-          </CardContent>
-        </Card>
+        <ActivityCard />
 
         <div className="flex justify-center">
           <BaseModal
