@@ -1,7 +1,7 @@
 "use client";
-import CSVUploader from "@/components/CsvUploader";
-import RepaymentCount from "@/components/RepaymentCount";
-import { RepaymentScheduleDetail } from "@/components/RepaymentScheduleDetail";
+import CSVUploader from "@/components/csv/CsvUploader";
+import RepaymentCount from "@/components/repayment/RepaymentCount";
+import { RepaymentScheduleDetail } from "@/components/repayment/RepaymentScheduleDetail";
 import { Button } from "@/components/ui/shadcn/button";
 import {
   Card,

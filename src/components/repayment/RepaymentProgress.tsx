@@ -7,7 +7,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "./ui/shadcn/card";
+} from "../ui/shadcn/card";
 
 // Propsの型を定義
 type Props = {
