@@ -1,16 +1,12 @@
 import { Badge } from "@/components/ui/shadcn/budge";
-import { useRepaymentSchedule } from "@/contexts/RepaymentContext";
 import { cn } from "@/lib/utils";
 import { RepaymentScheduleType } from "@/types/repaymentScheduleType";
 import { CalendarIcon } from "lucide-react";
+type Props = {
+  paginatedSchedules: RepaymentScheduleType[];
+};
 
-export function RepaymentScheduleDetail() {
-  const { schedules, isLoading, error, totalCreditAmount } =
-    useRepaymentSchedule();
-
-  if (isLoading) return <p>読み込み中...</p>;
-  if (error) return <p>エラー: {error}</p>;
-
+export function RepaymentScheduleDetail({ paginatedSchedules }: Props) {
   return (
     <div className="rounded-lg border border-gray-200 overflow-hidden">
       <table className="w-full caption-bottom text-sm">
@@ -37,7 +33,7 @@ export function RepaymentScheduleDetail() {
           </tr>
         </thead>
         <tbody className="[&_tr:last-child]:border-0">
-          {schedules.map((schedule: RepaymentScheduleType) => (
+          {paginatedSchedules.map((schedule: RepaymentScheduleType) => (
             <tr
               key={schedule.id}
               className="border-b transition-colors hover:bg-blue-50 data-[state=selected]:bg-muted"
