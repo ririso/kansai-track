@@ -22,7 +22,7 @@ export function RepaymentSchedule() {
               支払い日
             </th>
             <th className="h-12 px-4 text-left align-middle font-semibold text-gray-700 [&:has([role=checkbox])]:pr-0">
-              金額
+              金額(円)
             </th>
             <th className="h-12 px-4 text-left align-middle font-semibold text-gray-700 [&:has([role=checkbox])]:pr-0">
               ステータス
@@ -59,7 +59,7 @@ export function RepaymentSchedule() {
               </td>
               <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
                 <span className="text-gray-900 font-bold">
-                  {schedule.amount}
+                  {schedule.amount.toLocaleString()}
                 </span>
               </td>
               <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">

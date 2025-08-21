@@ -1,25 +1,15 @@
 import { TOTAL_SCHOLARSHIP_AMOUNT } from "@/app/constants/scholarship";
-import { useRepaymentSchedule } from "@/contexts/RepaymentContext";
-import { AlertTriangle, CalendarIcon, CheckCircle, Clock } from "lucide-react";
-import { Card, CardContent } from "./ui/shadcn/card";
+import { estimateYearsToRepayLoan } from "@/utils/estimateYearsToRepayLoan";
+import { CalendarIcon, DollarSign, LineChart, PiggyBank } from "lucide-react";
+import { Card, CardContent } from "../ui/shadcn/card";
 
 // Propsの型を定義
 type Props = {
   totalCreditAmount: number;
 };
 
-export default function RepaymentCount() {
-  const {
-    totalCreditAmount,
-    totalScheduleCount,
-    completedScheduleCount,
-    scheduledScheduleCount,
-    delayedScheduleCount,
-  } = useRepaymentSchedule();
+export default function RepaymentSummary({ totalCreditAmount }: Props) {
   const remainingAmount = TOTAL_SCHOLARSHIP_AMOUNT - totalCreditAmount;
-
-  // TODO: scheduleからそれぞれのステータスを分類して件数をカウントするメソッドを実装する
-  //
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 ">
@@ -27,15 +17,13 @@ export default function RepaymentCount() {
         <CardContent className="pt-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600 mb-1">
-                総スケジュール数
-              </p>
+              <p className="text-sm font-medium text-gray-600 mb-1">総返済額</p>
               <p className="text-2xl font-bold text-gray-900">
-                {totalScheduleCount}
+                ¥{TOTAL_SCHOLARSHIP_AMOUNT.toLocaleString()}
               </p>
             </div>
             <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center">
-              <CalendarIcon className="h-6 w-6 text-blue-600" />
+              <DollarSign className="h-6 w-6 text-blue-600" />
             </div>
           </div>
         </CardContent>
@@ -45,13 +33,13 @@ export default function RepaymentCount() {
         <CardContent className="pt-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600 mb-1">完了済み</p>
-              <p className="text-2xl font-bold text-green-600">
-                {completedScheduleCount}件
+              <p className="text-sm font-medium text-gray-600 mb-1">残額</p>
+              <p className="text-2xl font-bold text-gray-900">
+                ¥{remainingAmount.toLocaleString()}
               </p>
             </div>
             <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center">
-              <CheckCircle className="h-6 w-6 text-green-600" />
+              <PiggyBank className="h-6 w-6 text-green-600" />
             </div>
           </div>
         </CardContent>
@@ -61,13 +49,18 @@ export default function RepaymentCount() {
         <CardContent className="pt-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600 mb-1">予定</p>
+              <p className="text-sm font-medium text-gray-600 mb-1">
+                次回支払い
+              </p>
               <p className="text-2xl font-bold text-orange-600">
-                {scheduledScheduleCount}件
+                {remainingAmount.toLocaleString()}
+              </p>
+              <p className="text-xs text-gray-500 mt-1">
+                {/* {nextPaymentDate}まで */}
               </p>
             </div>
             <div className="h-12 w-12 rounded-full bg-orange-100 flex items-center justify-center">
-              <Clock className="h-6 w-6 text-orange-600" />
+              <CalendarIcon className="h-6 w-6 text-orange-600" />
             </div>
           </div>
         </CardContent>
@@ -77,13 +70,15 @@ export default function RepaymentCount() {
         <CardContent className="pt-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600 mb-1">遅延</p>
-              <p className="text-2xl font-bold text-red-600">
-                {delayedScheduleCount}件
+              <p className="text-sm font-medium text-gray-600 mb-1">完済予定</p>
+              <p className="text-lg font-bold text-gray-900"></p>
+              {/* TODO: 完済日も2032年11月10日　とかにしたほうがいいかも！ */}
+              <p className="text-xs text-gray-500 mt-1">
+                あと{estimateYearsToRepayLoan(totalCreditAmount)}
               </p>
             </div>
             <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center">
-              <AlertTriangle className="text-red-600 font-bold text-lg" />
+              <LineChart className="h-6 w-6 text-blue-600" />
             </div>
           </div>
         </CardContent>
