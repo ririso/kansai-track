@@ -1,6 +1,6 @@
 // app/layout.tsx
-import { Footer } from "@/components/common/footer";
-import { Header } from "@/components/common/header";
+import { Footer } from "@/components/common/aFooter";
+import { Header } from "@/components/common/aHeader";
 import "./globals.css";
 import { Providers } from "./provider";
 
