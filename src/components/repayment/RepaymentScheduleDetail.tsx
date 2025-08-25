@@ -1,44 +1,52 @@
-import { Badge } from "@/components/ui/shadcn/budge";
+import { Badge } from "@/components/ui/shadcn/badge"; // ← budge → badge 修正
 import { cn } from "@/lib/utils";
 import { RepaymentScheduleType } from "@/types/repaymentScheduleType";
 import { CalendarIcon } from "lucide-react";
+
 type Props = {
   paginatedSchedules: RepaymentScheduleType[];
+  itemsPerPage: number;
 };
 
-export function RepaymentScheduleDetail({ paginatedSchedules }: Props) {
+export function RepaymentScheduleDetail({
+  paginatedSchedules,
+  itemsPerPage,
+}: Props) {
+  const emptyRows = itemsPerPage - paginatedSchedules.length;
+
   return (
     <div className="rounded-lg border border-gray-200 overflow-hidden">
-      <table className="w-full caption-bottom text-sm">
+      <table className="w-full caption-bottom text-sm table-fixed">
         <thead className="[&_tr]:border-b bg-gray-50">
           <tr className="border-b transition-colors hover:bg-gray-50 data-[state=selected]:bg-muted">
-            <th className="h-12 px-4 text-left align-middle font-semibold text-gray-700 [&:has([role=checkbox])]:pr-0">
+            <th className="h-12 px-4 text-left align-middle font-semibold text-gray-700">
               支払い予定日
             </th>
-            <th className="h-12 px-4 text-left align-middle font-semibold text-gray-700 [&:has([role=checkbox])]:pr-0">
+            <th className="h-12 px-4 text-left align-middle font-semibold text-gray-700">
               支払い日
             </th>
-            <th className="h-12 px-4 text-left align-middle font-semibold text-gray-700 [&:has([role=checkbox])]:pr-0">
+            <th className="h-12 px-4 text-left align-middle font-semibold text-gray-700">
               金額(円)
             </th>
-            <th className="h-12 px-4 text-left align-middle font-semibold text-gray-700 [&:has([role=checkbox])]:pr-0">
+            <th className="h-12 px-4 text-left align-middle font-semibold text-gray-700">
               ステータス
             </th>
-            <th className="h-12 px-4 text-left align-middle font-semibold text-gray-700 [&:has([role=checkbox])]:pr-0">
+            <th className="h-12 px-4 text-left align-middle font-semibold text-gray-700">
               支払い方法
             </th>
-            <th className="h-12 px-4 text-left align-middle font-semibold text-gray-700 [&:has([role=checkbox])]:pr-0">
+            <th className="h-12 px-4 text-left align-middle font-semibold text-gray-700">
               支払い区分
             </th>
           </tr>
         </thead>
         <tbody className="[&_tr:last-child]:border-0">
+          {/* 実データ行 */}
           {paginatedSchedules.map((schedule: RepaymentScheduleType) => (
             <tr
               key={schedule.id}
-              className="border-b transition-colors hover:bg-blue-50 data-[state=selected]:bg-muted"
+              className="border-b transition-colors hover:bg-blue-50"
             >
-              <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0 font-medium">
+              <td className="p-4 align-middle font-medium">
                 <div className="flex items-center gap-2">
                   <CalendarIcon className="h-4 w-4 text-gray-500" />
                   <span className="text-gray-800">
@@ -46,7 +54,7 @@ export function RepaymentScheduleDetail({ paginatedSchedules }: Props) {
                   </span>
                 </div>
               </td>
-              <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0 font-medium">
+              <td className="p-4 align-middle font-medium">
                 <div className="flex items-center gap-2">
                   <CalendarIcon className="h-4 w-4 text-gray-500" />
                   <span className="text-gray-800">
@@ -54,12 +62,12 @@ export function RepaymentScheduleDetail({ paginatedSchedules }: Props) {
                   </span>
                 </div>
               </td>
-              <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
+              <td className="p-4 align-middle">
                 <span className="text-gray-900 font-bold">
                   {schedule.amount.toLocaleString()}
                 </span>
               </td>
-              <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
+              <td className="p-4 align-middle">
                 <Badge
                   variant="outline"
                   className={cn(
@@ -74,15 +82,46 @@ export function RepaymentScheduleDetail({ paginatedSchedules }: Props) {
                   {schedule.status}
                 </Badge>
               </td>
-              <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
+              <td className="p-4 align-middle">
                 <span className="text-gray-700">
                   {schedule.paymentMethod || "未設定"}
                 </span>
               </td>
-              <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
+              <td className="p-4 align-middle">
                 <span className="text-gray-700">
                   {schedule.paymentCategory}
                 </span>
+              </td>
+            </tr>
+          ))}
+          {/* 高さを揃えるためのダミー行 */}
+          {Array.from({ length: emptyRows }).map((_, i) => (
+            <tr key={`empty-${i}`} className="border-none">
+              <td className="p-4 align-middle font-medium">
+                <div className="flex items-center gap-2 opacity-0">
+                  <CalendarIcon className="h-4 w-4 text-gray-500" />
+                  <span>dummy</span>
+                </div>
+              </td>
+              <td className="p-4 align-middle font-medium">
+                <div className="flex items-center gap-2 opacity-0">
+                  <CalendarIcon className="h-4 w-4 text-gray-500" />
+                  <span>dummy</span>
+                </div>
+              </td>
+              <td className="p-4 align-middle">
+                <span className="font-bold opacity-0">0</span>
+              </td>
+              <td className="p-4 align-middle">
+                <Badge variant="outline" className="border opacity-0">
+                  dummy
+                </Badge>
+              </td>
+              <td className="p-4 align-middle">
+                <span className="opacity-0">dummy</span>
+              </td>
+              <td className="p-4 align-middle">
+                <span className="opacity-0">dummy</span>
               </td>
             </tr>
           ))}

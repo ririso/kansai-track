@@ -28,7 +28,7 @@ export default function ScheduleMain() {
   const [statusFilter, setStatusFilter] = useState("all");
   const [periodFilter, setPeriodFilter] = useState("all");
 
-  const itemsPerPage = 10;
+  const itemsPerPage = 5;
 
   // フィルター + 検索適用
   const filteredSchedules = useMemo(() => {
@@ -126,8 +126,10 @@ export default function ScheduleMain() {
         </div>
       </CardHeader>
 
-      <RepaymentScheduleDetail paginatedSchedules={paginatedSchedules} />
-
+      <RepaymentScheduleDetail
+        paginatedSchedules={paginatedSchedules}
+        itemsPerPage={itemsPerPage}
+      />
       <div className="p-6">
         <Pagination
           currentPage={currentPage}

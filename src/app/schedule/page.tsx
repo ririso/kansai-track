@@ -21,14 +21,14 @@ export default function SchedulePage() {
 
           <main className="flex-1 p-6 bg-white">
             <div className="max-w-7xl mx-auto">
-              <div className="mb-8 animate-fade-in">
+              {/* <div className="mb-8 animate-fade-in">
                 <h2 className="text-2xl font-bold text-gray-800 mb-2">
                   返済スケジュール管理
                 </h2>
                 <p className="text-gray-600">
                   今後の返済予定と過去の支払い履歴を確認できます。
                 </p>
-              </div>
+              </div> */}
 
               <ScheduleMain />
 

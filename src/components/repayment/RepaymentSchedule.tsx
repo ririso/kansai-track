@@ -1,4 +1,4 @@
-import { Badge } from "@/components/ui/shadcn/budge";
+import { Badge } from "@/components/ui/shadcn/badge";
 import { useRepaymentSchedule } from "@/contexts/RepaymentContext";
 import { cn } from "@/lib/utils";
 import { RepaymentScheduleType } from "@/types/repaymentScheduleType";
