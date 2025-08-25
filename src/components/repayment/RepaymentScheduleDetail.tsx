@@ -1,4 +1,4 @@
-import { Badge } from "@/components/ui/shadcn/badge"; // ← budge → badge 修正
+import { Badge } from "@/components/ui/shadcn/badge";
 import { cn } from "@/lib/utils";
 import { RepaymentScheduleType } from "@/types/repaymentScheduleType";
 import { CalendarIcon } from "lucide-react";
