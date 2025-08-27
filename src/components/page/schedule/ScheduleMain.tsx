@@ -1,5 +1,6 @@
 // Main.tsx
 "use client";
+
 import Pagination from "@/components/common/Pagination";
 import { RepaymentScheduleDetail } from "@/components/repayment/RepaymentScheduleDetail";
 import {
@@ -17,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@radix-ui/react-select";
-import { Search } from "lucide-react";
+import { Search, SortAsc, SortDesc } from "lucide-react";
 import { useMemo, useState } from "react";
 
 export default function ScheduleMain() {
@@ -27,6 +28,7 @@ export default function ScheduleMain() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [periodFilter, setPeriodFilter] = useState("all");
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
 
   const itemsPerPage = 5;
 
@@ -70,10 +72,19 @@ export default function ScheduleMain() {
     });
   }, [schedules, searchTerm, statusFilter, periodFilter]);
 
+  // 支払い予定日でソート
+  const sortedSchedules = useMemo(() => {
+    return [...filteredSchedules].sort((a, b) => {
+      const aTime = new Date(a.scheduledDate || 0).getTime();
+      const bTime = new Date(b.scheduledDate || 0).getTime();
+      return sortDirection === "asc" ? aTime - bTime : bTime - aTime;
+    });
+  }, [filteredSchedules, sortDirection]);
+
   const totalScheduleCount = filteredSchedules.length;
   const totalPages = Math.ceil(totalScheduleCount / itemsPerPage);
 
-  const paginatedSchedules = filteredSchedules.slice(
+  const paginatedSchedules = sortedSchedules.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -89,7 +100,7 @@ export default function ScheduleMain() {
           </CardDescription>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+        <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto relative">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
             <Input
@@ -123,6 +134,28 @@ export default function ScheduleMain() {
               <SelectItem value="this-year">今年</SelectItem>
             </SelectContent>
           </Select>
+
+          {/* ソートボタン */}
+          <button
+            type="button"
+            className="flex items-center gap-1 px-3 py-1 border rounded hover:bg-gray-100 transition"
+            onClick={() => {
+              setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"));
+              setCurrentPage(1); // ページをリセット
+            }}
+          >
+            {sortDirection === "asc" ? (
+              <>
+                <SortAsc className="h-4 w-4 text-blue-500" />
+                <span className="text-sm text-blue-600">昇順</span>
+              </>
+            ) : (
+              <>
+                <SortDesc className="h-4 w-4 text-red-500" />
+                <span className="text-sm text-red-600">降順</span>
+              </>
+            )}
+          </button>
         </div>
       </CardHeader>
 
