@@ -11,8 +11,7 @@ import { useRepaymentSchedule } from "@/contexts/RepaymentContext";
 import { CreditCard } from "lucide-react";
 
 export default function DashboardPage() {
-  const { schedules, isLoading, error, totalCreditAmount } =
-    useRepaymentSchedule();
+  const { isLoading, error, totalCreditAmount } = useRepaymentSchedule();
 
   if (isLoading) return <p>読み込み中...</p>;
   if (error) return <p>エラー: {error}</p>;
@@ -24,6 +23,7 @@ export default function DashboardPage() {
         <RepaymentProgress totalCreditAmount={totalCreditAmount} />
         <DashboardCard />
         <ActivityCard />
+
         <div className="flex justify-center">
           <BaseModal
             title="支払い確認"
