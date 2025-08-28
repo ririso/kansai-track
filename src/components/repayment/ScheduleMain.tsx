@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/shadcn/card";
 import { Input } from "@/components/ui/shadcn/input";
 import { useRepaymentSchedule } from "@/contexts/RepaymentContext";
+import { SortDirection } from "@/types/enums/sortDirection";
 import {
   Select,
   SelectContent,
@@ -28,7 +29,9 @@ export default function ScheduleMain() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [periodFilter, setPeriodFilter] = useState("all");
-  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
+  const [sortDirection, setSortDirection] = useState<SortDirection>(
+    SortDirection.DESC
+  );
 
   const itemsPerPage = 5;
 
@@ -140,7 +143,11 @@ export default function ScheduleMain() {
             type="button"
             className="flex items-center gap-1 px-3 py-1 border rounded hover:bg-gray-100 transition"
             onClick={() => {
-              setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"));
+              setSortDirection((prev: SortDirection) =>
+                prev === SortDirection.ASC
+                  ? SortDirection.DESC
+                  : SortDirection.ASC
+              );
               setCurrentPage(1); // ページをリセット
             }}
           >
