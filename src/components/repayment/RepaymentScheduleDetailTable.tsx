@@ -94,6 +94,8 @@ export function RepaymentScheduleDetail({
               </td>
             </tr>
           ))}
+
+          {/* ここをコンポーネント化したい */}
           {/* 高さを揃えるためのダミー行 */}
           {Array.from({ length: emptyRows }).map((_, i) => (
             <tr key={`empty-${i}`} className="border-none">
