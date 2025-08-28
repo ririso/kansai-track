@@ -1,6 +1,6 @@
 "use client";
-import ReturnLink from "@/components/common/ReturnLink";
 import RepaymentCount from "@/components/dashboard/RepaymentCount";
+import ReturnLink from "@/components/layout/ReturnLink";
 import ScheduleMain from "@/components/repayment/ScheduleMain";
 import { Card, CardContent } from "@/components/ui/shadcn/card";
 import { useRepaymentSchedule } from "@/contexts/RepaymentContext";
