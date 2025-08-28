@@ -1,4 +1,4 @@
-import { RepaymentSchedule } from "@/components/repayment/RepaymentSchedule";
+import { RepaymentSchedule } from "@/components/dashboard/RepaymentSchedule";
 import { Button } from "@/components/ui/shadcn/button";
 import {
   Card,
