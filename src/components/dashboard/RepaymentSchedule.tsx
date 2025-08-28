@@ -7,6 +7,9 @@ import { CalendarIcon } from "lucide-react";
 export function RepaymentSchedule() {
   const { schedules, isLoading, error } = useRepaymentSchedule();
 
+  const maxDisplayCount = 5;
+  const visibleSchedules = schedules.slice(0, maxDisplayCount);
+
   if (isLoading) return <p>読み込み中...</p>;
   if (error) return <p>エラー: {error}</p>;
 
@@ -36,7 +39,7 @@ export function RepaymentSchedule() {
           </tr>
         </thead>
         <tbody className="[&_tr:last-child]:border-0">
-          {schedules.map((schedule: RepaymentScheduleType) => (
+          {visibleSchedules.map((schedule: RepaymentScheduleType) => (
             <tr
               key={schedule.id}
               className="border-b transition-colors hover:bg-blue-50 data-[state=selected]:bg-muted"
