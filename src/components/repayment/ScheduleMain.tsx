@@ -2,7 +2,7 @@
 "use client";
 
 import Pagination from "@/components/common/Pagination";
-import { RepaymentScheduleDetail } from "@/components/repayment/RepaymentScheduleDetail";
+import { RepaymentScheduleDetail } from "@/components/repayment/RepaymentScheduleDetailTable";
 import {
   Card,
   CardDescription,
