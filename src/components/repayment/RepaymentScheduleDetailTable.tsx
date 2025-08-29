@@ -2,6 +2,7 @@ import { Badge } from "@/components/ui/shadcn/badge";
 import { cn } from "@/lib/utils";
 import { RepaymentScheduleType } from "@/types/repaymentScheduleType";
 import { CalendarIcon } from "lucide-react";
+import { DummyRow } from "./DummyRow";
 
 type Props = {
   paginatedSchedules: RepaymentScheduleType[];
@@ -12,7 +13,7 @@ export function RepaymentScheduleDetail({
   paginatedSchedules,
   itemsPerPage,
 }: Props) {
-  const emptyRows = itemsPerPage - paginatedSchedules.length;
+  const emptyRowCount = itemsPerPage - paginatedSchedules.length;
 
   return (
     <div className="rounded-lg border border-gray-200 overflow-hidden">
@@ -95,38 +96,8 @@ export function RepaymentScheduleDetail({
             </tr>
           ))}
 
-          {/* ここをコンポーネント化したい */}
-          {/* 高さを揃えるためのダミー行 */}
-          {Array.from({ length: emptyRows }).map((_, i) => (
-            <tr key={`empty-${i}`} className="border-none">
-              <td className="p-4 align-middle font-medium">
-                <div className="flex items-center gap-2 opacity-0">
-                  <CalendarIcon className="h-4 w-4 text-gray-500" />
-                  <span>dummy</span>
-                </div>
-              </td>
-              <td className="p-4 align-middle font-medium">
-                <div className="flex items-center gap-2 opacity-0">
-                  <CalendarIcon className="h-4 w-4 text-gray-500" />
-                  <span>dummy</span>
-                </div>
-              </td>
-              <td className="p-4 align-middle">
-                <span className="font-bold opacity-0">0</span>
-              </td>
-              <td className="p-4 align-middle">
-                <Badge variant="outline" className="border opacity-0">
-                  dummy
-                </Badge>
-              </td>
-              <td className="p-4 align-middle">
-                <span className="opacity-0">dummy</span>
-              </td>
-              <td className="p-4 align-middle">
-                <span className="opacity-0">dummy</span>
-              </td>
-            </tr>
-          ))}
+          {/* 高さを揃えるためのダミー */}
+          <DummyRow emptyRowCount={emptyRowCount} />
         </tbody>
       </table>
     </div>
