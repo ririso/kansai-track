@@ -70,8 +70,8 @@ export function RepaymentHistoryHeader({
           <SelectTrigger className="w-full sm:w-[140px] border-gray-300">
             <SelectValue placeholder="ステータス" />
           </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">すべて</SelectItem>
+          <SelectContent className="bg-white">
+            <SelectItem value="all">全て</SelectItem>
             <SelectItem value="completed">完了</SelectItem>
             <SelectItem value="scheduled">予定</SelectItem>
             <SelectItem value="overdue">遅延</SelectItem>
@@ -83,8 +83,8 @@ export function RepaymentHistoryHeader({
           <SelectTrigger className="w-full sm:w-[140px] border-gray-300">
             <SelectValue placeholder="期間" />
           </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">すべて</SelectItem>
+          <SelectContent className="bg-white">
+            <SelectItem value="all">全期間</SelectItem>
             <SelectItem value="this-month">今月</SelectItem>
             <SelectItem value="next-month">来月</SelectItem>
             <SelectItem value="this-year">今年</SelectItem>
