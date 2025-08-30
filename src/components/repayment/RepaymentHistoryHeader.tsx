@@ -13,16 +13,18 @@ import {
 } from "@/components/ui/shadcn/select";
 import { SortDirection } from "@/types/enums/sortDirection";
 
+import { RepaymentStatusFilter } from "@/types/enums/repaymentStatusFilter";
 import { Search } from "lucide-react";
 import SortButton from "./SortButton";
+import { StatusFilter } from "./StatusFilter";
 
 type RepaymentHistoryHeaderProps = {
   totalScheduleCount: number;
   totalCreditAmount: number;
   searchTerm: string;
   setSearchTerm: (value: string) => void;
-  statusFilter: string;
-  setStatusFilter: (value: string) => void;
+  statusFilter: RepaymentStatusFilter;
+  setStatusFilter: (value: RepaymentStatusFilter) => void;
   periodFilter: string;
   setPeriodFilter: (value: string) => void;
   sortDirection: SortDirection;
@@ -66,17 +68,7 @@ export function RepaymentHistoryHeader({
         </div>
 
         {/* ステータスフィルタ */}
-        <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-full sm:w-[140px] border-gray-300">
-            <SelectValue placeholder="ステータス" />
-          </SelectTrigger>
-          <SelectContent className="bg-white">
-            <SelectItem value="all">全て</SelectItem>
-            <SelectItem value="completed">完了</SelectItem>
-            <SelectItem value="scheduled">予定</SelectItem>
-            <SelectItem value="overdue">遅延</SelectItem>
-          </SelectContent>
-        </Select>
+        <StatusFilter value={statusFilter} onValueChange={setStatusFilter} />
 
         {/* 期間フィルタ */}
         <Select value={periodFilter} onValueChange={setPeriodFilter}>

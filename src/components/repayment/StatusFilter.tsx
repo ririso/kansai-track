@@ -1,0 +1,44 @@
+// export default StatusFilter funciton
+
+import { RepaymentStatusFilter } from "@/types/enums/repaymentStatusFilter";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/shadcn/select";
+
+type ScheduleSelectProps = {
+  value: RepaymentStatusFilter;
+  onValueChange: (value: RepaymentStatusFilter) => void;
+};
+
+const statusLabels: Record<RepaymentStatusFilter, string> = {
+  [RepaymentStatusFilter.ALL]: "全て",
+  [RepaymentStatusFilter.COMPLETED]: "完了",
+  [RepaymentStatusFilter.SCHEDULED]: "予定",
+  [RepaymentStatusFilter.DELAYED]: "遅延",
+};
+
+export function StatusFilter({ value, onValueChange }: ScheduleSelectProps) {
+  return (
+    <Select
+      value={value}
+      onValueChange={(val: RepaymentStatusFilter) => onValueChange(val)}
+    >
+      <SelectTrigger className="w-full sm:w-[140px] border-gray-300">
+        <SelectValue placeholder="ステータス">
+          {statusLabels[value]}
+        </SelectValue>
+      </SelectTrigger>
+      <SelectContent className="bg-white">
+        {Object.values(RepaymentStatusFilter).map((statusFilter) => (
+          <SelectItem key={statusFilter} value={statusFilter}>
+            {statusLabels[statusFilter]}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
+  );
+}

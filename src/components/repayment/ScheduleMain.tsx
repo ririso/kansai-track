@@ -5,16 +5,19 @@ import Pagination from "@/components/common/Pagination";
 import { RepaymentScheduleDetail } from "@/components/repayment/RepaymentScheduleDetailTable";
 import { Card } from "@/components/ui/shadcn/card";
 import { useRepaymentSchedule } from "@/contexts/RepaymentContext";
+import { RepaymentStatus } from "@/types/enums/repaymentStatus";
+import { RepaymentStatusFilter } from "@/types/enums/repaymentStatusFilter";
 import { SortDirection } from "@/types/enums/sortDirection";
 import { useMemo, useState } from "react";
 import { RepaymentHistoryHeader } from "./RepaymentHistoryHeader";
 
 export default function ScheduleMain() {
   const { schedules = [], totalCreditAmount } = useRepaymentSchedule();
-
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
-  const [statusFilter, setStatusFilter] = useState("all");
+  const [statusFilter, setStatusFilter] = useState<RepaymentStatusFilter>(
+    RepaymentStatusFilter.ALL
+  );
   const [periodFilter, setPeriodFilter] = useState("all");
   const [sortDirection, setSortDirection] = useState<SortDirection>(
     SortDirection.DESC
@@ -27,10 +30,13 @@ export default function ScheduleMain() {
     return schedules.filter((s) => {
       // ステータスフィルター
       const statusMatch =
-        statusFilter === "all" ||
-        (statusFilter === "completed" && s.status === "完了") ||
-        (statusFilter === "scheduled" && s.status === "予定") ||
-        (statusFilter === "overdue" && s.status === "遅延");
+        statusFilter === RepaymentStatusFilter.ALL ||
+        (statusFilter === RepaymentStatusFilter.COMPLETED &&
+          s.status === RepaymentStatus.Completed) ||
+        (statusFilter === RepaymentStatusFilter.SCHEDULED &&
+          s.status === RepaymentStatus.Scheduled) ||
+        (statusFilter === RepaymentStatusFilter.DELAYED &&
+          s.status === RepaymentStatus.Delayed);
 
       // 期間フィルター
       const today = new Date();
@@ -67,7 +73,9 @@ export default function ScheduleMain() {
     return [...filteredSchedules].sort((a, b) => {
       const aTime = new Date(a.scheduledDate || 0).getTime();
       const bTime = new Date(b.scheduledDate || 0).getTime();
-      return sortDirection === "asc" ? aTime - bTime : bTime - aTime;
+      return sortDirection === SortDirection.ASC
+        ? aTime - bTime
+        : bTime - aTime;
     });
   }, [filteredSchedules, sortDirection]);
 
