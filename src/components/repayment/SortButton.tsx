@@ -1,42 +1,41 @@
-import { RepaymentStatusFilter } from "@/types/enums/repaymentStatusFilter";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/shadcn/select";
+import { SortDirection } from "@/types/enums/sortDirection";
+import { SortAsc, SortDesc } from "lucide-react";
 
-type StatusFilterProps = {
-  value: RepaymentStatusFilter;
-  onChangeValue: (next: RepaymentStatusFilter) => void; // 名前を統一
+type SortButtonProps = {
+  sortDirection: SortDirection;
+  onChangeDirection: (nextDirection: SortDirection) => void;
 };
 
-const statusLabels: Record<RepaymentStatusFilter, string> = {
-  [RepaymentStatusFilter.ALL]: "全て",
-  [RepaymentStatusFilter.COMPLETED]: "完了",
-  [RepaymentStatusFilter.SCHEDULED]: "予定",
-  [RepaymentStatusFilter.DELAYED]: "遅延",
-};
+export default function SortButton({
+  sortDirection,
+  onChangeDirection,
+}: SortButtonProps) {
+  const handleClick = () => {
+    const nextDirection =
+      sortDirection === SortDirection.ASC
+        ? SortDirection.DESC
+        : SortDirection.ASC;
 
-export function StatusFilter({ value, onChangeValue }: StatusFilterProps) {
+    onChangeDirection(nextDirection);
+  };
+
   return (
-    <Select
-      value={value}
-      onValueChange={(val: RepaymentStatusFilter) => onChangeValue(val)}
+    <button
+      type="button"
+      className="flex items-center gap-1 px-3 py-1 border rounded hover:bg-gray-100 transition"
+      onClick={handleClick}
     >
-      <SelectTrigger className="w-full sm:w-[140px] border-gray-300">
-        <SelectValue placeholder="ステータス">
-          {statusLabels[value]}
-        </SelectValue>
-      </SelectTrigger>
-      <SelectContent className="bg-white">
-        {Object.values(RepaymentStatusFilter).map((statusFilter) => (
-          <SelectItem key={statusFilter} value={statusFilter}>
-            {statusLabels[statusFilter]}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+      {sortDirection === SortDirection.ASC ? (
+        <>
+          <SortAsc className="h-4 w-4 text-blue-500" />
+          <span className="text-sm text-blue-600">昇順</span>
+        </>
+      ) : (
+        <>
+          <SortDesc className="h-4 w-4 text-red-500" />
+          <span className="text-sm text-red-600">降順</span>
+        </>
+      )}
+    </button>
   );
 }

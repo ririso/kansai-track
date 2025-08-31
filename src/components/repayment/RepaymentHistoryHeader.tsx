@@ -6,10 +6,12 @@ import {
 import { Input } from "@/components/ui/shadcn/input";
 import { SortDirection } from "@/types/enums/sortDirection";
 
+import { RESET_PAGE } from "@/lib/constants";
 import { RepaymentPeriodFilter } from "@/types/enums/repaymentPeriodFilter";
 import { RepaymentStatusFilter } from "@/types/enums/repaymentStatusFilter";
 import { Search } from "lucide-react";
 import { PeriodFilter } from "./PeriodFilter";
+import SortButton from "./SortButton";
 import { StatusFilter } from "./StatusFilter";
 
 type RepaymentHistoryHeaderProps = {
@@ -66,16 +68,25 @@ export function RepaymentHistoryHeader({
           value={periodFilter}
           onChangeValue={(selectedStatus) => {
             setPeriodFilter(selectedStatus);
-            setCurrentPage(1);
+            setCurrentPage(RESET_PAGE);
           }}
         />
 
-        {/* ソートボタン */}
+        {/* ステータスフィルター */}
         <StatusFilter
           value={statusFilter}
           onChangeValue={(nextStatus) => {
             setStatusFilter(nextStatus);
-            setCurrentPage(1);
+            setCurrentPage(RESET_PAGE);
+          }}
+        />
+
+        {/* ソートボタン */}
+        <SortButton
+          sortDirection={sortDirection}
+          onChangeDirection={(nextDirection) => {
+            setSortDirection(nextDirection);
+            setCurrentPage(RESET_PAGE);
           }}
         />
       </div>
