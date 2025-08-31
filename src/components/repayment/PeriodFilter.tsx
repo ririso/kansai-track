@@ -9,7 +9,7 @@ import {
 
 type PeriodFilterProps = {
   value: RepaymentPeriodFilter;
-  onValueChange: (value: RepaymentPeriodFilter) => void;
+  onChangeValue: (selectedPeriod: RepaymentPeriodFilter) => void;
 };
 
 const periodLabels: Record<RepaymentPeriodFilter, string> = {
@@ -19,19 +19,19 @@ const periodLabels: Record<RepaymentPeriodFilter, string> = {
   [RepaymentPeriodFilter.THIS_YEAR]: "今年",
 };
 
-export function PeriodFilter({ value, onValueChange }: PeriodFilterProps) {
+export function PeriodFilter({ value, onChangeValue }: PeriodFilterProps) {
   return (
     <Select
       value={value}
-      onValueChange={(val: RepaymentPeriodFilter) => onValueChange(val)}
+      onValueChange={(val: RepaymentPeriodFilter) => onChangeValue(val)}
     >
       <SelectTrigger className="w-full sm:w-[140px] border-gray-300">
         <SelectValue placeholder="期間">{periodLabels[value]}</SelectValue>
       </SelectTrigger>
       <SelectContent className="bg-white">
-        {Object.values(RepaymentPeriodFilter).map((periodFilter) => (
-          <SelectItem key={periodFilter} value={periodFilter}>
-            {periodLabels[periodFilter]}
+        {Object.values(RepaymentPeriodFilter).map((period) => (
+          <SelectItem key={period} value={period}>
+            {periodLabels[period]}
           </SelectItem>
         ))}
       </SelectContent>

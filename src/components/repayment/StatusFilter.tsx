@@ -7,9 +7,9 @@ import {
   SelectValue,
 } from "../ui/shadcn/select";
 
-type ScheduleSelectProps = {
+type StatusFilterProps = {
   value: RepaymentStatusFilter;
-  onValueChange: (value: RepaymentStatusFilter) => void;
+  onChangeValue: (next: RepaymentStatusFilter) => void;
 };
 
 const statusLabels: Record<RepaymentStatusFilter, string> = {
@@ -19,11 +19,11 @@ const statusLabels: Record<RepaymentStatusFilter, string> = {
   [RepaymentStatusFilter.DELAYED]: "遅延",
 };
 
-export function StatusFilter({ value, onValueChange }: ScheduleSelectProps) {
+export function StatusFilter({ value, onChangeValue }: StatusFilterProps) {
   return (
     <Select
       value={value}
-      onValueChange={(val: RepaymentStatusFilter) => onValueChange(val)}
+      onValueChange={(val: RepaymentStatusFilter) => onChangeValue(val)}
     >
       <SelectTrigger className="w-full sm:w-[140px] border-gray-300">
         <SelectValue placeholder="ステータス">

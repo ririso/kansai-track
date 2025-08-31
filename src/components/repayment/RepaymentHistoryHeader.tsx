@@ -10,7 +10,6 @@ import { RepaymentPeriodFilter } from "@/types/enums/repaymentPeriodFilter";
 import { RepaymentStatusFilter } from "@/types/enums/repaymentStatusFilter";
 import { Search } from "lucide-react";
 import { PeriodFilter } from "./PeriodFilter";
-import SortButton from "./SortButton";
 import { StatusFilter } from "./StatusFilter";
 
 type RepaymentHistoryHeaderProps = {
@@ -62,16 +61,21 @@ export function RepaymentHistoryHeader({
           />
         </div>
 
-        {/* ステータスフィルタ */}
-        <StatusFilter value={statusFilter} onValueChange={setStatusFilter} />
-        {/* ステータスフィルタ */}
-        <PeriodFilter value={periodFilter} onValueChange={setPeriodFilter} />
+        {/* 期間フィルタ */}
+        <PeriodFilter
+          value={periodFilter}
+          onChangeValue={(selectedStatus) => {
+            setPeriodFilter(selectedStatus);
+            setCurrentPage(1);
+          }}
+        />
+
         {/* ソートボタン */}
-        <SortButton
-          sortDirection={sortDirection}
-          onChangeDirection={(nextDirection) => {
-            setSortDirection(nextDirection);
-            setCurrentPage(1); // ページをリセット
+        <StatusFilter
+          value={statusFilter}
+          onChangeValue={(nextStatus) => {
+            setStatusFilter(nextStatus);
+            setCurrentPage(1);
           }}
         />
       </div>
