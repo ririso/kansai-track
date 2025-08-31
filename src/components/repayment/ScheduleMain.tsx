@@ -5,6 +5,7 @@ import Pagination from "@/components/common/Pagination";
 import { RepaymentScheduleDetail } from "@/components/repayment/RepaymentScheduleDetailTable";
 import { Card } from "@/components/ui/shadcn/card";
 import { useRepaymentSchedule } from "@/contexts/RepaymentContext";
+import { RepaymentPeriodFilter } from "@/types/enums/repaymentPeriodFilter";
 import { RepaymentStatus } from "@/types/enums/repaymentStatus";
 import { RepaymentStatusFilter } from "@/types/enums/repaymentStatusFilter";
 import { SortDirection } from "@/types/enums/sortDirection";
@@ -18,35 +19,35 @@ export default function ScheduleMain() {
   const [statusFilter, setStatusFilter] = useState<RepaymentStatusFilter>(
     RepaymentStatusFilter.ALL
   );
-  const [periodFilter, setPeriodFilter] = useState("all");
+  const [periodFilter, setPeriodFilter] = useState<RepaymentPeriodFilter>(
+    RepaymentPeriodFilter.ALL
+  );
   const [sortDirection, setSortDirection] = useState<SortDirection>(
     SortDirection.DESC
   );
-
   const itemsPerPage = 5;
-
   // フィルター + 検索適用
   const filteredSchedules = useMemo(() => {
-    return schedules.filter((s) => {
+    return schedules.filter((schedule) => {
       // ステータスフィルター
       const statusMatch =
         statusFilter === RepaymentStatusFilter.ALL ||
         (statusFilter === RepaymentStatusFilter.COMPLETED &&
-          s.status === RepaymentStatus.Completed) ||
+          schedule.status === RepaymentStatus.Completed) ||
         (statusFilter === RepaymentStatusFilter.SCHEDULED &&
-          s.status === RepaymentStatus.Scheduled) ||
+          schedule.status === RepaymentStatus.Scheduled) ||
         (statusFilter === RepaymentStatusFilter.DELAYED &&
-          s.status === RepaymentStatus.Delayed);
+          schedule.status === RepaymentStatus.Delayed);
 
       // 期間フィルター
       const today = new Date();
-      const scheduledDate = new Date(s.scheduledDate);
+      const scheduledDate = new Date(schedule.scheduledDate);
       let periodMatch = true;
-      if (periodFilter === "this-month") {
+      if (periodFilter === RepaymentPeriodFilter.THIS_MONTH) {
         periodMatch =
           scheduledDate.getMonth() === today.getMonth() &&
           scheduledDate.getFullYear() === today.getFullYear();
-      } else if (periodFilter === "next-month") {
+      } else if (periodFilter === RepaymentPeriodFilter.NEXT_MONTH) {
         const nextMonth = new Date(
           today.getFullYear(),
           today.getMonth() + 1,
@@ -55,14 +56,14 @@ export default function ScheduleMain() {
         periodMatch =
           scheduledDate.getMonth() === nextMonth.getMonth() &&
           scheduledDate.getFullYear() === nextMonth.getFullYear();
-      } else if (periodFilter === "this-year") {
+      } else if (periodFilter === RepaymentPeriodFilter.THIS_YEAR) {
         periodMatch = scheduledDate.getFullYear() === today.getFullYear();
       }
 
       // 検索フィルター（日付・金額文字列）
       const searchMatch =
-        s.scheduledDate.includes(searchTerm) ||
-        s.amount.toString().includes(searchTerm);
+        schedule.scheduledDate.includes(searchTerm) ||
+        schedule.amount.toString().includes(searchTerm);
 
       return statusMatch && periodMatch && searchMatch;
     });

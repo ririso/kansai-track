@@ -1,5 +1,3 @@
-// export default StatusFilter funciton
-
 import { RepaymentStatusFilter } from "@/types/enums/repaymentStatusFilter";
 import {
   Select,

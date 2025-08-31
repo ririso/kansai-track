@@ -4,17 +4,12 @@ import {
   CardTitle,
 } from "@/components/ui/shadcn/card";
 import { Input } from "@/components/ui/shadcn/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/shadcn/select";
 import { SortDirection } from "@/types/enums/sortDirection";
 
+import { RepaymentPeriodFilter } from "@/types/enums/repaymentPeriodFilter";
 import { RepaymentStatusFilter } from "@/types/enums/repaymentStatusFilter";
 import { Search } from "lucide-react";
+import { PeriodFilter } from "./PeriodFilter";
 import SortButton from "./SortButton";
 import { StatusFilter } from "./StatusFilter";
 
@@ -25,8 +20,8 @@ type RepaymentHistoryHeaderProps = {
   setSearchTerm: (value: string) => void;
   statusFilter: RepaymentStatusFilter;
   setStatusFilter: (value: RepaymentStatusFilter) => void;
-  periodFilter: string;
-  setPeriodFilter: (value: string) => void;
+  periodFilter: RepaymentPeriodFilter;
+  setPeriodFilter: (value: RepaymentPeriodFilter) => void;
   sortDirection: SortDirection;
   setSortDirection: React.Dispatch<React.SetStateAction<SortDirection>>;
   setCurrentPage: (page: number) => void;
@@ -69,20 +64,8 @@ export function RepaymentHistoryHeader({
 
         {/* ステータスフィルタ */}
         <StatusFilter value={statusFilter} onValueChange={setStatusFilter} />
-
-        {/* 期間フィルタ */}
-        <Select value={periodFilter} onValueChange={setPeriodFilter}>
-          <SelectTrigger className="w-full sm:w-[140px] border-gray-300">
-            <SelectValue placeholder="期間" />
-          </SelectTrigger>
-          <SelectContent className="bg-white">
-            <SelectItem value="all">全期間</SelectItem>
-            <SelectItem value="this-month">今月</SelectItem>
-            <SelectItem value="next-month">来月</SelectItem>
-            <SelectItem value="this-year">今年</SelectItem>
-          </SelectContent>
-        </Select>
-
+        {/* ステータスフィルタ */}
+        <PeriodFilter value={periodFilter} onValueChange={setPeriodFilter} />
         {/* ソートボタン */}
         <SortButton
           sortDirection={sortDirection}
