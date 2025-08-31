@@ -4,27 +4,25 @@ import {
   CardTitle,
 } from "@/components/ui/shadcn/card";
 import { Input } from "@/components/ui/shadcn/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/shadcn/select";
 import { SortDirection } from "@/types/enums/sortDirection";
 
+import { RESET_PAGE } from "@/lib/constants";
+import { RepaymentPeriodFilter } from "@/types/enums/repaymentPeriodFilter";
+import { RepaymentStatusFilter } from "@/types/enums/repaymentStatusFilter";
 import { Search } from "lucide-react";
+import { PeriodFilter } from "./PeriodFilter";
 import SortButton from "./SortButton";
+import { StatusFilter } from "./StatusFilter";
 
 type RepaymentHistoryHeaderProps = {
   totalScheduleCount: number;
   totalCreditAmount: number;
   searchTerm: string;
   setSearchTerm: (value: string) => void;
-  statusFilter: string;
-  setStatusFilter: (value: string) => void;
-  periodFilter: string;
-  setPeriodFilter: (value: string) => void;
+  statusFilter: RepaymentStatusFilter;
+  setStatusFilter: (value: RepaymentStatusFilter) => void;
+  periodFilter: RepaymentPeriodFilter;
+  setPeriodFilter: (value: RepaymentPeriodFilter) => void;
   sortDirection: SortDirection;
   setSortDirection: React.Dispatch<React.SetStateAction<SortDirection>>;
   setCurrentPage: (page: number) => void;
@@ -65,42 +63,30 @@ export function RepaymentHistoryHeader({
           />
         </div>
 
-        {/* ステータスフィルタ */}
-        <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-full sm:w-[140px] border-gray-300">
-            <SelectValue placeholder="ステータス" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">すべて</SelectItem>
-            <SelectItem value="completed">完了</SelectItem>
-            <SelectItem value="scheduled">予定</SelectItem>
-            <SelectItem value="overdue">遅延</SelectItem>
-          </SelectContent>
-        </Select>
-
         {/* 期間フィルタ */}
-        <Select value={periodFilter} onValueChange={setPeriodFilter}>
-          <SelectTrigger className="w-full sm:w-[140px] border-gray-300">
-            <SelectValue placeholder="期間" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">すべて</SelectItem>
-            <SelectItem value="this-month">今月</SelectItem>
-            <SelectItem value="next-month">来月</SelectItem>
-            <SelectItem value="this-year">今年</SelectItem>
-          </SelectContent>
-        </Select>
+        <PeriodFilter
+          value={periodFilter}
+          onChangeValue={(selectedStatus) => {
+            setPeriodFilter(selectedStatus);
+            setCurrentPage(RESET_PAGE);
+          }}
+        />
+
+        {/* ステータスフィルター */}
+        <StatusFilter
+          value={statusFilter}
+          onChangeValue={(nextStatus) => {
+            setStatusFilter(nextStatus);
+            setCurrentPage(RESET_PAGE);
+          }}
+        />
 
         {/* ソートボタン */}
         <SortButton
           sortDirection={sortDirection}
-          onToggle={() => {
-            setSortDirection((prev: SortDirection) =>
-              prev === SortDirection.ASC
-                ? SortDirection.DESC
-                : SortDirection.ASC
-            );
-            setCurrentPage(1); // ページをリセット
+          onChangeDirection={(nextDirection) => {
+            setSortDirection(nextDirection);
+            setCurrentPage(RESET_PAGE);
           }}
         />
       </div>

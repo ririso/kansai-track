@@ -62,7 +62,7 @@ export const RepaymentProvider = ({ children }: { children: ReactNode }) => {
 
         const scheduledCount = repaymentSchedules.filter(
           (repaymentSchedule) =>
-            repaymentSchedule.status === RepaymentStatus.Pending
+            repaymentSchedule.status === RepaymentStatus.Scheduled
         ).length;
 
         const delayedCount = repaymentSchedules.filter(

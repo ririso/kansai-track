@@ -2,6 +2,7 @@ import { Badge } from "@/components/ui/shadcn/badge";
 import { useRepaymentSchedule } from "@/contexts/RepaymentContext";
 import { getClosestSchedules } from "@/lib/getClosestSchedules";
 import { cn } from "@/lib/utils";
+import { RepaymentStatus } from "@/types/enums/repaymentStatus";
 import { RepaymentScheduleType } from "@/types/repaymentScheduleType";
 import { CalendarIcon } from "lucide-react";
 
@@ -75,9 +76,9 @@ export function RepaymentSchedule() {
                   variant="outline"
                   className={cn(
                     "border",
-                    schedule.status === "完了"
+                    schedule.status === RepaymentStatus.Completed
                       ? "bg-green-50 text-green-700 border-green-200 hover:bg-green-50"
-                      : schedule.status === "遅延"
+                      : schedule.status === RepaymentStatus.Delayed
                         ? "bg-red-50 text-red-700 border-red-200 hover:bg-red-50"
                         : "bg-orange-50 text-orange-700 border-orange-200 hover:bg-orange-50"
                   )}
