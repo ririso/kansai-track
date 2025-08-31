@@ -69,12 +69,8 @@ export function RepaymentHistoryHeader({
         {/* ソートボタン */}
         <SortButton
           sortDirection={sortDirection}
-          onToggle={() => {
-            setSortDirection((prev: SortDirection) =>
-              prev === SortDirection.ASC
-                ? SortDirection.DESC
-                : SortDirection.ASC
-            );
+          onChangeDirection={(nextDirection) => {
+            setSortDirection(nextDirection);
             setCurrentPage(1); // ページをリセット
           }}
         />
