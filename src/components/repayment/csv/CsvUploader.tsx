@@ -2,13 +2,13 @@
 
 import { mapJapaneseKeysToEnglish } from "@/utils/mapJapaneseKeysToEnglish";
 // @ts-ignore
+import { Button } from "@/components/ui/shadcn/button";
 import { useRepaymentSchedule } from "@/contexts/RepaymentContext";
 import { reconcileScheduleWithCSV } from "@/utils/reconcileScheduleWithCSV";
 import Encoding from "encoding-japanese";
 import { Upload } from "lucide-react";
 import Papa from "papaparse";
 import { useRef, useState } from "react";
-import { Button } from "../ui/shadcn/button";
 
 export default function CSVUploader() {
   const [csvData, setCsvData] = useState<any[]>([]);
