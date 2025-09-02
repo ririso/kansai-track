@@ -12,6 +12,7 @@ import { useRef, useState } from "react";
 
 export default function CSVUploader() {
   const [csvData, setCsvData] = useState<any[]>([]);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
   const handleButtonClick = () => {
     fileInputRef.current?.click();
