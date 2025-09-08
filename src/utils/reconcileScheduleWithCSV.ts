@@ -26,6 +26,7 @@ export function reconcileScheduleWithCSV(
           schedule.status === RepaymentStatus.Delayed
       );
 
+      // 予定or遅延しているものを完了状態に変更する
       if (matchedCSV) {
         return {
           id: schedule.id,
@@ -40,8 +41,13 @@ export function reconcileScheduleWithCSV(
         } as repaymentScheduleTypeForCSV;
       }
 
-      // CSV に一致せず期限切れなら遅延
-      if (!schedule.paidDate && scheduleDate < today) {
+      // 遅延判定を行う
+      // 予定だったものを遅延として登録する
+      if (
+        schedule.status === RepaymentStatus.Scheduled &&
+        !schedule.paidDate &&
+        scheduleDate < today
+      ) {
         return {
           id: schedule.id,
           amount: schedule.amount,
