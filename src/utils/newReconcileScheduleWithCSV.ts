@@ -5,7 +5,7 @@ import { RepaymentScheduleType } from "@/types/repaymentScheduleType";
 import { repaymentScheduleTypeForCSV } from "@/types/repaymentScheduleTypeForCSV";
 import { Transaction } from "@/types/transaction";
 
-export function reconcileScheduleWithCSV(
+export function newReconcileScheduleWithCSV(
   csvRecords: Transaction[],
   schedules: RepaymentScheduleType[]
 ): repaymentScheduleTypeForCSV[] {
@@ -18,15 +18,12 @@ export function reconcileScheduleWithCSV(
       // CSV で一致するものを検索
       const matchedCSV = csvRecords.find(
         (csv) =>
-          (csv.credit === schedule.amount &&
-            new Date(csv.paidDate).getFullYear() ===
-              scheduleDate.getFullYear() &&
-            new Date(csv.paidDate).getMonth() === scheduleDate.getMonth() &&
-            schedule.status === RepaymentStatus.Scheduled) ||
-          schedule.status === RepaymentStatus.Delayed
+          csv.credit === schedule.amount &&
+          new Date(csv.paidDate).getFullYear() === scheduleDate.getFullYear() &&
+          new Date(csv.paidDate).getMonth() === scheduleDate.getMonth() &&
+          schedule.status === RepaymentStatus.Scheduled
       );
 
-      // 予定or遅延しているものを完了状態に変更する
       if (matchedCSV) {
         return {
           id: schedule.id,
@@ -34,20 +31,15 @@ export function reconcileScheduleWithCSV(
           paidDate: matchedCSV.paidDate,
           scheduledDate: schedule.scheduledDate,
           status: RepaymentStatus.Completed,
-          beforeStatus: schedule.status,
+          beforeStatus: RepaymentStatus.Scheduled,
           paymentMethod: PaymentMethod.BankTransfer,
           paymentCategory: PaymentCategory.Normal,
           hasCSVUpdate: true,
         } as repaymentScheduleTypeForCSV;
       }
 
-      // 遅延判定を行う
-      // 予定だったものを遅延として登録する
-      if (
-        schedule.status === RepaymentStatus.Scheduled &&
-        !schedule.paidDate &&
-        scheduleDate < today
-      ) {
+      // CSV に一致せず期限切れなら遅延
+      if (!schedule.paidDate && scheduleDate < today) {
         return {
           id: schedule.id,
           amount: schedule.amount,
