@@ -9,6 +9,7 @@ import RepaymentSummary from "@/components/dashboard/RepaymentSummary";
 import { Button } from "@/components/ui/shadcn/button";
 import { useRepaymentSchedule } from "@/contexts/RepaymentContext";
 import { CreditCard } from "lucide-react";
+import RepaymentHistoryArea from "./RepaymentHistoryArea";
 
 export default function DashboardPage() {
   const { isLoading, error, totalCreditAmount } = useRepaymentSchedule();
@@ -21,7 +22,11 @@ export default function DashboardPage() {
       <div className="grid gap-6">
         <RepaymentSummary totalCreditAmount={totalCreditAmount} />
         <RepaymentProgress totalCreditAmount={totalCreditAmount} />
-        <DashboardCard />
+
+        <div className="grid gap-6 lg:grid-cols-3">
+          <DashboardCard />
+          <RepaymentHistoryArea />
+        </div>
         <ActivityCard />
 
         <div className="flex justify-center">

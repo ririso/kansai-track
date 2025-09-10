@@ -13,5 +13,5 @@ export async function fetchRepaymentHistory() {
 
   const data = await res.json();
   console.log(data);
-  return data;
+  return data.repaymentHistories;
 }
