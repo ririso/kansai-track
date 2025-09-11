@@ -39,7 +39,11 @@ export function newReconcileScheduleWithCSV(
       }
 
       // CSV に一致せず期限切れなら遅延
-      if (!schedule.paidDate && scheduleDate < today) {
+      if (
+        !schedule.paidDate &&
+        scheduleDate < today &&
+        schedule.status === RepaymentStatus.Scheduled
+      ) {
         return {
           id: schedule.id,
           amount: schedule.amount,
