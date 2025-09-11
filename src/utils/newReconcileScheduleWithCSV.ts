@@ -18,10 +18,12 @@ export function newReconcileScheduleWithCSV(
       // CSV で一致するものを検索
       const matchedCSV = csvRecords.find(
         (csv) =>
-          csv.credit === schedule.amount &&
-          new Date(csv.paidDate).getFullYear() === scheduleDate.getFullYear() &&
-          new Date(csv.paidDate).getMonth() === scheduleDate.getMonth() &&
-          schedule.status === RepaymentStatus.Scheduled
+          (csv.credit === schedule.amount &&
+            new Date(csv.paidDate).getFullYear() ===
+              scheduleDate.getFullYear() &&
+            new Date(csv.paidDate).getMonth() === scheduleDate.getMonth() &&
+            schedule.status === RepaymentStatus.Scheduled) ||
+          schedule.status === RepaymentStatus.Delayed
       );
 
       if (matchedCSV) {
@@ -31,7 +33,7 @@ export function newReconcileScheduleWithCSV(
           paidDate: matchedCSV.paidDate,
           scheduledDate: schedule.scheduledDate,
           status: RepaymentStatus.Completed,
-          beforeStatus: RepaymentStatus.Scheduled,
+          beforeStatus: schedule.status,
           paymentMethod: PaymentMethod.BankTransfer,
           paymentCategory: PaymentCategory.Normal,
           hasCSVUpdate: true,
