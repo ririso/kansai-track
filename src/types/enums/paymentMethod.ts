@@ -1,4 +1,4 @@
 export enum PaymentMethod {
-  BankTransfer = "振り込み",
+  BankTransfer = "銀行振込",
   Cash = "手渡し",
 }
