@@ -1,4 +1,7 @@
 import { useRepaymentSchedule } from "@/contexts/RepaymentContext";
+import { cn } from "@/lib/utils";
+import { RepaymentStatus } from "@/types/enums/repaymentStatus";
+import { Badge } from "../ui/shadcn/badge";
 import { Card, CardContent } from "../ui/shadcn/card";
 
 export function RepaymentHistory() {
@@ -17,17 +20,47 @@ export function RepaymentHistory() {
                 <p className="text-sm font-medium text-gray-900 truncate">
                   {repaymentHistory.updatedAt || "-"}
                 </p>
-                <p className="text-sm text-gray-600">
-                  {repaymentHistory.status || "-"}
-                </p>
+                <div className="flex items-center gap-1 text-xs">
+                  <Badge
+                    variant="outline"
+                    className={cn(
+                      "border",
+                      repaymentHistory.beforeStatus ===
+                        RepaymentStatus.Completed
+                        ? "bg-green-50 text-green-700 border-green-200 hover:bg-green-50"
+                        : repaymentHistory.beforeStatus ===
+                            RepaymentStatus.Delayed
+                          ? "bg-red-50 text-red-700 border-red-200 hover:bg-red-50"
+                          : "bg-orange-50 text-orange-700 border-orange-200 hover:bg-orange-50"
+                    )}
+                  >
+                    {repaymentHistory.beforeStatus}
+                  </Badge>
+                  <span>から</span>
+                  <Badge
+                    variant="outline"
+                    className={cn(
+                      "border",
+                      repaymentHistory.status === RepaymentStatus.Completed
+                        ? "bg-green-50 text-green-700 border-green-200 hover:bg-green-50"
+                        : repaymentHistory.status === RepaymentStatus.Delayed
+                          ? "bg-red-50 text-red-700 border-red-200 hover:bg-red-50"
+                          : "bg-orange-50 text-orange-700 border-orange-200 hover:bg-orange-50"
+                    )}
+                  >
+                    {repaymentHistory.status}
+                  </Badge>
+                  <span>に変更</span>
+                </div>
               </div>
+              {/* TODO:支払い区分表示したらいいかも */}
               <div className="text-right">
                 <p className="text-sm font-bold text-gray-900">
                   ¥{repaymentHistory.amount.toLocaleString()}
                 </p>
-                <p className="text-xs text-green-600 font-medium">
+                {/* <p className="text-xs text-green-600 font-medium">
                   変更前ステータス：{repaymentHistory.beforeStatus}
-                </p>
+                </p> */}
               </div>
             </div>
           </CardContent>
