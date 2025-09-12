@@ -18,7 +18,7 @@ export function RepaymentHistory() {
                   {repaymentHistory.updatedAt || "-"}
                 </p>
                 <p className="text-sm text-gray-600">
-                  {repaymentHistory.newStatus || "-"}
+                  {repaymentHistory.status || "-"}
                 </p>
               </div>
               <div className="text-right">
@@ -26,7 +26,7 @@ export function RepaymentHistory() {
                   ¥{repaymentHistory.amount.toLocaleString()}
                 </p>
                 <p className="text-xs text-green-600 font-medium">
-                  {repaymentHistory.newStatus}
+                  変更前ステータス：{repaymentHistory.beforeStatus}
                 </p>
               </div>
             </div>
