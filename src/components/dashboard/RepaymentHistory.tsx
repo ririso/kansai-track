@@ -18,7 +18,16 @@ export function RepaymentHistory() {
             <div className="flex items-center justify-between gap-3">
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-gray-900 truncate">
-                  {repaymentHistory.updatedAt || "-"}
+                  {repaymentHistory.updatedAt
+                    ? new Date(repaymentHistory.updatedAt).toLocaleDateString(
+                        "ja-JP",
+                        {
+                          year: "numeric",
+                          month: "2-digit",
+                          day: "2-digit",
+                        }
+                      )
+                    : "-"}
                 </p>
                 <div className="flex items-center gap-1 text-xs">
                   <Badge
