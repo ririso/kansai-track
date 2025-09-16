@@ -1,7 +1,9 @@
 "use client";
 
+import { fetchRepaymentHistory } from "@/lib/api/getRepaymentHistory";
 import { getRepaymentSchedule } from "@/lib/api/getRepaymentSchedule";
 import { RepaymentStatus } from "@/types/enums/repaymentStatus";
+import { RepaymentHistoryType } from "@/types/repaymentHistoryType";
 import { RepaymentScheduleType } from "@/types/repaymentScheduleType";
 import {
   createContext,
@@ -13,6 +15,7 @@ import {
 
 type RepaymentContextType = {
   schedules: RepaymentScheduleType[];
+  repaymentHistories: RepaymentHistoryType[];
   isLoading: boolean;
   error: string | null;
   totalCreditAmount: number;
@@ -28,6 +31,9 @@ const RepaymentContext = createContext<RepaymentContextType | undefined>(
 
 export const RepaymentProvider = ({ children }: { children: ReactNode }) => {
   const [schedules, setSchedules] = useState<RepaymentScheduleType[]>([]);
+  const [repaymentHistories, setRepaymentHistories] = useState<
+    RepaymentHistoryType[]
+  >([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [totalCreditAmount, setTotalCreditAmount] = useState<number>(0);
@@ -70,6 +76,10 @@ export const RepaymentProvider = ({ children }: { children: ReactNode }) => {
             repaymentSchedule.status === RepaymentStatus.Delayed
         ).length;
 
+        const repaymentHistories: RepaymentHistoryType[] =
+          await fetchRepaymentHistory();
+
+        setRepaymentHistories(repaymentHistories);
         setCompletedScheduleCount(completedCount);
         setScheduledScheduleCount(scheduledCount);
         setDelayedScheduleCount(delayedCount);
@@ -87,6 +97,7 @@ export const RepaymentProvider = ({ children }: { children: ReactNode }) => {
     <RepaymentContext.Provider
       value={{
         schedules,
+        repaymentHistories,
         isLoading,
         error,
         totalCreditAmount,
