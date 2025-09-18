@@ -28,14 +28,9 @@
 
 - ✅ `src/components/repayment/PeriodFilter.tsx`
 
-- 📋 `src/components/repayment/StatusFilter.tsx`
-  - ステータスフィルタリング機能のテスト
-  - フィルタ選択時のコールバックテスト
+- ✅ `src/components/repayment/StatusFilter.tsx`
 
-- 📋 `src/components/repayment/csv/CsvUploader.tsx`
-  - ファイルアップロード機能のテスト
-  - CSVファイルの検証テスト
-  - エラーハンドリングのテスト
+- ✅ `src/components/repayment/csv/CsvUploader.tsx`
 
 ## 中優先度（UIコンポーネント）
 

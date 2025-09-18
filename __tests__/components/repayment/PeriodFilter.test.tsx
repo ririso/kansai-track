@@ -18,7 +18,7 @@ jest.mock("@/components/ui/shadcn/select", () => ({
     <div data-testid="select-wrapper">
       <div data-testid="select-value">{value}</div>
       <div
-        data-testid="select-trigger"
+        data-testid="select-main-trigger"
         onClick={() => {
           // テスト用にクリックで値を変更
           if (onValueChange && value === "ALL") {
@@ -64,7 +64,7 @@ describe("PeriodFilter component", () => {
       />
     );
 
-    expect(screen.getByText("全期間")).toBeInTheDocument();
+    expect(screen.getByTestId("select-display-value")).toHaveTextContent("全期間");
   });
 
   it("今月が選択された状態で表示される", () => {
@@ -75,7 +75,7 @@ describe("PeriodFilter component", () => {
       />
     );
 
-    expect(screen.getByText("今月")).toBeInTheDocument();
+    expect(screen.getByTestId("select-display-value")).toHaveTextContent("今月");
   });
 
   it("来月が選択された状態で表示される", () => {
@@ -86,7 +86,7 @@ describe("PeriodFilter component", () => {
       />
     );
 
-    expect(screen.getByText("来月")).toBeInTheDocument();
+    expect(screen.getByTestId("select-display-value")).toHaveTextContent("来月");
   });
 
   it("今年が選択された状態で表示される", () => {
@@ -97,7 +97,7 @@ describe("PeriodFilter component", () => {
       />
     );
 
-    expect(screen.getByText("今年")).toBeInTheDocument();
+    expect(screen.getByTestId("select-display-value")).toHaveTextContent("今年");
   });
 
   it("全ての期間オプションが表示される", () => {
@@ -122,7 +122,7 @@ describe("PeriodFilter component", () => {
       />
     );
 
-    const trigger = screen.getByTestId("select-trigger");
+    const trigger = screen.getByTestId("select-main-trigger");
     fireEvent.click(trigger);
 
     expect(mockOnChangeValue).toHaveBeenCalledWith("THIS_MONTH");
