@@ -13,36 +13,20 @@
 ## 高優先度（機能コンポーネント）
 
 ### Dashboard関連
-- 📋 `src/components/dashboard/ActivityCard.tsx`
-  - タブ切り替え機能のテスト
-  - カードレイアウトの表示テスト
-  - RecentActivityコンポーネントとの連携テスト
+- ✅ `src/components/dashboard/ActivityCard.tsx`
 
-- 📋 `src/components/dashboard/DashboardCard.tsx`
-  - プロパティ（title, children等）の表示テスト
-  - カードスタイルの適用テスト
+- ✅ `src/components/dashboard/DashboardCard.tsx`
 
-- 📋 `src/components/dashboard/RepaymentCount.tsx`
-  - 返済回数の表示テスト
-  - 数値フォーマットのテスト
+- ✅ `src/components/dashboard/RepaymentCount.tsx`
 
-- 📋 `src/components/dashboard/RepaymentProgress.tsx`
-  - プログレスバーの表示テスト
-  - 進捗率の計算・表示テスト
+- ✅ `src/components/dashboard/RepaymentProgress.tsx`
 
-- 📋 `src/components/dashboard/RepaymentSummary.tsx`
-  - サマリー情報の表示テスト
-  - 金額フォーマットのテスト
+- ✅ `src/components/dashboard/RepaymentSummary.tsx`
 
 ### Repayment関連
-- 📋 `src/components/repayment/SortButton.tsx`
-  - ソート方向の切り替えテスト
-  - アイコンと表示テキストの変更テスト
-  - onChangeDirectionコールバックのテスト
+- ✅ `src/components/repayment/SortButton.tsx`
 
-- 📋 `src/components/repayment/PeriodFilter.tsx`
-  - 期間フィルタリング機能のテスト
-  - フィルタ選択時のコールバックテスト
+- ✅ `src/components/repayment/PeriodFilter.tsx`
 
 - 📋 `src/components/repayment/StatusFilter.tsx`
   - ステータスフィルタリング機能のテスト
