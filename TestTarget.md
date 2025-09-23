@@ -35,28 +35,15 @@
 ## 中優先度（UIコンポーネント）
 
 ### Shadcn UI関連
-- 📋 `src/components/ui/shadcn/card.tsx`
-  - Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter の表示テスト
-  - className プロパティの適用テスト
-  - forwardRef の動作テスト
+- ✅ `src/components/ui/shadcn/card.tsx`
 
-- 📋 `src/components/ui/shadcn/input.tsx`
-  - 基本入力機能のテスト
-  - バリデーション機能のテスト
-  - disabled状態のテスト
+- ✅ `src/components/ui/shadcn/input.tsx`
 
-- 📋 `src/components/ui/shadcn/select.tsx`
-  - 選択機能のテスト
-  - オプション表示のテスト
-  - 選択変更時のコールバックテスト
+- ✅ `src/components/ui/shadcn/select.tsx`
 
-- 📋 `src/components/ui/shadcn/table.tsx`
-  - テーブル構造の表示テスト
-  - レスポンシブ対応のテスト
+- ✅ `src/components/ui/shadcn/table.tsx`
 
-- 📋 `src/components/ui/shadcn/tabs.tsx`
-  - タブ切り替え機能のテスト
-  - アクティブタブの表示テスト
+- ✅ `src/components/ui/shadcn/tabs.tsx`
 
 ## 低優先度（表示中心・複雑なコンポーネント）
 
