@@ -48,56 +48,56 @@
 ## 低優先度（表示中心・複雑なコンポーネント）
 
 ### Dashboard関連
-- 📋 `src/components/dashboard/DashboardMain.tsx`
+- ✅ `src/components/dashboard/DashboardMain.tsx`
   - メインレイアウトの表示テスト
   - 子コンポーネントとの連携テスト
 
-- 📋 `src/components/dashboard/RepaymentHistory.tsx`
+- ✅ `src/components/dashboard/RepaymentHistory.tsx`
   - 履歴データの表示テスト
   - ページネーションとの連携テスト
 
-- 📋 `src/components/dashboard/RepaymentHistoryArea.tsx`
+- ✅ `src/components/dashboard/RepaymentHistoryArea.tsx`
   - 履歴エリアの表示テスト
 
-- 📋 `src/components/dashboard/RepaymentScheduleTable.tsx`
+- ✅ `src/components/dashboard/RepaymentScheduleTable.tsx`
   - スケジュールテーブルの表示テスト
   - データソートのテスト
 
 ### Repayment関連
-- 📋 `src/components/repayment/RepaymentHistoryHeader.tsx`
+- ✅ `src/components/repayment/RepaymentHistoryHeader.tsx`
   - ヘッダー情報の表示テスト
 
-- 📋 `src/components/repayment/RepaymentScheduleDetailTable.tsx`
+- ✅ `src/components/repayment/RepaymentScheduleDetailTable.tsx`
   - 詳細テーブルの表示テスト
   - フィルタリング機能のテスト
 
-- 📋 `src/components/repayment/ScheduleMain.tsx`
+- ✅ `src/components/repayment/ScheduleMain.tsx`
   - メインスケジュール画面の表示テスト
 
-- 📋 `src/components/repayment/DummyRow.tsx`
+- ✅ `src/components/repayment/DummyRow.tsx`
   - ダミーデータ行の表示テスト
 
 ### その他UI関連
-- 📋 `src/components/ui/shadcn/avatar.tsx`
+- ✅ `src/components/ui/shadcn/avatar.tsx`
   - アバター表示のテスト
   - フォールバック表示のテスト
 
-- 📋 `src/components/ui/shadcn/badge.tsx`
+- ✅ `src/components/ui/shadcn/badge.tsx`
   - バッジの表示テスト
   - バリアント（色・サイズ）のテスト
 
-- 📋 `src/components/ui/shadcn/dialog.tsx`
+- ✅ `src/components/ui/shadcn/dialog.tsx`
   - ダイアログの開閉テスト
   - オーバーレイ機能のテスト
 
-- 📋 `src/components/ui/shadcn/dropdown-menu.tsx`
+- ✅ `src/components/ui/shadcn/dropdown-menu.tsx`
   - ドロップダウンメニューの表示・選択テスト
 
-- 📋 `src/components/ui/shadcn/label.tsx`
+- ✅ `src/components/ui/shadcn/label.tsx`
   - ラベルの表示テスト
   - フォーム要素との関連付けテスト
 
-- 📋 `src/components/ui/shadcn/progress.tsx`
+- ✅ `src/components/ui/shadcn/progress.tsx`
   - プログレスバーの表示・進捗テスト
 
 ## テスト作成時の注意事項
