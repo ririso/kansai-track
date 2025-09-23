@@ -74,31 +74,20 @@
 - 📋 `src/components/repayment/ScheduleMain.tsx`
   - メインスケジュール画面の表示テスト
 
-- 📋 `src/components/repayment/DummyRow.tsx`
-  - ダミーデータ行の表示テスト
+- ✅ `src/components/repayment/DummyRow.tsx`
 
 ### その他UI関連
-- 📋 `src/components/ui/shadcn/avatar.tsx`
-  - アバター表示のテスト
-  - フォールバック表示のテスト
+- ✅ `src/components/ui/shadcn/avatar.tsx`
 
-- 📋 `src/components/ui/shadcn/badge.tsx`
-  - バッジの表示テスト
-  - バリアント（色・サイズ）のテスト
+- ✅ `src/components/ui/shadcn/badge.tsx`
 
-- 📋 `src/components/ui/shadcn/dialog.tsx`
-  - ダイアログの開閉テスト
-  - オーバーレイ機能のテスト
+- ✅ `src/components/ui/shadcn/dialog.tsx`
 
-- 📋 `src/components/ui/shadcn/dropdown-menu.tsx`
-  - ドロップダウンメニューの表示・選択テスト
+- ✅ `src/components/ui/shadcn/dropdown-menu.tsx`
 
-- 📋 `src/components/ui/shadcn/label.tsx`
-  - ラベルの表示テスト
-  - フォーム要素との関連付けテスト
+- ✅ `src/components/ui/shadcn/label.tsx`
 
-- 📋 `src/components/ui/shadcn/progress.tsx`
-  - プログレスバーの表示・進捗テスト
+- ✅ `src/components/ui/shadcn/progress.tsx`
 
 ## テスト作成時の注意事項
 
