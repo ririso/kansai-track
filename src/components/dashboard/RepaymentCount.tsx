@@ -1,90 +1,47 @@
-import { TOTAL_SCHOLARSHIP_AMOUNT } from "@/app/constants/scholarship";
 import { useRepaymentSchedule } from "@/contexts/RepaymentContext";
 import { AlertTriangle, CalendarIcon, CheckCircle, Clock } from "lucide-react";
-import { Card, CardContent } from "../ui/shadcn/card";
-
-// Propsの型を定義
-type Props = {
-  totalCreditAmount: number;
-};
+import { StatisticCard } from "../ui/StatisticCard";
 
 export default function RepaymentCount() {
   const {
-    totalCreditAmount,
     totalScheduleCount,
     completedScheduleCount,
     scheduledScheduleCount,
     delayedScheduleCount,
   } = useRepaymentSchedule();
-  const remainingAmount = TOTAL_SCHOLARSHIP_AMOUNT - totalCreditAmount;
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 ">
-      <Card className="border-0 card-hover animate-fade-in bg-white">
-        <CardContent className="pt-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600 mb-1">
-                総スケジュール数
-              </p>
-              <p className="text-2xl font-bold text-gray-900">
-                {totalScheduleCount}
-              </p>
-            </div>
-            <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center">
-              <CalendarIcon className="h-6 w-6 text-blue-600" />
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      <StatisticCard
+        title="総スケジュール数"
+        value={totalScheduleCount}
+        icon={CalendarIcon}
+        iconColor="blue"
+      />
 
-      <Card className="border-0 card-hover animate-fade-in bg-white">
-        <CardContent className="pt-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600 mb-1">完了済み</p>
-              <p className="text-2xl font-bold text-green-600">
-                {completedScheduleCount}件
-              </p>
-            </div>
-            <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center">
-              <CheckCircle className="h-6 w-6 text-green-600" />
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      <StatisticCard
+        title="完了済み"
+        value={`${completedScheduleCount}件`}
+        icon={CheckCircle}
+        iconColor="green"
+        valueColor="text-green-600"
+      />
 
-      <Card className="border-0 card-hover animate-fade-in bg-white">
-        <CardContent className="pt-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600 mb-1">予定</p>
-              <p className="text-2xl font-bold text-orange-600">
-                {scheduledScheduleCount}件
-              </p>
-            </div>
-            <div className="h-12 w-12 rounded-full bg-orange-100 flex items-center justify-center">
-              <Clock className="h-6 w-6 text-orange-600" />
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      <StatisticCard
+        title="予定"
+        value={`${scheduledScheduleCount}件`}
+        icon={Clock}
+        iconColor="orange"
+        valueColor="text-orange-600"
+      />
 
-      <Card className="border-0 card-hover animate-fade-in bg-white">
-        <CardContent className="pt-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600 mb-1">遅延</p>
-              <p className="text-2xl font-bold text-red-600">
-                {delayedScheduleCount}件
-              </p>
-            </div>
-            <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center">
-              <AlertTriangle className="text-red-600 font-bold text-lg" />
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      <StatisticCard
+        title="遅延"
+        value={`${delayedScheduleCount}件`}
+        icon={AlertTriangle}
+        iconColor="red"
+        valueColor="text-red-600"
+      />
     </div>
   );
 }

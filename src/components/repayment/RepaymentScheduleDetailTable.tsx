@@ -1,9 +1,5 @@
-import { Badge } from "@/components/ui/shadcn/badge";
-import { cn } from "@/lib/utils";
-import { RepaymentStatus } from "@/types/enums/repaymentStatus";
 import { RepaymentScheduleType } from "@/types/repaymentScheduleType";
-import { CalendarIcon } from "lucide-react";
-import { DummyRow } from "./DummyRow";
+import { RepaymentTable } from "../ui/RepaymentTable";
 
 type Props = {
   paginatedSchedules: RepaymentScheduleType[];
@@ -14,93 +10,12 @@ export function RepaymentScheduleDetail({
   paginatedSchedules,
   itemsPerPage,
 }: Props) {
-  const emptyRowCount = itemsPerPage - paginatedSchedules.length;
-
   return (
-    <div className="rounded-lg border border-gray-200 overflow-hidden">
-      <table className="w-full caption-bottom text-sm table-fixed">
-        <thead className="[&_tr]:border-b bg-gray-50">
-          <tr className="border-b transition-colors hover:bg-gray-50 data-[state=selected]:bg-muted">
-            <th className="h-12 px-4 text-left align-middle font-semibold text-gray-700">
-              支払い予定日
-            </th>
-            <th className="h-12 px-4 text-left align-middle font-semibold text-gray-700">
-              支払い日
-            </th>
-            <th className="h-12 px-4 text-left align-middle font-semibold text-gray-700">
-              金額(円)
-            </th>
-            <th className="h-12 px-4 text-left align-middle font-semibold text-gray-700">
-              ステータス
-            </th>
-            <th className="h-12 px-4 text-left align-middle font-semibold text-gray-700">
-              支払い方法
-            </th>
-            <th className="h-12 px-4 text-left align-middle font-semibold text-gray-700">
-              支払い区分
-            </th>
-          </tr>
-        </thead>
-        <tbody className="[&_tr:last-child]:border-0">
-          {/* 実データ行 */}
-          {paginatedSchedules.map((schedule: RepaymentScheduleType) => (
-            <tr
-              key={schedule.id}
-              className="border-b transition-colors hover:bg-blue-50"
-            >
-              <td className="p-4 align-middle font-medium">
-                <div className="flex items-center gap-2">
-                  <CalendarIcon className="h-4 w-4 text-gray-500" />
-                  <span className="text-gray-800">
-                    {schedule.scheduledDate || "-"}
-                  </span>
-                </div>
-              </td>
-              <td className="p-4 align-middle font-medium">
-                <div className="flex items-center gap-2">
-                  <CalendarIcon className="h-4 w-4 text-gray-500" />
-                  <span className="text-gray-800">
-                    {schedule.paidDate || "-"}
-                  </span>
-                </div>
-              </td>
-              <td className="p-4 align-middle">
-                <span className="text-gray-900 font-bold">
-                  {schedule.amount.toLocaleString()}
-                </span>
-              </td>
-              <td className="p-4 align-middle">
-                <Badge
-                  variant="outline"
-                  className={cn(
-                    "border",
-                    schedule.status === RepaymentStatus.Completed
-                      ? "bg-green-50 text-green-700 border-green-200 hover:bg-green-50"
-                      : schedule.status === RepaymentStatus.Delayed
-                        ? "bg-red-50 text-red-700 border-red-200 hover:bg-red-50"
-                        : "bg-orange-50 text-orange-700 border-orange-200 hover:bg-orange-50"
-                  )}
-                >
-                  {schedule.status}
-                </Badge>
-              </td>
-              <td className="p-4 align-middle">
-                <span className="text-gray-700">
-                  {schedule.paymentMethod || "未設定"}
-                </span>
-              </td>
-              <td className="p-4 align-middle">
-                <span className="text-gray-700">
-                  {schedule.paymentCategory}
-                </span>
-              </td>
-            </tr>
-          ))}
-
-          {/* 高さを揃えるためのダミー */}
-          <DummyRow emptyRowCount={emptyRowCount} />
-        </tbody>
-      </table>
-    </div>
+    <RepaymentTable
+      schedules={paginatedSchedules}
+      showDummyRows={true}
+      itemsPerPage={itemsPerPage}
+      tableFixed={true}
+    />
   );
 }
