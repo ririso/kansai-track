@@ -74,20 +74,16 @@
 - 📋 `src/components/repayment/ScheduleMain.tsx`
   - メインスケジュール画面の表示テスト
 
-- 📋 `src/components/repayment/DummyRow.tsx`
-  - ダミーデータ行の表示テスト
+- ✅ `src/components/repayment/DummyRow.tsx`
 
 ### その他UI関連
 - ✅ `src/components/ui/shadcn/avatar.tsx`
 
 - ✅ `src/components/ui/shadcn/badge.tsx`
 
-- 📋 `src/components/ui/shadcn/dialog.tsx`
-  - ダイアログの開閉テスト
-  - オーバーレイ機能のテスト
+- ✅ `src/components/ui/shadcn/dialog.tsx`
 
-- 📋 `src/components/ui/shadcn/dropdown-menu.tsx`
-  - ドロップダウンメニューの表示・選択テスト
+- ✅ `src/components/ui/shadcn/dropdown-menu.tsx`
 
 - ✅ `src/components/ui/shadcn/label.tsx`
 
