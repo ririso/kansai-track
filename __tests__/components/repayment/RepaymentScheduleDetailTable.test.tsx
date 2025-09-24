@@ -330,8 +330,9 @@ describe("RepaymentScheduleDetail component", () => {
         />
       );
 
-      const dummyRow = screen.getByTestId("dummy-row");
-      expect(dummyRow).toHaveAttribute("data-empty-count", "0"); // 5 - 5 = 0
+      // フルページの場合はダミー行は表示されない（emptyRowCount = 0）
+      const dummyRow = screen.queryByTestId("dummy-row");
+      expect(dummyRow).not.toBeInTheDocument();
     });
   });
 
