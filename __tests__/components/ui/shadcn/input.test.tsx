@@ -20,7 +20,9 @@ describe("Input component", () => {
     render(<Input data-testid="input" />);
 
     const input = screen.getByTestId("input");
-    expect(input).toHaveAttribute("type", "text");
+    // HTMLのinput要素はtypeが指定されない場合、デフォルトでtextとして動作する
+    expect(input.getAttribute("type")).toBe(null); // 明示的に指定されていない場合はnull
+    expect(input).toHaveProperty("type", "text"); // 実際のHTML要素のプロパティはtext
   });
 
   it("カスタムtypeが適用される", () => {

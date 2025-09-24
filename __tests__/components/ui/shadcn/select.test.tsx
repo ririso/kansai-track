@@ -43,25 +43,23 @@ jest.mock("@radix-ui/react-select", () => ({
       {children}
     </span>
   ),
-  Trigger: React.forwardRef(({ children, className, ...props }: any, ref) => (
+  Trigger: ({ children, className, ...props }: any) => (
     <button
-      ref={ref}
       data-testid="select-trigger"
       className={className}
       {...props}
     >
       {children}
     </button>
-  )),
+  ),
   Icon: ({ children }: any) => (
     <span data-testid="select-icon">{children}</span>
   ),
   Portal: ({ children }: any) => (
     <div data-testid="select-portal">{children}</div>
   ),
-  Content: React.forwardRef(({ children, className, position, ...props }: any, ref) => (
+  Content: ({ children, className, position, ...props }: any) => (
     <div
-      ref={ref}
       data-testid="select-content"
       data-position={position}
       className={className}
@@ -69,45 +67,41 @@ jest.mock("@radix-ui/react-select", () => ({
     >
       {children}
     </div>
-  )),
+  ),
   Viewport: ({ children, className, ...props }: any) => (
     <div data-testid="select-viewport" className={className} {...props}>
       {children}
     </div>
   ),
-  ScrollUpButton: React.forwardRef(({ children, className, ...props }: any, ref) => (
+  ScrollUpButton: ({ children, className, ...props }: any) => (
     <div
-      ref={ref}
       data-testid="select-scroll-up"
       className={className}
       {...props}
     >
       {children}
     </div>
-  )),
-  ScrollDownButton: React.forwardRef(({ children, className, ...props }: any, ref) => (
+  ),
+  ScrollDownButton: ({ children, className, ...props }: any) => (
     <div
-      ref={ref}
       data-testid="select-scroll-down"
       className={className}
       {...props}
     >
       {children}
     </div>
-  )),
-  Label: React.forwardRef(({ children, className, ...props }: any, ref) => (
+  ),
+  Label: ({ children, className, ...props }: any) => (
     <div
-      ref={ref}
       data-testid="select-label"
       className={className}
       {...props}
     >
       {children}
     </div>
-  )),
-  Item: React.forwardRef(({ children, className, value, ...props }: any, ref) => (
+  ),
+  Item: ({ children, className, value, ...props }: any) => (
     <div
-      ref={ref}
       data-testid="select-item"
       data-value={value}
       className={className}
@@ -115,21 +109,20 @@ jest.mock("@radix-ui/react-select", () => ({
     >
       {children}
     </div>
-  )),
+  ),
   ItemText: ({ children }: any) => (
     <span data-testid="select-item-text">{children}</span>
   ),
   ItemIndicator: ({ children }: any) => (
     <span data-testid="select-item-indicator">{children}</span>
   ),
-  Separator: React.forwardRef(({ className, ...props }: any, ref) => (
+  Separator: ({ className, ...props }: any) => (
     <div
-      ref={ref}
       data-testid="select-separator"
       className={className}
       {...props}
     />
-  )),
+  ),
 }));
 
 describe("Select components", () => {
@@ -197,17 +190,17 @@ describe("Select components", () => {
       expect(screen.getByTestId("chevron-down-icon")).toBeInTheDocument();
     });
 
-    it("forwardRefが正しく動作する", () => {
-      const ref = React.createRef<HTMLButtonElement>();
+    it("ボタンとして正しく動作する", () => {
       render(
         <Select>
-          <SelectTrigger ref={ref}>
+          <SelectTrigger>
             <SelectValue />
           </SelectTrigger>
         </Select>
       );
 
-      expect(ref.current).toBeInstanceOf(HTMLButtonElement);
+      const trigger = screen.getByTestId("select-trigger");
+      expect(trigger.tagName).toBe("BUTTON");
     });
   });
 
