@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/shadcn/card";
+import { StatisticCard } from "@/components/ui/StatisticCard";
 import {
   TableBody,
   TableCell,
@@ -24,8 +25,11 @@ import {
   SelectValue,
 } from "@radix-ui/react-select";
 import {
+  AlertTriangle,
   ArrowLeft,
   CalendarIcon,
+  CheckCircle,
+  Clock,
   Download,
   Filter,
   Search,
@@ -86,83 +90,40 @@ export default function PaymentsPage() {
 
           {/* 統計カード */}
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-8">
-            <Card className="border-0 shadow-custom hover:shadow-lg transition-all duration-200 animate-fade-in">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-gray-600 mb-1">
-                      総スケジュール数
-                    </p>
-                    <p className="text-2xl font-bold text-gray-900">
-                      {/* {totalScheduled}件 */}
-                      1件
-                    </p>
-                  </div>
-                  <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center">
-                    <CalendarIcon className="h-6 w-6 text-blue-600" />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <StatisticCard
+              title="総スケジュール数"
+              value="1件"
+              icon={CalendarIcon}
+              iconColor="blue"
+              className="shadow-custom hover:shadow-lg transition-all duration-200"
+            />
 
-            <Card className="border-0 shadow-custom hover:shadow-lg transition-all duration-200 animate-fade-in">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-gray-600 mb-1">
-                      完了済み
-                    </p>
-                    <p className="text-2xl font-bold text-green-600">
-                      {/* {completedPayments}件 */}
-                      1件
-                    </p>
-                  </div>
-                  <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center">
-                    <span className="text-green-600 font-bold text-lg">✓</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <StatisticCard
+              title="完了済み"
+              value="1件"
+              icon={CheckCircle}
+              iconColor="green"
+              valueColor="text-green-600"
+              className="shadow-custom hover:shadow-lg transition-all duration-200"
+            />
 
-            <Card className="border-0 shadow-custom hover:shadow-lg transition-all duration-200 animate-fade-in">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-gray-600 mb-1">
-                      予定
-                    </p>
-                    <p className="text-2xl font-bold text-orange-600">
-                      {/* {upcomingPayments}件 */}
-                      1件
-                    </p>
-                  </div>
-                  <div className="h-12 w-12 rounded-full bg-orange-100 flex items-center justify-center">
-                    <span className="text-orange-600 font-bold text-lg">
-                      ⏳
-                    </span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <StatisticCard
+              title="予定"
+              value="1件"
+              icon={Clock}
+              iconColor="orange"
+              valueColor="text-orange-600"
+              className="shadow-custom hover:shadow-lg transition-all duration-200"
+            />
 
-            <Card className="border-0 shadow-custom hover:shadow-lg transition-all duration-200 animate-fade-in">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-gray-600 mb-1">
-                      遅延
-                    </p>
-                    <p className="text-2xl font-bold text-red-600">
-                      {/* {overduePayments}件 */}
-                      1件
-                    </p>
-                  </div>
-                  <div className="h-12 w-12 rounded-full bg-red-100 flex items-center justify-center">
-                    <span className="text-red-600 font-bold text-lg">!</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <StatisticCard
+              title="遅延"
+              value="1件"
+              icon={AlertTriangle}
+              iconColor="red"
+              valueColor="text-red-600"
+              className="shadow-custom hover:shadow-lg transition-all duration-200"
+            />
           </div>
 
           {/* メインコンテンツ */}
