@@ -6,51 +6,74 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/shadcn/card";
-import {
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/shadcn/table";
-import { useRepaymentSchedule } from "@/contexts/RepaymentContext";
-
-import { RepaymentInfo } from "@/types/repaymentInfo";
+import { Input } from "@/components/ui/shadcn/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@radix-ui/react-select";
+} from "@/components/ui/shadcn/select";
+import Pagination from "@/components/common/Pagination";
+import { RepaymentScheduleDetail } from "@/components/repayment/RepaymentScheduleDetailTable";
+import { useRepaymentSchedule } from "@/contexts/RepaymentContext";
+import { useScheduleFilters } from "@/hooks/useScheduleFilters";
+import { RepaymentStatus } from "@/types/enums/repaymentStatus";
+import { RepaymentStatusFilter } from "@/types/enums/repaymentStatusFilter";
+import { RepaymentPeriodFilter } from "@/types/enums/repaymentPeriodFilter";
 import {
   ArrowLeft,
   CalendarIcon,
   Download,
   Filter,
   Search,
-  Table,
 } from "lucide-react";
 import Link from "next/link";
+import { useMemo } from "react";
 
 type Props = {
   repayments: RepaymentInfo[];
 };
 
 export default function PaymentsPage() {
-  // APIからデータを取得
   const { schedules, isLoading, error, totalCreditAmount } =
     useRepaymentSchedule();
 
-  // // 統計情報を計算
-  // const totalPaid = parsedPayments.reduce(
-  //   (sum: number, payment: any) => sum + payment.amount,
-  //   0
-  // );
-  // const completedPayments = parsedPayments.filter(
-  //   (p: any) => p.status === "完了"
-  // ).length;
-  // const averageAmount = totalPaid / completedPayments || 0;
+  const {
+    currentPage,
+    searchTerm,
+    statusFilter,
+    periodFilter,
+    sortDirection,
+    setCurrentPage,
+    setSearchTerm,
+    setStatusFilter,
+    setPeriodFilter,
+    setSortDirection,
+    paginatedSchedules,
+    totalScheduleCount,
+    totalPages,
+    itemsPerPage,
+  } = useScheduleFilters({ schedules });
+
+  const statistics = useMemo(() => {
+    const completedCount = schedules.filter(
+      (s) => s.status === RepaymentStatus.Completed
+    ).length;
+    const scheduledCount = schedules.filter(
+      (s) => s.status === RepaymentStatus.Scheduled
+    ).length;
+    const delayedCount = schedules.filter(
+      (s) => s.status === RepaymentStatus.Delayed
+    ).length;
+
+    return {
+      total: schedules.length,
+      completed: completedCount,
+      scheduled: scheduledCount,
+      delayed: delayedCount,
+    };
+  }, [schedules]);
 
   return (
     <div className="flex min-h-screen flex-col bg-white">
@@ -94,8 +117,7 @@ export default function PaymentsPage() {
                       総スケジュール数
                     </p>
                     <p className="text-2xl font-bold text-gray-900">
-                      {/* {totalScheduled}件 */}
-                      1件
+                      {statistics.total}件
                     </p>
                   </div>
                   <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center">
@@ -113,8 +135,7 @@ export default function PaymentsPage() {
                       完了済み
                     </p>
                     <p className="text-2xl font-bold text-green-600">
-                      {/* {completedPayments}件 */}
-                      1件
+                      {statistics.completed}件
                     </p>
                   </div>
                   <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center">
@@ -132,8 +153,7 @@ export default function PaymentsPage() {
                       予定
                     </p>
                     <p className="text-2xl font-bold text-orange-600">
-                      {/* {upcomingPayments}件 */}
-                      1件
+                      {statistics.scheduled}件
                     </p>
                   </div>
                   <div className="h-12 w-12 rounded-full bg-orange-100 flex items-center justify-center">
@@ -153,8 +173,7 @@ export default function PaymentsPage() {
                       遅延
                     </p>
                     <p className="text-2xl font-bold text-red-600">
-                      {/* {overduePayments}件 */}
-                      1件
+                      {statistics.delayed}件
                     </p>
                   </div>
                   <div className="h-12 w-12 rounded-full bg-red-100 flex items-center justify-center">
@@ -174,9 +193,7 @@ export default function PaymentsPage() {
                     返済スケジュール一覧
                   </CardTitle>
                   <CardDescription className="text-gray-600">
-                    {/* 全{totalScheduled}件のスケジュール（総額:{" "}
-                    {formatCurrency(totalAmount)}） */}
-                    1件
+                    全{totalScheduleCount}件のスケジュール（総額: ¥{totalCreditAmount.toLocaleString()}）
                   </CardDescription>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-2">
@@ -205,163 +222,61 @@ export default function PaymentsPage() {
               <div className="flex flex-col lg:flex-row gap-4 mb-6">
                 <div className="flex-1 relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                  {/* <Input
+                  <Input
                     placeholder="日付や金額で検索..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                     className="pl-10 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-                  /> */}
+                  />
                 </div>
                 <div className="flex flex-col sm:flex-row gap-2">
-                  <Select defaultValue="all">
+                  <Select
+                    value={statusFilter}
+                    onValueChange={(value) => setStatusFilter(value as RepaymentStatusFilter)}
+                  >
                     <SelectTrigger className="w-full sm:w-[140px] border-gray-300">
                       <SelectValue placeholder="ステータス" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">すべて</SelectItem>
-                      <SelectItem value="completed">完了</SelectItem>
-                      <SelectItem value="scheduled">予定</SelectItem>
-                      <SelectItem value="overdue">遅延</SelectItem>
+                      <SelectItem value={RepaymentStatusFilter.ALL}>すべて</SelectItem>
+                      <SelectItem value={RepaymentStatusFilter.COMPLETED}>完了</SelectItem>
+                      <SelectItem value={RepaymentStatusFilter.SCHEDULED}>予定</SelectItem>
+                      <SelectItem value={RepaymentStatusFilter.DELAYED}>遅延</SelectItem>
                     </SelectContent>
                   </Select>
-                  <Select defaultValue="all">
+                  <Select
+                    value={periodFilter}
+                    onValueChange={(value) => setPeriodFilter(value as RepaymentPeriodFilter)}
+                  >
                     <SelectTrigger className="w-full sm:w-[140px] border-gray-300">
                       <SelectValue placeholder="期間" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">すべて</SelectItem>
-                      <SelectItem value="this-month">今月</SelectItem>
-                      <SelectItem value="next-month">来月</SelectItem>
-                      <SelectItem value="this-year">今年</SelectItem>
+                      <SelectItem value={RepaymentPeriodFilter.ALL}>すべて</SelectItem>
+                      <SelectItem value={RepaymentPeriodFilter.THIS_MONTH}>今月</SelectItem>
+                      <SelectItem value={RepaymentPeriodFilter.NEXT_MONTH}>来月</SelectItem>
+                      <SelectItem value={RepaymentPeriodFilter.THIS_YEAR}>今年</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
               </div>
 
               {/* スケジュールテーブル */}
-              <div className="rounded-lg border border-gray-200 overflow-hidden">
-                <Table>
-                  <TableHeader>
-                    <TableRow className="bg-gray-50 hover:bg-gray-50">
-                      <TableHead className="text-gray-700 font-semibold">
-                        支払い日
-                      </TableHead>
-                      <TableHead className="text-gray-700 font-semibold">
-                        金額
-                      </TableHead>
-                      <TableHead className="text-gray-700 font-semibold">
-                        ステータス
-                      </TableHead>
-                      <TableHead className="text-gray-700 font-semibold">
-                        支払い方法
-                      </TableHead>
-                      <TableHead className="text-right text-gray-700 font-semibold">
-                        残額
-                      </TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {schedules.map((schedule: any) => (
-                      <TableRow
-                        key={schedule.id}
-                        className="hover:bg-blue-50 transition-colors"
-                      >
-                        <TableCell className="font-medium">
-                          <div className="flex items-center gap-2">
-                            <CalendarIcon className="h-4 w-4 text-gray-500" />
-                            <span className="text-gray-800">
-                              {/* {formatDate(schedule.date)} */}1
-                            </span>
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                          <span className="text-gray-900 font-bold">
-                            {/* {formatCurrency(schedule.amount)} */}1
-                          </span>
-                        </TableCell>
-                        <TableCell>
-                          {/* <Badge
-                            variant="outline"
-                            className={
-                              schedule.status === "完了"
-                                ? "bg-green-50 text-green-700 border-green-200 hover:bg-green-50"
-                                : schedule.status === "遅延"
-                                  ? "bg-red-50 text-red-700 border-red-200 hover:bg-red-50"
-                                  : "bg-orange-50 text-orange-700 border-orange-200 hover:bg-orange-50"
-                            }
-                          > */}
-                          {/* {schedule.status} */}
-                          {/* </Badge> */}1
-                        </TableCell>
-                        <TableCell>
-                          <span className="text-gray-700">
-                            {schedule.method || "未設定"}
-                          </span>
-                        </TableCell>
-                        <TableCell className="text-right">
-                          <span className="text-gray-900 font-semibold">
-                            {/* {formatCurrency(schedule.remaining)} */}1
-                          </span>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
+              <RepaymentScheduleDetail
+                paginatedSchedules={paginatedSchedules}
+                itemsPerPage={itemsPerPage}
+              />
 
               {/* ページネーション */}
-              {/* <div className="flex flex-col sm:flex-row items-center justify-between mt-6 gap-4">
-                <p className="text-sm text-gray-600">
-                  {parsedSchedules.length}件中 1-
-                  {Math.min(20, parsedSchedules.length)}件を表示
-                </p>
-                <div className="flex items-center space-x-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    disabled
-                    className="border-gray-300 text-gray-400 bg-transparent"
-                  >
-                    前へ
-                  </Button>
-                  <div className="flex items-center space-x-1">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="bg-blue-600 text-white border-blue-600"
-                    >
-                      1
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="border-gray-300 text-gray-700 hover:bg-gray-50 bg-transparent"
-                    >
-                      2
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="border-gray-300 text-gray-700 hover:bg-gray-50 bg-transparent"
-                    >
-                      3
-                    </Button>
-                    <span className="text-gray-500 px-2">...</span>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="border-gray-300 text-gray-700 hover:bg-gray-50 bg-transparent"
-                    >
-                      10
-                    </Button>
-                  </div>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="border-gray-300 text-gray-700 hover:bg-gray-50 bg-transparent"
-                  >
-                    次へ
-                  </Button>
-                </div>
-              </div> */}
+              <div className="mt-6">
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  totalCount={totalScheduleCount}
+                  itemsPerPage={itemsPerPage}
+                  onPageChange={setCurrentPage}
+                />
+              </div>
             </CardContent>
           </Card>
 
