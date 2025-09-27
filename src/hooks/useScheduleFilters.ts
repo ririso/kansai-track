@@ -1,3 +1,5 @@
+"use client";
+
 import { RepaymentPeriodFilter } from "@/types/enums/repaymentPeriodFilter";
 import { RepaymentStatus } from "@/types/enums/repaymentStatus";
 import { RepaymentStatusFilter } from "@/types/enums/repaymentStatusFilter";

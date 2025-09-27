@@ -32,7 +32,7 @@ export default function CSVUploader() {
         to: "UNICODE",
         from: "SJIS",
         type: "string",
-      });
+      }) as string;
 
       Papa.parse(unicodeString, {
         header: true,

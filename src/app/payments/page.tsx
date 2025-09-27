@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/shadcn/button";
 import {
   Card,
@@ -31,25 +33,18 @@ import {
 import Link from "next/link";
 import { useMemo } from "react";
 
-type Props = {
-  repayments: RepaymentInfo[];
-};
-
 export default function PaymentsPage() {
-  const { schedules, isLoading, error, totalCreditAmount } =
-    useRepaymentSchedule();
+  const { schedules, totalCreditAmount } = useRepaymentSchedule();
 
   const {
     currentPage,
     searchTerm,
     statusFilter,
     periodFilter,
-    sortDirection,
     setCurrentPage,
     setSearchTerm,
     setStatusFilter,
     setPeriodFilter,
-    setSortDirection,
     paginatedSchedules,
     totalScheduleCount,
     totalPages,
