@@ -13,7 +13,7 @@ jest.mock("lucide-react", () => ({
 }));
 
 // 子コンポーネントをモック
-jest.mock("@/components/bak/base-modal", () => ({
+jest.mock("@/components/ui/modal/base-modal", () => ({
   BaseModal: ({ children, title, trigger }: any) => (
     <div data-testid="base-modal" data-title={title}>
       {trigger}
@@ -22,7 +22,7 @@ jest.mock("@/components/bak/base-modal", () => ({
   ),
 }));
 
-jest.mock("@/components/bak/payment-content", () => ({
+jest.mock("@/components/ui/modal/payment-content", () => ({
   PaymentForm: () => <div data-testid="payment-form">Payment Form</div>,
 }));
 
