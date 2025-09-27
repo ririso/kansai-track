@@ -1,5 +1,6 @@
 import { TOTAL_SCHOLARSHIP_AMOUNT } from "@/app/constants/scholarship";
 import { estimateYearsToRepayLoan } from "@/utils/estimateYearsToRepayLoan";
+import { calculateCompletionDate } from "@/utils/calculateCompletionDate";
 import { CalendarIcon, DollarSign, LineChart, PiggyBank } from "lucide-react";
 import { Card, CardContent } from "../ui/shadcn/card";
 
@@ -10,6 +11,7 @@ type Props = {
 
 export default function RepaymentSummary({ totalCreditAmount }: Props) {
   const remainingAmount = TOTAL_SCHOLARSHIP_AMOUNT - totalCreditAmount;
+  const completionDate = calculateCompletionDate(totalCreditAmount);
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 ">
@@ -71,8 +73,7 @@ export default function RepaymentSummary({ totalCreditAmount }: Props) {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 mb-1">完済予定</p>
-              <p className="text-lg font-bold text-gray-900"></p>
-              {/* TODO: 完済日も2032年11月10日　とかにしたほうがいいかも！ */}
+              <p className="text-lg font-bold text-gray-900">{completionDate}</p>
               <p className="text-xs text-gray-500 mt-1">
                 あと{estimateYearsToRepayLoan(totalCreditAmount)}
               </p>

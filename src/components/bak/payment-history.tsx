@@ -6,9 +6,9 @@ import {
 import { Card, CardContent } from "@/components/ui/shadcn/card";
 
 export function PaymentHistory() {
-  // TODO
-  // DBから取得するよう修正する
-  // propsで渡されるべきもの
+  // NOTE: このコンポーネントはバックアップファイルです
+  // 本番では useRepaymentSchedule context や API から実データを取得する必要があります
+  // 現在はダミーデータを使用しています
   const payments = [
     {
       id: "1",

@@ -7,4 +7,5 @@ export type RepaymentHistoryType = {
   beforeStatus: RepaymentStatus;
   updatedAt: string; //todo 型を確認する
   note: string;
+  paymentCategory?: string;
 };

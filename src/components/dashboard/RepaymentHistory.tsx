@@ -62,11 +62,15 @@ export function RepaymentHistory() {
                   <span>に変更</span>
                 </div>
               </div>
-              {/* TODO:支払い区分表示したらいいかも */}
               <div className="text-right">
                 <p className="text-sm font-bold text-gray-900">
                   ¥{repaymentHistory.amount.toLocaleString()}
                 </p>
+                {repaymentHistory.paymentCategory && (
+                  <p className="text-xs text-blue-600 font-medium mb-1">
+                    区分: {repaymentHistory.paymentCategory}
+                  </p>
+                )}
                 {/* <p className="text-xs text-green-600 font-medium">
                   変更前ステータス：{repaymentHistory.beforeStatus}
                 </p> */}
