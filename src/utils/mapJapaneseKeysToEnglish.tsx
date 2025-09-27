@@ -10,7 +10,7 @@ export function mapJapaneseKeysToEnglish(parsedData: any[]): Transaction[] {
   const skipKeys = ["入金金額(円)", "残高(円)"];
   const validRows: any[] = [];
   // 行頭が"振込"で、その後に1文字以上続く
-  const TRANSFER_PATTERN = /^振込\＊.+/;
+  const TRANSFER_PATTERN = /^振込＊.+/;
 
   parsedData.forEach((row, index) => {
     const newRow: Record<string, any> = {};

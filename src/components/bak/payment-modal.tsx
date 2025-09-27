@@ -37,7 +37,7 @@ export function PaymentModal({ amount, dueDate }: PaymentModalProps) {
     setIsProcessing(true);
 
     // 実際のプロジェクトではここでAPIを呼び出して支払い処理を行う
-    例: await fetch("/api/scholarship/make-payment", {
+    await fetch("/api/scholarship/make-payment", {
       method: "POST",
       body: JSON.stringify({ amount, method: paymentMethod }),
     });

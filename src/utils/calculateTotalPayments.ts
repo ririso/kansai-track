@@ -4,8 +4,8 @@ export function calculateTotalPayments(records: RepaymentInfo[]): {
   totalDeposit: number;
   totalWithdrawal: number;
 } {
-  let totalDeposit = 0;
-  let totalWithdrawal = 0;
+  const totalDeposit = 0;
+  const totalWithdrawal = 0;
 
   // for (const record of records) {
   //   if (record.type === "deposit") {
