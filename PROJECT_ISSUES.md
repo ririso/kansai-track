@@ -27,12 +27,15 @@
   echo "src/components/bak/" >> .gitignore
   ```
 
-### 2. 重複する関数実装
+### 2. ~~重複する関数実装~~ ✅ **解決済み**
 - **場所**:
-  - `src/utils/reconcileScheduleWithCSV.ts`
-  - `src/utils/newReconcileScheduleWithCSV.ts`
-- **問題**: 同じようなCSV照合機能の重複実装
-- **改善案**: 機能差分を明確化し、1つに統合
+  - ~~`src/utils/reconcileScheduleWithCSV.ts`~~ (削除済み)
+  - `src/utils/reconcileScheduleWithCSV.ts` (統合済み)
+- **問題**: ~~同じようなCSV照合機能の重複実装~~ → **統合完了**
+- **実施した改善**:
+  - 未使用の旧関数を削除
+  - `newReconcileScheduleWithCSV` → `reconcileScheduleWithCSV` にリネーム統合
+  - 使用箇所とテストファイルを更新
 
 ### 3. 未実装の関数
 - **場所**: `src/utils/calculateTotalPayments.ts`

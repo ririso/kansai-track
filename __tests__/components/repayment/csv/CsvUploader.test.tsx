@@ -42,8 +42,8 @@ jest.mock("@/utils/mapJapaneseKeysToEnglish", () => ({
   }))),
 }));
 
-jest.mock("@/utils/newReconcileScheduleWithCSV", () => ({
-  newReconcileScheduleWithCSV: jest.fn(() => [
+jest.mock("@/utils/reconcileScheduleWithCSV", () => ({
+  reconcileScheduleWithCSV: jest.fn(() => [
     { id: 1, reconciled: true },
     { id: 2, reconciled: true }
   ]),

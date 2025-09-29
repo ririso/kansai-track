@@ -4,7 +4,7 @@ import { mapJapaneseKeysToEnglish } from "@/utils/mapJapaneseKeysToEnglish";
 // @ts-ignore
 import { Button } from "@/components/ui/shadcn/button";
 import { useRepaymentSchedule } from "@/contexts/RepaymentContext";
-import { newReconcileScheduleWithCSV } from "@/utils/newReconcileScheduleWithCSV";
+import { reconcileScheduleWithCSV } from "@/utils/reconcileScheduleWithCSV";
 import Encoding from "encoding-japanese";
 import { Upload } from "lucide-react";
 import Papa from "papaparse";
@@ -40,7 +40,7 @@ export default function CSVUploader() {
         complete: async (results) => {
           const parsedData = results.data;
           const csvData = mapJapaneseKeysToEnglish(parsedData);
-          const reconcileSchedule = newReconcileScheduleWithCSV(
+          const reconcileSchedule = reconcileScheduleWithCSV(
             csvData,
             schedules
           );
