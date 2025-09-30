@@ -59,29 +59,30 @@
 
 ## ⚠️ 高優先度課題 (Medium)
 
-### 5. テストファイルの配置不統一
-- **問題**: テストが2箇所に分散
-  - `__tests__/` (34ファイル)
-  - `src/hooks/__tests__/` (1ファイル)
-- **改善案**: 配置戦略を統一
+### 5. ~~テストファイルの配置不統一~~ ✅ **解決済み**
+- **問題**: ~~テストが2箇所に分散~~ → **統一完了**
+- **実施した改善**:
+  - `__tests__/`の34ファイルを`src/components/__tests__/`に移行
+  - ディレクトリ構造をソースコードと一致させて保守性向上
+  - テスト実行とコンソールテスト不整合修正
+- **効果**: コードと同じ場所でのテスト管理、開発効率向上
 
-### 6. 型定義の未完成
+### 6. ~~型定義の未完成~~ ✅ **解決済み**
 - **場所**: `src/types/repaymentHistoryType.ts:8`
-- **問題**: `updatedAt: string; //todo 型を確認する`
-- **改善案**:
-  ```typescript
-  // 現在
-  updatedAt: string; //todo 型を確認する
+- **問題**: ~~`updatedAt: string; //todo 型を確認する`~~ → **型定義完了**
+- **実施した改善**:
+  - 使用箇所分析により`string | null`が適切と判定
+  - `updatedAt: string | null; // ISO 8601形式の文字列またはnull`に更新
+  - TODOコメント削除
+- **効果**: 型安全性向上、開発者混乱防止
 
-  // 改善後
-  updatedAt: Date | string; // ISO 8601形式
-  ```
-
-### 7. 設定ファイルの拡張子不統一
-- **問題**: JavaScript設定ファイルが混在
-  - `.mjs`: `eslint.config.mjs`, `next.config.mjs`, `postcss.config.mjs`, `tailwind.config.mjs`
-  - `.js`: `jest.config.js`, `babel.config.js`
-- **改善案**: 拡張子を`.mjs`に統一
+### 7. ~~設定ファイルの拡張子不統一~~ ✅ **解決済み**
+- **問題**: ~~JavaScript設定ファイルが混在~~ → **統一完了**
+- **実施した改善**:
+  - `jest.config.js` → `jest.config.mjs` + export default形式
+  - `babel.config.js` → `babel.config.mjs` + export default形式
+  - 全設定ファイルが`.mjs`拡張子で統一
+- **効果**: 一貫した設定ファイル管理、ESMモジュール対応
 
 ---
 

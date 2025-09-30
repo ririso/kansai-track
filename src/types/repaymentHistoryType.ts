@@ -5,7 +5,7 @@ export type RepaymentHistoryType = {
   amount: number;
   status: RepaymentStatus;
   beforeStatus: RepaymentStatus;
-  updatedAt: string; //todo 型を確認する
+  updatedAt: string | null; // ISO 8601形式の文字列またはnull
   note: string;
   paymentCategory?: string;
 };
