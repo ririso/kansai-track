@@ -75,11 +75,15 @@ export function getDisplayMessage(error: AppError): string {
  */
 export function logError(error: AppError): void {
   if (process.env.NODE_ENV === 'development') {
+    // eslint-disable-next-line no-console
     console.group(`🚨 ${error.type}: ${error.message}`);
+    // eslint-disable-next-line no-console
     console.log('Time:', error.timestamp.toISOString());
     if (error.originalError) {
+      // eslint-disable-next-line no-console
       console.error('Original Error:', error.originalError);
     }
+    // eslint-disable-next-line no-console
     console.groupEnd();
   }
 }
