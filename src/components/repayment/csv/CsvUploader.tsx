@@ -5,6 +5,7 @@ import { mapJapaneseKeysToEnglish } from "@/utils/mapJapaneseKeysToEnglish";
 import { Button } from "@/components/ui/shadcn/button";
 import { useRepaymentSchedule } from "@/contexts/RepaymentContext";
 import { reconcileScheduleWithCSV } from "@/utils/reconcileScheduleWithCSV";
+import { handleApiError, handleFileError, getDisplayMessage, logError } from "@/lib/errorHandler";
 import Encoding from "encoding-japanese";
 import { Upload } from "lucide-react";
 import Papa from "papaparse";
@@ -61,12 +62,16 @@ export default function CSVUploader() {
               const errorText = await res.text();
             }
           } catch (err) {
-            // Handle upload error silently
+            const error = handleApiError(err, 'CSV アップロード');
+            logError(error);
+            alert(getDisplayMessage(error));
           }
         },
       });
     } catch (error) {
-      // Handle file read error silently
+      const appError = handleFileError(error, file?.name);
+      logError(appError);
+      alert(getDisplayMessage(appError));
     }
   };
 

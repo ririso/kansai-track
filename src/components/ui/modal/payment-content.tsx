@@ -1,6 +1,7 @@
 "use client";
 
 import { PaymentPayload, submitPayment } from "@/lib/submitPayment";
+import { handleApiError, getDisplayMessage, logError } from "@/lib/errorHandler";
 import { useState } from "react";
 
 export const PaymentForm = () => {
@@ -30,7 +31,9 @@ export const PaymentForm = () => {
       await submitPayment(form);
       alert("保存成功");
     } catch (err) {
-      alert("保存失敗");
+      const error = handleApiError(err, '支払い情報の保存');
+      logError(error);
+      alert(getDisplayMessage(error));
     }
   };
 
