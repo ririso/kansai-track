@@ -1,6 +1,7 @@
 import { RepaymentHistory } from "@/components/dashboard/RepaymentHistory";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
+import { RepaymentStatus } from "@/types/enums/repaymentStatus";
 
 // cn関数をモック
 jest.mock("@/lib/utils", () => ({
@@ -50,21 +51,21 @@ const mockRepaymentHistories = [
     id: "1",
     updatedAt: "2024-01-15",
     beforeStatus: "未完了",
-    status: "完了",
+    status: RepaymentStatus.Completed,
     amount: 50000,
   },
   {
     id: "2",
     updatedAt: "2024-01-10",
     beforeStatus: "完了",
-    status: "遅延",
+    status: RepaymentStatus.Delayed,
     amount: 75000,
   },
   {
     id: "3",
     updatedAt: null,
     beforeStatus: "遅延",
-    status: "完了",
+    status: RepaymentStatus.Completed,
     amount: 30000,
   },
 ];
@@ -252,7 +253,7 @@ describe("RepaymentHistory component", () => {
             id: "large",
             updatedAt: "2024-01-01",
             beforeStatus: "未完了",
-            status: "完了",
+            status: RepaymentStatus.Completed,
             amount: 1234567,
           },
         ],
@@ -271,7 +272,7 @@ describe("RepaymentHistory component", () => {
             id: "zero",
             updatedAt: "2024-01-01",
             beforeStatus: "未完了",
-            status: "完了",
+            status: RepaymentStatus.Completed,
             amount: 0,
           },
         ],
@@ -290,14 +291,14 @@ describe("RepaymentHistory component", () => {
             id: "date1",
             updatedAt: "2024-12-31",
             beforeStatus: "未完了",
-            status: "完了",
+            status: RepaymentStatus.Completed,
             amount: 10000,
           },
           {
             id: "date2",
             updatedAt: "2024-01-01",
             beforeStatus: "完了",
-            status: "遅延",
+            status: RepaymentStatus.Delayed,
             amount: 20000,
           },
         ],

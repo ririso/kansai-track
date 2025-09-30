@@ -136,7 +136,7 @@ describe("errorHandler", () => {
     it("開発環境でエラーログを出力する", () => {
       // NODE_ENVを開発環境に設定
       const originalEnv = process.env.NODE_ENV;
-      process.env.NODE_ENV = 'development';
+      Object.defineProperty(process.env, 'NODE_ENV', { value: 'development', writable: true });
 
       const error: AppError = {
         type: 'API_ERROR',
@@ -153,12 +153,12 @@ describe("errorHandler", () => {
       expect(mockConsoleGroupEnd).toHaveBeenCalled();
 
       // 環境変数を復元
-      process.env.NODE_ENV = originalEnv;
+      Object.defineProperty(process.env, 'NODE_ENV', { value: originalEnv, writable: true });
     });
 
     it("本番環境ではログを出力しない", () => {
       const originalEnv = process.env.NODE_ENV;
-      process.env.NODE_ENV = 'production';
+      Object.defineProperty(process.env, 'NODE_ENV', { value: 'production', writable: true });
 
       const error: AppError = {
         type: 'API_ERROR',
@@ -173,7 +173,7 @@ describe("errorHandler", () => {
       expect(mockConsoleError).not.toHaveBeenCalled();
       expect(mockConsoleGroupEnd).not.toHaveBeenCalled();
 
-      process.env.NODE_ENV = originalEnv;
+      Object.defineProperty(process.env, 'NODE_ENV', { value: originalEnv, writable: true });
     });
   });
 });

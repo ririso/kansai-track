@@ -1,6 +1,7 @@
 import { RepaymentSchedule } from "@/components/dashboard/RepaymentScheduleTable";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
+import { RepaymentStatus } from "@/types/enums/repaymentStatus";
 
 // cn関数をモック
 jest.mock("@/lib/utils", () => ({
@@ -42,7 +43,7 @@ const mockSchedules = [
     scheduledDate: "2024-01-15",
     paidDate: "2024-01-15",
     amount: 50000,
-    status: "完了",
+    status: RepaymentStatus.Completed,
     paymentMethod: "クレジットカード",
     paymentCategory: "生活費",
   },
@@ -51,7 +52,7 @@ const mockSchedules = [
     scheduledDate: "2024-01-25",
     paidDate: null,
     amount: 75000,
-    status: "遅延",
+    status: RepaymentStatus.Delayed,
     paymentMethod: "銀行振込",
     paymentCategory: "住宅費",
   },
@@ -60,7 +61,7 @@ const mockSchedules = [
     scheduledDate: "2024-02-05",
     paidDate: null,
     amount: 30000,
-    status: "未完了",
+    status: RepaymentStatus.Scheduled,
     paymentMethod: null,
     paymentCategory: "食費",
   },
@@ -306,7 +307,7 @@ describe("RepaymentScheduleTable component", () => {
           scheduledDate: "2024-01-01",
           paidDate: "2024-01-01",
           amount: 1234567,
-          status: "完了",
+          status: RepaymentStatus.Completed,
           paymentMethod: "振込",
           paymentCategory: "その他",
         },

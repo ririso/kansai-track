@@ -5,6 +5,8 @@ import { RepaymentStatusFilter } from '@/types/enums/repaymentStatusFilter';
 import { RepaymentPeriodFilter } from '@/types/enums/repaymentPeriodFilter';
 import { SortDirection } from '@/types/enums/sortDirection';
 import { RepaymentScheduleType } from '@/types/repaymentScheduleType';
+import { PaymentMethod } from '@/types/enums/paymentMethod';
+import { PaymentCategory } from '@/types/enums/paymentCategory';
 
 const mockSchedules: RepaymentScheduleType[] = [
   {
@@ -13,8 +15,8 @@ const mockSchedules: RepaymentScheduleType[] = [
     paidDate: '2024-01-15',
     amount: 15000,
     status: RepaymentStatus.Completed,
-    paymentMethod: 'Bank Transfer',
-    paymentCategory: 'Monthly Payment'
+    paymentMethod: PaymentMethod.BankTransfer,
+    paymentCategory: PaymentCategory.Normal
   },
   {
     id: '2',
@@ -22,8 +24,8 @@ const mockSchedules: RepaymentScheduleType[] = [
     paidDate: null,
     amount: 15000,
     status: RepaymentStatus.Scheduled,
-    paymentMethod: 'Bank Transfer',
-    paymentCategory: 'Monthly Payment'
+    paymentMethod: PaymentMethod.BankTransfer,
+    paymentCategory: PaymentCategory.Normal
   },
   {
     id: '3',
@@ -31,8 +33,8 @@ const mockSchedules: RepaymentScheduleType[] = [
     paidDate: null,
     amount: 20000,
     status: RepaymentStatus.Delayed,
-    paymentMethod: 'Credit Card',
-    paymentCategory: 'Late Payment'
+    paymentMethod: PaymentMethod.Cash,
+    paymentCategory: PaymentCategory.Special
   }
 ];
 

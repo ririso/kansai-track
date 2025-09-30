@@ -5,9 +5,9 @@ import { RepaymentStatus } from "./enums/repaymentStatus";
 export type RepaymentScheduleType = {
   id: string;
   amount: number;
-  paidDate: string;
+  paidDate: string | null;
   scheduledDate: string;
   status: RepaymentStatus;
-  paymentMethod: PaymentMethod;
+  paymentMethod: PaymentMethod | null;
   paymentCategory: PaymentCategory;
 };
