@@ -30,7 +30,6 @@ export const PaymentForm = () => {
       await submitPayment(form);
       alert("保存成功");
     } catch (err) {
-      console.log(err);
       alert("保存失敗");
     }
   };

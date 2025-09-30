@@ -45,7 +45,6 @@ export default function CSVUploader() {
             schedules
           );
 
-          console.log(reconcileSchedule);
           const endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
           try {
             const res = await fetch(`${endpoint}/transactions/uploads`, {
@@ -60,16 +59,14 @@ export default function CSVUploader() {
             } else {
               alert("アップロード失敗");
               const errorText = await res.text();
-              console.error("Upload failed with status:", res.status);
-              console.error("Response body:", errorText);
             }
           } catch (err) {
-            console.error("Fetch failed:", err);
+            // Handle upload error silently
           }
         },
       });
     } catch (error) {
-      console.error("Failed to read file:", error);
+      // Handle file read error silently
     }
   };
 
