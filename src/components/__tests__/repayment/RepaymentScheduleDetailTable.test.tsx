@@ -122,14 +122,13 @@ describe("RepaymentScheduleDetail component", () => {
     expect(screen.getByText("予定")).toBeInTheDocument();
 
     // 支払い方法の表示
-    expect(screen.getByText("クレジットカード")).toBeInTheDocument();
+    expect(screen.getByText("手渡し")).toBeInTheDocument();
     expect(screen.getByText("銀行振込")).toBeInTheDocument();
     expect(screen.getByText("未設定")).toBeInTheDocument();
 
     // 支払い区分の表示
-    expect(screen.getByText("生活費")).toBeInTheDocument();
-    expect(screen.getByText("住宅費")).toBeInTheDocument();
-    expect(screen.getByText("食費")).toBeInTheDocument();
+    expect(screen.getAllByText("通常")).toHaveLength(2);
+    expect(screen.getByText("特別")).toBeInTheDocument();
   });
 
   it("カレンダーアイコンが表示される", () => {

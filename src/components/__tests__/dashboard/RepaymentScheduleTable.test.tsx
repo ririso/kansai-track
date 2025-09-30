@@ -2,6 +2,8 @@ import { RepaymentSchedule } from "@/components/dashboard/RepaymentScheduleTable
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import { RepaymentStatus } from "@/types/enums/repaymentStatus";
+import { PaymentMethod } from "@/types/enums/paymentMethod";
+import { PaymentCategory } from "@/types/enums/paymentCategory";
 
 // cn関数をモック
 jest.mock("@/lib/utils", () => ({
@@ -32,7 +34,7 @@ jest.mock("@/types/enums/repaymentStatus", () => ({
   RepaymentStatus: {
     Completed: "完了",
     Delayed: "遅延",
-    Pending: "未完了",
+    Scheduled: "予定",
   },
 }));
 
@@ -44,8 +46,8 @@ const mockSchedules = [
     paidDate: "2024-01-15",
     amount: 50000,
     status: RepaymentStatus.Completed,
-    paymentMethod: "クレジットカード",
-    paymentCategory: "生活費",
+    paymentMethod: PaymentMethod.Cash,
+    paymentCategory: PaymentCategory.Normal,
   },
   {
     id: "2",
@@ -53,8 +55,8 @@ const mockSchedules = [
     paidDate: null,
     amount: 75000,
     status: RepaymentStatus.Delayed,
-    paymentMethod: "銀行振込",
-    paymentCategory: "住宅費",
+    paymentMethod: PaymentMethod.BankTransfer,
+    paymentCategory: PaymentCategory.Special,
   },
   {
     id: "3",
@@ -63,7 +65,7 @@ const mockSchedules = [
     amount: 30000,
     status: RepaymentStatus.Scheduled,
     paymentMethod: null,
-    paymentCategory: "食費",
+    paymentCategory: PaymentCategory.Normal,
   },
 ];
 
@@ -126,17 +128,16 @@ describe("RepaymentScheduleTable component", () => {
     // ステータスの表示
     expect(screen.getByText("完了")).toBeInTheDocument();
     expect(screen.getByText("遅延")).toBeInTheDocument();
-    expect(screen.getByText("未完了")).toBeInTheDocument();
+    expect(screen.getByText("予定")).toBeInTheDocument();
 
     // 支払い方法の表示
-    expect(screen.getByText("クレジットカード")).toBeInTheDocument();
+    expect(screen.getByText("手渡し")).toBeInTheDocument();
     expect(screen.getByText("銀行振込")).toBeInTheDocument();
     expect(screen.getByText("未設定")).toBeInTheDocument();
 
     // 支払い区分の表示
-    expect(screen.getByText("生活費")).toBeInTheDocument();
-    expect(screen.getByText("住宅費")).toBeInTheDocument();
-    expect(screen.getByText("食費")).toBeInTheDocument();
+    expect(screen.getAllByText("通常")).toHaveLength(2);
+    expect(screen.getByText("特別")).toBeInTheDocument();
   });
 
   it("カレンダーアイコンが表示される", () => {
@@ -283,11 +284,11 @@ describe("RepaymentScheduleTable component", () => {
       );
     });
 
-    it("未完了ステータスのスタイルが適用される", () => {
+    it("予定ステータスのスタイルが適用される", () => {
       render(<RepaymentSchedule />);
 
       const badges = screen.getAllByTestId("badge");
-      const pendingBadge = badges.find(badge => badge.textContent === "未完了");
+      const pendingBadge = badges.find(badge => badge.textContent === "予定");
 
       expect(pendingBadge).toHaveClass(
         "bg-orange-50",
