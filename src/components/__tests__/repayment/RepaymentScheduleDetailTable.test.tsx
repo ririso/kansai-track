@@ -1,6 +1,9 @@
 import { RepaymentScheduleDetail } from "@/components/repayment/RepaymentScheduleDetailTable";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
+import { RepaymentStatus } from "@/types/enums/repaymentStatus";
+import { PaymentMethod } from "@/types/enums/paymentMethod";
+import { PaymentCategory } from "@/types/enums/paymentCategory";
 
 // cn関数をモック
 jest.mock("@/lib/utils", () => ({
@@ -51,27 +54,27 @@ const mockSchedules = [
     scheduledDate: "2024-01-15",
     paidDate: "2024-01-15",
     amount: 50000,
-    status: "完了",
-    paymentMethod: "クレジットカード",
-    paymentCategory: "生活費",
+    status: RepaymentStatus.Completed,
+    paymentMethod: PaymentMethod.Cash,
+    paymentCategory: PaymentCategory.Normal,
   },
   {
     id: "2",
     scheduledDate: "2024-01-25",
     paidDate: null,
     amount: 75000,
-    status: "遅延",
-    paymentMethod: "銀行振込",
-    paymentCategory: "住宅費",
+    status: RepaymentStatus.Delayed,
+    paymentMethod: PaymentMethod.BankTransfer,
+    paymentCategory: PaymentCategory.Special,
   },
   {
     id: "3",
     scheduledDate: "2024-02-05",
     paidDate: null,
     amount: 30000,
-    status: "予定",
+    status: RepaymentStatus.Scheduled,
     paymentMethod: null,
-    paymentCategory: "食費",
+    paymentCategory: PaymentCategory.Normal,
   },
 ];
 
@@ -119,14 +122,13 @@ describe("RepaymentScheduleDetail component", () => {
     expect(screen.getByText("予定")).toBeInTheDocument();
 
     // 支払い方法の表示
-    expect(screen.getByText("クレジットカード")).toBeInTheDocument();
+    expect(screen.getByText("手渡し")).toBeInTheDocument();
     expect(screen.getByText("銀行振込")).toBeInTheDocument();
     expect(screen.getByText("未設定")).toBeInTheDocument();
 
     // 支払い区分の表示
-    expect(screen.getByText("生活費")).toBeInTheDocument();
-    expect(screen.getByText("住宅費")).toBeInTheDocument();
-    expect(screen.getByText("食費")).toBeInTheDocument();
+    expect(screen.getAllByText("通常")).toHaveLength(2);
+    expect(screen.getByText("特別")).toBeInTheDocument();
   });
 
   it("カレンダーアイコンが表示される", () => {
@@ -284,9 +286,9 @@ describe("RepaymentScheduleDetail component", () => {
           scheduledDate: "2024-01-01",
           paidDate: "2024-01-01",
           amount: 1234567,
-          status: "完了",
-          paymentMethod: "振込",
-          paymentCategory: "その他",
+          status: RepaymentStatus.Completed,
+          paymentMethod: PaymentMethod.BankTransfer,
+          paymentCategory: PaymentCategory.Normal,
         },
       ];
 
@@ -318,9 +320,9 @@ describe("RepaymentScheduleDetail component", () => {
         scheduledDate: `2024-01-${(i + 1).toString().padStart(2, '0')}`,
         paidDate: null,
         amount: 10000 * (i + 1),
-        status: "予定",
-        paymentMethod: "振込",
-        paymentCategory: "その他",
+        status: RepaymentStatus.Scheduled,
+        paymentMethod: PaymentMethod.BankTransfer,
+        paymentCategory: PaymentCategory.Normal,
       }));
 
       render(

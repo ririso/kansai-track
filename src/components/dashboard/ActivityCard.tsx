@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/shadcn/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/shadcn/tabs";
-import { RecentActivity } from "../bak/recent-activity";
+import { RecentActivity } from "@/components/ui/activity/recent-activity";
 
 export default function ActivityCard() {
   return (

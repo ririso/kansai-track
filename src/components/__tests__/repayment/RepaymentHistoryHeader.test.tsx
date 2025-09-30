@@ -1,6 +1,9 @@
 import { RepaymentHistoryHeader } from "@/components/repayment/RepaymentHistoryHeader";
 import "@testing-library/jest-dom";
 import { fireEvent, render, screen } from "@testing-library/react";
+import { RepaymentPeriodFilter } from "@/types/enums/repaymentPeriodFilter";
+import { RepaymentStatusFilter } from "@/types/enums/repaymentStatusFilter";
+import { SortDirection } from "@/types/enums/sortDirection";
 
 // cn関数をモック
 jest.mock("@/lib/utils", () => ({
@@ -107,7 +110,7 @@ const defaultProps = {
   setSearchTerm: jest.fn(),
   statusFilter: "ALL" as any,
   setStatusFilter: jest.fn(),
-  periodFilter: "ALL" as any,
+  periodFilter: RepaymentPeriodFilter.ALL,
   setPeriodFilter: jest.fn(),
   sortDirection: "DESC" as any,
   setSortDirection: jest.fn(),
@@ -252,7 +255,7 @@ describe("RepaymentHistoryHeader component", () => {
     it("期間フィルターの値が正しく表示される", () => {
       const propsWithPeriodFilter = {
         ...defaultProps,
-        periodFilter: "THIS_MONTH",
+        periodFilter: RepaymentPeriodFilter.THIS_MONTH,
       };
 
       render(<RepaymentHistoryHeader {...propsWithPeriodFilter} />);
@@ -264,7 +267,7 @@ describe("RepaymentHistoryHeader component", () => {
     it("ステータスフィルターの値が正しく表示される", () => {
       const propsWithStatusFilter = {
         ...defaultProps,
-        statusFilter: "COMPLETED",
+        statusFilter: RepaymentStatusFilter.COMPLETED,
       };
 
       render(<RepaymentHistoryHeader {...propsWithStatusFilter} />);
@@ -276,7 +279,7 @@ describe("RepaymentHistoryHeader component", () => {
     it("ソートボタンの値が正しく表示される", () => {
       const propsWithSort = {
         ...defaultProps,
-        sortDirection: "ASC",
+        sortDirection: SortDirection.ASC,
       };
 
       render(<RepaymentHistoryHeader {...propsWithSort} />);

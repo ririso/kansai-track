@@ -23,8 +23,14 @@ export function getClosestSchedules(
   });
 
   const half = Math.floor(maxDisplayCount / 2);
-  const start = Math.max(0, closestIndex - half);
-  const end = start + maxDisplayCount;
+  let start = Math.max(0, closestIndex - half);
+  let end = start + maxDisplayCount;
+
+  // 配列の範囲を超える場合は調整
+  if (end > sorted.length) {
+    end = sorted.length;
+    start = Math.max(0, end - maxDisplayCount);
+  }
 
   return sorted.slice(start, end);
 }

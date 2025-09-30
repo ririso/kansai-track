@@ -3,7 +3,7 @@ import "@testing-library/jest-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
 
 // RecentActivityコンポーネントをモック
-jest.mock("@/components/bak/recent-activity", () => ({
+jest.mock("@/components/ui/activity/recent-activity", () => ({
   RecentActivity: () => <div data-testid="recent-activity">Recent Activity Content</div>,
 }));
 

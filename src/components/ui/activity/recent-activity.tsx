@@ -2,9 +2,9 @@ import { Card, CardContent } from "@/components/ui/shadcn/card";
 import { CreditCard, FileText, RefreshCw } from "lucide-react";
 
 export function RecentActivity() {
-  // TODO
-  // DBから取得するよう修正する
-  // propsで渡されるべきもの
+  // NOTE: このコンポーネントはバックアップファイルです
+  // 本番では useRepaymentSchedule context や API から実データを取得する必要があります
+  // 現在はダミーデータを使用しています
   const activities = [
     {
       id: "1",

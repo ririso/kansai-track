@@ -1,6 +1,7 @@
 import ScheduleMain from "@/components/repayment/ScheduleMain";
 import "@testing-library/jest-dom";
 import { fireEvent, render, screen } from "@testing-library/react";
+import { RepaymentStatus } from "@/types/enums/repaymentStatus";
 
 // Cardコンポーネントをモック
 jest.mock("@/components/ui/shadcn/card", () => ({
@@ -109,7 +110,7 @@ const mockSchedules = [
     scheduledDate: "2024-01-15",
     paidDate: "2024-01-15",
     amount: 50000,
-    status: "完了",
+    status: RepaymentStatus.Completed,
     paymentMethod: "クレジットカード",
     paymentCategory: "生活費",
   },
@@ -118,7 +119,7 @@ const mockSchedules = [
     scheduledDate: "2024-01-25",
     paidDate: null,
     amount: 75000,
-    status: "遅延",
+    status: RepaymentStatus.Delayed,
     paymentMethod: "銀行振込",
     paymentCategory: "住宅費",
   },
@@ -127,7 +128,7 @@ const mockSchedules = [
     scheduledDate: "2024-02-05",
     paidDate: null,
     amount: 30000,
-    status: "予定",
+    status: RepaymentStatus.Scheduled,
     paymentMethod: null,
     paymentCategory: "食費",
   },
@@ -136,7 +137,7 @@ const mockSchedules = [
     scheduledDate: "2024-03-01",
     paidDate: null,
     amount: 40000,
-    status: "予定",
+    status: RepaymentStatus.Scheduled,
     paymentMethod: "振込",
     paymentCategory: "その他",
   },
@@ -330,7 +331,7 @@ describe("ScheduleMain component", () => {
         scheduledDate: `2024-01-${(i + 1).toString().padStart(2, "0")}`,
         paidDate: null,
         amount: 10000 * (i + 1),
-        status: "予定",
+        status: RepaymentStatus.Scheduled,
         paymentMethod: "振込",
         paymentCategory: "その他",
       }));

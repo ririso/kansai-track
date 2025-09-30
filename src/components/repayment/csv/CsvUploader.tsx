@@ -4,7 +4,8 @@ import { mapJapaneseKeysToEnglish } from "@/utils/mapJapaneseKeysToEnglish";
 // @ts-ignore
 import { Button } from "@/components/ui/shadcn/button";
 import { useRepaymentSchedule } from "@/contexts/RepaymentContext";
-import { newReconcileScheduleWithCSV } from "@/utils/newReconcileScheduleWithCSV";
+import { reconcileScheduleWithCSV } from "@/utils/reconcileScheduleWithCSV";
+import { handleApiError, handleFileError, getDisplayMessage, logError } from "@/lib/errorHandler";
 import Encoding from "encoding-japanese";
 import { Upload } from "lucide-react";
 import Papa from "papaparse";
@@ -32,7 +33,7 @@ export default function CSVUploader() {
         to: "UNICODE",
         from: "SJIS",
         type: "string",
-      });
+      }) as string;
 
       Papa.parse(unicodeString, {
         header: true,
@@ -40,12 +41,11 @@ export default function CSVUploader() {
         complete: async (results) => {
           const parsedData = results.data;
           const csvData = mapJapaneseKeysToEnglish(parsedData);
-          const reconcileSchedule = newReconcileScheduleWithCSV(
+          const reconcileSchedule = reconcileScheduleWithCSV(
             csvData,
             schedules
           );
 
-          console.log(reconcileSchedule);
           const endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
           try {
             const res = await fetch(`${endpoint}/transactions/uploads`, {
@@ -60,16 +60,18 @@ export default function CSVUploader() {
             } else {
               alert("アップロード失敗");
               const errorText = await res.text();
-              console.error("Upload failed with status:", res.status);
-              console.error("Response body:", errorText);
             }
           } catch (err) {
-            console.error("Fetch failed:", err);
+            const error = handleApiError(err, 'CSV アップロード');
+            logError(error);
+            alert(getDisplayMessage(error));
           }
         },
       });
     } catch (error) {
-      console.error("Failed to read file:", error);
+      const appError = handleFileError(error, file?.name);
+      logError(appError);
+      alert(getDisplayMessage(appError));
     }
   };
 

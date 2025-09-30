@@ -1,6 +1,6 @@
 "use client";
-import { BaseModal } from "@/components/bak/base-modal";
-import { PaymentForm } from "@/components/bak/payment-content";
+import { BaseModal } from "@/components/ui/modal/base-modal";
+import { PaymentForm } from "@/components/ui/modal/payment-content";
 import ActivityCard from "@/components/dashboard/ActivityCard";
 import DashboardCard from "@/components/dashboard/DashboardCard";
 import RepaymentProgress from "@/components/dashboard/RepaymentProgress";
