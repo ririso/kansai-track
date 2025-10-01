@@ -1,6 +1,7 @@
 "use client";
 
 import { mapJapaneseKeysToEnglish } from "@/utils/mapJapaneseKeysToEnglish";
+import { JapaneseCsvRow } from "@/types/csv";
 // @ts-ignore
 import { Button } from "@/components/ui/shadcn/button";
 import { useRepaymentSchedule } from "@/contexts/RepaymentContext";
@@ -12,7 +13,7 @@ import Papa from "papaparse";
 import { useRef, useState } from "react";
 
 export default function CSVUploader() {
-  const [csvData, setCsvData] = useState<any[]>([]);
+  const [csvData, setCsvData] = useState<JapaneseCsvRow[]>([]);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const handleButtonClick = () => {
@@ -39,7 +40,7 @@ export default function CSVUploader() {
         header: true,
         skipEmptyLines: true,
         complete: async (results) => {
-          const parsedData = results.data;
+          const parsedData = results.data as JapaneseCsvRow[];
           const csvData = mapJapaneseKeysToEnglish(parsedData);
           const reconcileSchedule = reconcileScheduleWithCSV(
             csvData,

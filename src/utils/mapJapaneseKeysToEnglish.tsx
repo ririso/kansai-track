@@ -1,6 +1,7 @@
 import { Transaction } from "@/types/transaction";
+import { JapaneseCsvRow } from "@/types/csv";
 
-export function mapJapaneseKeysToEnglish(parsedData: any[]): Transaction[] {
+export function mapJapaneseKeysToEnglish(parsedData: JapaneseCsvRow[]): Transaction[] {
   const keyMap: Record<string, string> = {
     日付: "paidDate",
     内容: "transactionName",
@@ -8,7 +9,7 @@ export function mapJapaneseKeysToEnglish(parsedData: any[]): Transaction[] {
     メモ: "note",
   };
   const skipKeys = ["入金金額(円)", "残高(円)"];
-  const validRows: any[] = [];
+  const validRows: Transaction[] = [];
   // 行頭が"振込"で、その後に1文字以上続く
   const TRANSFER_PATTERN = /^振込＊.+/;
 
@@ -46,9 +47,11 @@ export function mapJapaneseKeysToEnglish(parsedData: any[]): Transaction[] {
     if (
       isValid &&
       typeof newRow.transactionName === "string" &&
-      TRANSFER_PATTERN.test(newRow.transactionName)
+      TRANSFER_PATTERN.test(newRow.transactionName) &&
+      newRow.credit !== undefined &&
+      newRow.paidDate !== undefined
     ) {
-      validRows.push(newRow);
+      validRows.push(newRow as Transaction);
     } else {
       // console.log(newRow);
     }

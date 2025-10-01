@@ -83,8 +83,9 @@ export const RepaymentProvider = ({ children }: { children: ReactNode }) => {
         setCompletedScheduleCount(completedCount);
         setScheduledScheduleCount(scheduledCount);
         setDelayedScheduleCount(delayedCount);
-      } catch (err: any) {
-        setError(err.message || "取得失敗");
+      } catch (err) {
+        const errorMessage = err instanceof Error ? err.message : "取得失敗";
+        setError(errorMessage);
       } finally {
         setIsLoading(false);
       }
