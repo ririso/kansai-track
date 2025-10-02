@@ -19,12 +19,10 @@ export function mapJapaneseKeysToEnglish(parsedData: JapaneseCsvRow[]): Transact
 
     for (const [jpKey, value] of Object.entries(row)) {
       if (skipKeys.includes(jpKey)) {
-        // console.info(`行${index + 1}: キー「${jpKey}」は無視されました。`);
         continue;
       }
       const enKey = keyMap[jpKey];
       if (!enKey) continue;
-      // console.info(`enkey` + enKey);
 
       if (enKey === "credit") {
         const normalizedValue =
@@ -32,9 +30,6 @@ export function mapJapaneseKeysToEnglish(parsedData: JapaneseCsvRow[]): Transact
         const numValue = Number(normalizedValue);
 
         if (isNaN(numValue)) {
-          // console.warn(
-          //   `行${index + 1}の "${jpKey}" が不正な数値のためスキップ: "${value}"`
-          // );
           isValid = false;
           break;
         }
@@ -52,8 +47,6 @@ export function mapJapaneseKeysToEnglish(parsedData: JapaneseCsvRow[]): Transact
       newRow.paidDate !== undefined
     ) {
       validRows.push(newRow as Transaction);
-    } else {
-      // console.log(newRow);
     }
   });
 

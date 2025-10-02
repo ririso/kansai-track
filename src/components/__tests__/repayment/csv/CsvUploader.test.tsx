@@ -23,6 +23,14 @@ jest.mock("encoding-japanese", () => ({
   convert: jest.fn(() => "mocked-unicode-string"),
 }));
 
+// sonnerライブラリのモック
+jest.mock("sonner", () => ({
+  toast: {
+    success: jest.fn(),
+    error: jest.fn(),
+  },
+}));
+
 // Context のモック
 jest.mock("@/contexts/RepaymentContext", () => ({
   useRepaymentSchedule: () => ({
@@ -158,7 +166,8 @@ describe("CSVUploader component", () => {
       );
     });
 
-    expect(global.alert).toHaveBeenCalledWith("アップロード成功");
+    const { toast } = require('sonner');
+    expect(toast.success).toHaveBeenCalledWith("CSVアップロード成功");
   });
 
   it("アップロード失敗時にエラーメッセージが表示される", async () => {
@@ -183,7 +192,8 @@ describe("CSVUploader component", () => {
     fireEvent.change(fileInput, { target: { files: [mockFile] } });
 
     await waitFor(() => {
-      expect(global.alert).toHaveBeenCalledWith("アップロード失敗");
+      const { toast } = require('sonner');
+      expect(toast.error).toHaveBeenCalledWith("CSVアップロード失敗");
     });
   });
 

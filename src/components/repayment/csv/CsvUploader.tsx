@@ -4,6 +4,7 @@ import { mapJapaneseKeysToEnglish } from "@/utils/mapJapaneseKeysToEnglish";
 import { JapaneseCsvRow } from "@/types/csv";
 // @ts-ignore
 import { Button } from "@/components/ui/shadcn/button";
+import { toast } from "sonner";
 import { useRepaymentSchedule } from "@/contexts/RepaymentContext";
 import { reconcileScheduleWithCSV } from "@/utils/reconcileScheduleWithCSV";
 import { handleApiError, handleFileError, getDisplayMessage, logError } from "@/lib/errorHandler";
@@ -57,22 +58,22 @@ export default function CSVUploader() {
               body: JSON.stringify(reconcileSchedule),
             });
             if (res.ok) {
-              alert("アップロード成功");
+              toast.success("CSVアップロード成功");
             } else {
-              alert("アップロード失敗");
+              toast.error("CSVアップロード失敗");
               const errorText = await res.text();
             }
           } catch (err) {
             const error = handleApiError(err, 'CSV アップロード');
             logError(error);
-            alert(getDisplayMessage(error));
+            toast.error(getDisplayMessage(error));
           }
         },
       });
     } catch (error) {
       const appError = handleFileError(error, file?.name);
       logError(appError);
-      alert(getDisplayMessage(appError));
+      toast.error(getDisplayMessage(appError));
     }
   };
 

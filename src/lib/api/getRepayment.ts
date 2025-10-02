@@ -1,6 +1,6 @@
 export async function fetchRepaymentRecords() {
   const res = await fetch(
-    "https://endyj33fq0.execute-api.ap-southeast-2.amazonaws.com/getRepaymentRecord",
+    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/getRepaymentRecord`,
     {
       method: "GET",
       headers: { "Content-Type": "application/json" },
