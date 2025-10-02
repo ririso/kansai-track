@@ -1,9 +1,9 @@
-import ActivityCard from "@/components/dashboard/ActivityCard";
+import { ActivityCard } from "@/components/features/activity";
 import "@testing-library/jest-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
 
 // RecentActivityコンポーネントをモック
-jest.mock("@/components/ui/activity/recent-activity", () => ({
+jest.mock("@/components/features/activity/RecentActivity", () => ({
   RecentActivity: () => <div data-testid="recent-activity">Recent Activity Content</div>,
 }));
 

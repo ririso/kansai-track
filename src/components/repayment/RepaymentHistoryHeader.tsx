@@ -13,7 +13,7 @@ import { Search } from "lucide-react";
 import { PeriodFilter } from "./PeriodFilter";
 import SortButton from "./SortButton";
 import { StatusFilter } from "./StatusFilter";
-import CSVUploader from "./csv/CsvUploader";
+import { CsvUploader } from "@/components/features/csv";
 
 type RepaymentHistoryHeaderProps = {
   totalScheduleCount: number;
@@ -64,7 +64,7 @@ export function RepaymentHistoryHeader({
           />
         </div>
 
-        <CSVUploader />
+        <CsvUploader />
 
         {/* 期間フィルタ */}
         <PeriodFilter

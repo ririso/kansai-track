@@ -67,9 +67,8 @@ jest.mock("@/components/repayment/StatusFilter", () => ({
   ),
 }));
 
-jest.mock("@/components/repayment/csv/CsvUploader", () => ({
-  __esModule: true,
-  default: () => <div data-testid="csv-uploader">CSV Uploader</div>,
+jest.mock("@/components/features/csv", () => ({
+  CsvUploader: () => <div data-testid="csv-uploader">CSV Uploader</div>,
 }));
 
 // Enumをモック
