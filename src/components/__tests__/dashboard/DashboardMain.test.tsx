@@ -26,9 +26,8 @@ jest.mock("@/components/ui/modal/payment-content", () => ({
   PaymentForm: () => <div data-testid="payment-form">Payment Form</div>,
 }));
 
-jest.mock("@/components/dashboard/ActivityCard", () => ({
-  __esModule: true,
-  default: () => <div data-testid="activity-card">Activity Card</div>,
+jest.mock("@/components/features/activity", () => ({
+  ActivityCard: () => <div data-testid="activity-card">Activity Card</div>,
 }));
 
 jest.mock("@/components/dashboard/DashboardCard", () => ({

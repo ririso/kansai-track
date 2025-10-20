@@ -6,7 +6,32 @@ export default {
     "\\.(css|less|sass|scss)$": "identity-obj-proxy",
   },
   transform: {
-    "^.+\\.(ts|tsx|js|jsx)$": "babel-jest", // TSX / JSX / JS を Babel で変換
+    "^.+\\.(ts|tsx)$": ["@swc/jest", {
+      jsc: {
+        parser: {
+          syntax: "typescript",
+          tsx: true,
+        },
+        transform: {
+          react: {
+            runtime: "automatic"
+          }
+        }
+      }
+    }],
+    "^.+\\.(js|jsx)$": ["@swc/jest", {
+      jsc: {
+        parser: {
+          syntax: "ecmascript",
+          jsx: true,
+        },
+        transform: {
+          react: {
+            runtime: "automatic"
+          }
+        }
+      }
+    }]
   },
   transformIgnorePatterns: ["/node_modules/(?!(lucide-react)/)"], // ESM モジュールも変換
   // CI環境での安定性向上

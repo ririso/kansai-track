@@ -2,13 +2,15 @@
 
 import { PaymentPayload, submitPayment } from "@/lib/submitPayment";
 import { handleApiError, getDisplayMessage, logError } from "@/lib/errorHandler";
+import { AMOUNTS } from "@/lib/constants";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export const PaymentForm = () => {
   const [form, setForm] = useState<PaymentPayload>({
     date: "2025-11-21",
     transactionName: "description",
-    credit: 15000,
+    credit: AMOUNTS.DEFAULT_PAYMENT,
     note: "test",
   });
 
@@ -29,11 +31,11 @@ export const PaymentForm = () => {
     e.preventDefault();
     try {
       await submitPayment(form);
-      alert("保存成功");
+      toast.success("支払い情報を保存しました");
     } catch (err) {
       const error = handleApiError(err, '支払い情報の保存');
       logError(error);
-      alert(getDisplayMessage(error));
+      toast.error(getDisplayMessage(error));
     }
   };
 

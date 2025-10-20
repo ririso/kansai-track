@@ -5,6 +5,7 @@ import { RepaymentStatus } from "@/types/enums/repaymentStatus";
 import { RepaymentStatusFilter } from "@/types/enums/repaymentStatusFilter";
 import { SortDirection } from "@/types/enums/sortDirection";
 import { RepaymentScheduleType } from "@/types/repaymentScheduleType";
+import { PAGINATION } from "@/lib/constants";
 import { useMemo, useState } from "react";
 
 interface UseScheduleFiltersProps {
@@ -14,7 +15,7 @@ interface UseScheduleFiltersProps {
 
 export function useScheduleFilters({
   schedules = [],
-  itemsPerPage = 5
+  itemsPerPage = PAGINATION.DEFAULT_ITEMS_PER_PAGE
 }: UseScheduleFiltersProps) {
   // フィルター状態管理
   const [currentPage, setCurrentPage] = useState(1);

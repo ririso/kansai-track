@@ -1,6 +1,6 @@
 export async function fetchRepaymentHistory() {
   const res = await fetch(
-    "https://endyj33fq0.execute-api.ap-southeast-2.amazonaws.com/getRepaymentHistory",
+    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/getRepaymentHistory`,
     {
       method: "GET",
       headers: { "Content-Type": "application/json" },
