@@ -1,5 +1,7 @@
 "use client";
 
+import Pagination from "@/components/common/Pagination";
+import { RepaymentScheduleDetail } from "@/components/repayment/RepaymentScheduleDetailTable";
 import { Button } from "@/components/ui/shadcn/button";
 import {
   Card,
@@ -16,13 +18,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/shadcn/select";
-import Pagination from "@/components/common/Pagination";
-import { RepaymentScheduleDetail } from "@/components/repayment/RepaymentScheduleDetailTable";
 import { useRepaymentSchedule } from "@/contexts/RepaymentContext";
 import { useScheduleFilters } from "@/hooks/useScheduleFilters";
+import { RepaymentPeriodFilter } from "@/types/enums/repaymentPeriodFilter";
 import { RepaymentStatus } from "@/types/enums/repaymentStatus";
 import { RepaymentStatusFilter } from "@/types/enums/repaymentStatusFilter";
-import { RepaymentPeriodFilter } from "@/types/enums/repaymentPeriodFilter";
 import {
   ArrowLeft,
   CalendarIcon,
@@ -188,7 +188,8 @@ export default function PaymentsPage() {
                     返済スケジュール一覧
                   </CardTitle>
                   <CardDescription className="text-gray-600">
-                    全{totalScheduleCount}件のスケジュール（総額: ¥{totalCreditAmount.toLocaleString()}）
+                    全{totalScheduleCount}件のスケジュール（総額: ¥
+                    {totalCreditAmount.toLocaleString()}）
                   </CardDescription>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-2">
@@ -227,30 +228,50 @@ export default function PaymentsPage() {
                 <div className="flex flex-col sm:flex-row gap-2">
                   <Select
                     value={statusFilter}
-                    onValueChange={(value) => setStatusFilter(value as RepaymentStatusFilter)}
+                    onValueChange={(value) =>
+                      setStatusFilter(value as RepaymentStatusFilter)
+                    }
                   >
                     <SelectTrigger className="w-full sm:w-[140px] border-gray-300">
                       <SelectValue placeholder="ステータス" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value={RepaymentStatusFilter.ALL}>すべて</SelectItem>
-                      <SelectItem value={RepaymentStatusFilter.COMPLETED}>完了</SelectItem>
-                      <SelectItem value={RepaymentStatusFilter.SCHEDULED}>予定</SelectItem>
-                      <SelectItem value={RepaymentStatusFilter.DELAYED}>遅延</SelectItem>
+                      <SelectItem value={RepaymentStatusFilter.ALL}>
+                        すべて
+                      </SelectItem>
+                      <SelectItem value={RepaymentStatusFilter.COMPLETED}>
+                        完了
+                      </SelectItem>
+                      <SelectItem value={RepaymentStatusFilter.SCHEDULED}>
+                        予定
+                      </SelectItem>
+                      <SelectItem value={RepaymentStatusFilter.DELAYED}>
+                        遅延
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                   <Select
                     value={periodFilter}
-                    onValueChange={(value) => setPeriodFilter(value as RepaymentPeriodFilter)}
+                    onValueChange={(value) =>
+                      setPeriodFilter(value as RepaymentPeriodFilter)
+                    }
                   >
                     <SelectTrigger className="w-full sm:w-[140px] border-gray-300">
                       <SelectValue placeholder="期間" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value={RepaymentPeriodFilter.ALL}>すべて</SelectItem>
-                      <SelectItem value={RepaymentPeriodFilter.THIS_MONTH}>今月</SelectItem>
-                      <SelectItem value={RepaymentPeriodFilter.NEXT_MONTH}>来月</SelectItem>
-                      <SelectItem value={RepaymentPeriodFilter.THIS_YEAR}>今年</SelectItem>
+                      <SelectItem value={RepaymentPeriodFilter.ALL}>
+                        すべて
+                      </SelectItem>
+                      <SelectItem value={RepaymentPeriodFilter.THIS_MONTH}>
+                        今月
+                      </SelectItem>
+                      <SelectItem value={RepaymentPeriodFilter.NEXT_MONTH}>
+                        来月
+                      </SelectItem>
+                      <SelectItem value={RepaymentPeriodFilter.THIS_YEAR}>
+                        今年
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

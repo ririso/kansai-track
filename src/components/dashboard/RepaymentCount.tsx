@@ -1,4 +1,4 @@
-import { TOTAL_SCHOLARSHIP_AMOUNT } from "@/app/constants/scholarship";
+import { TOTAL_SCHOLARSHIP_AMOUNT } from "@/app/(protected)/constants/scholarship";
 import { useRepaymentSchedule } from "@/contexts/RepaymentContext";
 import { AlertTriangle, CalendarIcon, CheckCircle, Clock } from "lucide-react";
 import { Card, CardContent } from "../ui/shadcn/card";

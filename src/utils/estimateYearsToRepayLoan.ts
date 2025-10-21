@@ -1,4 +1,4 @@
-import { TOTAL_SCHOLARSHIP_AMOUNT } from "@/app/constants/scholarship";
+import { TOTAL_SCHOLARSHIP_AMOUNT } from "@/app/(protected)/constants/scholarship";
 
 export function estimateYearsToRepayLoan(totalRepayment: number): string {
   const remainingScholarshipAmount = TOTAL_SCHOLARSHIP_AMOUNT - totalRepayment;
