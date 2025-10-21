@@ -1,4 +1,4 @@
-import { TOTAL_SCHOLARSHIP_AMOUNT } from "@/app/constants/scholarship";
+import { TOTAL_SCHOLARSHIP_AMOUNT } from "@/app/(protected)/constants/scholarship";
 import { calculateRepaymentProgress } from "@/utils/calculateRepaymentProgress";
 import { Progress } from "@radix-ui/react-progress";
 import {

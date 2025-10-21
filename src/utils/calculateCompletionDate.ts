@@ -1,4 +1,4 @@
-import { TOTAL_SCHOLARSHIP_AMOUNT } from "@/app/constants/scholarship";
+import { TOTAL_SCHOLARSHIP_AMOUNT } from "@/app/(protected)/constants/scholarship";
 
 /**
  * 残額と月額返済額から完済予定日を計算する

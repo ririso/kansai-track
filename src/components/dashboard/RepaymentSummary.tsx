@@ -1,6 +1,6 @@
-import { TOTAL_SCHOLARSHIP_AMOUNT } from "@/app/constants/scholarship";
-import { estimateYearsToRepayLoan } from "@/utils/estimateYearsToRepayLoan";
+import { TOTAL_SCHOLARSHIP_AMOUNT } from "@/app/(protected)/constants/scholarship";
 import { calculateCompletionDate } from "@/utils/calculateCompletionDate";
+import { estimateYearsToRepayLoan } from "@/utils/estimateYearsToRepayLoan";
 import { CalendarIcon, DollarSign, LineChart, PiggyBank } from "lucide-react";
 import { Card, CardContent } from "../ui/shadcn/card";
 
@@ -73,7 +73,9 @@ export default function RepaymentSummary({ totalCreditAmount }: Props) {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 mb-1">完済予定</p>
-              <p className="text-lg font-bold text-gray-900">{completionDate}</p>
+              <p className="text-lg font-bold text-gray-900">
+                {completionDate}
+              </p>
               <p className="text-xs text-gray-500 mt-1">
                 あと{estimateYearsToRepayLoan(totalCreditAmount)}
               </p>

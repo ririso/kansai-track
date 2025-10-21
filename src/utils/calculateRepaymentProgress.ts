@@ -1,4 +1,4 @@
-import { TOTAL_SCHOLARSHIP_AMOUNT } from "@/app/constants/scholarship";
+import { TOTAL_SCHOLARSHIP_AMOUNT } from "@/app/(protected)/constants/scholarship";
 
 export function calculateRepaymentProgress(totalRepayment: number): number {
   const repaymentRate = (totalRepayment / TOTAL_SCHOLARSHIP_AMOUNT) * 100;
